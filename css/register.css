@@ -10,19 +10,65 @@ body {
     background-size: cover;
   }
   
-  .btn-login {
-    font-size: 0.9rem;
-    letter-spacing: 0.05rem;
-    padding: 0.75rem 1rem;
+   /* .upload-circle {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+  }*/
+  .hide {
+    display: none;
+  }
+  .upload-circle .image-preview {
+    position: relative;
+    overflow: hidden;
+  }  
+  .image-circle {
+    position: relative;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+    
   }
   
-  .btn-google {
-    color: white !important;
-    background-color: #ea4335;
+  .image-circle img {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    object-fit: cover;
+  }
+   .upload-circle .image-preview img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+ 
+  .round {
+    /* position: absolute;
+    top: 80%;
+    bottom: 0;
+    right: 50;
+    left:47%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+   
+    border-radius: 50%;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  } 
+  .camera {
+    font-size: 30px; /* Adjust the font-size to your desired larger size */
+}
+  
+  .upload-circle .round:hover {
+    opacity: 1;
   }
   
-  .btn-facebook {
-    color: white !important;
-    background-color: #3b5998;
+  .upload-circle .round input[type="file"] {
+    display: none;
   }
-  

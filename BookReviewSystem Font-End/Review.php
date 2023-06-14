@@ -1,3 +1,27 @@
+<?php
+session_start();
+include_once "../controllers/registercontroller.php";
+$getUserData=new RegisterController();
+$getUserinfo=$getUserData->getUserList();
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
+if(!isset($_SESSION['user_email']))
+	{
+		header("location:login.php");
+	}else{
+		echo $_SESSION["user_email"];
+	}
+	if($_SESSION["user_email"]==$getUser['email'])
+	{
+		$userimg=$getUser['image'];
+		$username=$getUser['name'];
+		$userbio=$getUser['bio'];
+		$useremail=$getUser['email'];
+		echo $userimg;
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -23,6 +47,7 @@
 			rel="stylesheet"
 			href="Review.css"
 		/>
+		<link rel="stylesheet" href="../fontawesome/css/all.css">
 	
 	</head>
 	<body>
@@ -89,7 +114,7 @@
 						<a href="Profile.php">
 							<div class="avatar">
 								<img
-									src="user-avatar.jpg"
+									src="../image/<?php echo $userimg;  ?>"
 									alt="User Avatar"
 								/>
 							</div>
@@ -641,6 +666,7 @@
 		<!-- JavaScript -->
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="../fontawesome/js/all.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script src="Review.js"></script>
 	</body>

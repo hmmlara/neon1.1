@@ -2,72 +2,118 @@
 session_start();
 include_once "controllers/registercontroller.php";
 
-$register_controller = new RegisterController();
-$getUserList = $register_controller->getUserList();
+$register_controller=new RegisterController();
+$getUserList=$register_controller->getUserList();
 
-if (isset($_POST['register'])) {
-    $error_status = false;
+if(isset($_POST['register']))
+{
+    $error_status=false;
 
     // create user_name
-    if (isset($_POST['user_name'])) {
-        $user_name = $_POST['user_name'];
-    } else {
-        $error_status = true;
-        $error_name = "Please Enter Your Name";
+    if(!empty($_POST['user_name']))
+    {
+        $user_name=$_POST['user_name'];
+    }else{
+        $error_status=true;
+        $error_name="Please Enter Your Name";
     }
 
     // create user_email
-    if (isset($_POST['user_email'])) {
-        $user_email = $_POST['user_email'];
-        // echo $user_email;
-    } else {
-        $error_status = true;
-        $error_email = "Please Enter Your Email";
+    if(!empty($_POST['user_email']))
+    {
+        $user_email=$_POST['user_email'];
+    }else{
+        $error_status=true;
+        $error_email="Please Enter Your Email Address";
     }
 
     // create user_password
-    if (isset($_POST['user_password1'])) {
-        $user_password1 = $_POST['user_password1'];
-    } else {
-        $error_status = true;
-        $error_password1 = "Please Enter Your Password";
+    
+    if(!empty($_POST['create_password']))
+    {
+        $create_password=$_POST['create_password'];
+    }else{
+        $error_status=true;
+        echo $error_status;
+        $create_password="Please Enter Your Password";
+    }
+    
+    if(!empty($_POST['re_enter_password']))
+    {
+        $re_enter_password=$_POST['re_enter_password'];
+    }else{
+        $error_status=true;
+
+
+    //     $error_password2="Please Enter Your Password";
+     }
+
+    if($create_password==$re_enter_password)
+    {
+        $user_password=$create_password;
+    }else
+    {
+        $error_status=true;
     }
 
-    if (isset($_POST['user_password2'])) {
-        $user_password2 = $_POST['user_password2'];
-    } else {
-        $error_status = true;
-        $error_password2 = "Please Enter Your Password";
+    //create img
+
+    $filename=$_FILES['image']['name'];
+    $filesize=$_FILES['image']['size'];
+    $allowed_files=['jpg','png','jpeg','svg'];
+    $temp_path=$_FILES['image']['tmp_name'];
+    
+    $fileinfo=explode('.',$filename);
+    $filetype=end($fileinfo);
+    $maxsize=2000000000;
+    if(in_array($filetype,$allowed_files)){
+        if($filesize<$maxsize)
+        {
+            move_uploaded_file($temp_path,'image/'.$filename);
+        }else{
+            echo "file size exceeds maximum allowed";
+        }
+    }else{
+        echo "file type is not allowed";
     }
 
-    if ($user_password1 == $user_password2) {
-        $user_password = $_POST['user_password1'];
-    } else {
-        echo "wrong Password";
+    // if($filename==null)
+    // {
+    //     $filename=
+    // }
+    
+    $_SESSION['user_name']=$user_name;
+    $_SESSION['user_email']=$user_email;
+    $_SESSION['user_password']=$user_password;
+    $accountExists = false;
+
+    foreach ($getUserList as $user) {
+        if ($user['email'] == $user_email) {
+            $accountExists = true;
+            $error_status=true;
+            break;
+        }
     }
 
-    $_SESSION['user_email'] = $user_email;
-    $_SESSION['user_password'] = $user_password;
-    if (isset($_SESSION['user_email'])) {
-        header("location:BookReviewSystem Font-End/index.php");
+    if ($accountExists) {
+        $exit_acc="Your Account Already Exists Plz Sign In";
     }
-    echo "something";
-    if ($error_status == false) {
+    
+    if($error_status==false)
+    {
         // checkAlreadyExit Or Not
-        $accountExists = false;
-
-        foreach ($getUserList as $user) {
-            if ($user['email'] == $user_email) {
-                $accountExists = true;
-                break;
-            }
+        $register_controller->registerUser($user_name, $user_email, $user_password,$filename);
+        
+        if(isset($_SESSION['user_name']) && isset($_SESSION['user_email']) && $_SESSION['user_password']=$user_password)
+        {
+            $userid = $register_controller->getUserInfo($_SESSION['user_email']);
+            
+            echo $_SESSION['user_password'];
+          $_SESSION["userid"] = $userid[0]["id"];
+            header("location:BookReviewSystem Font-End/index.php");
         }
 
-        if ($accountExists) {
-            echo "Your Account Already Exists";
-        } else {
-            $register_controller->registerUser($user_name, $user_email, $user_password);
-        }
+         
     }
 }
 
@@ -76,109 +122,95 @@ if (isset($_POST['register'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
     <link rel="stylesheet" href="css/register.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <title>Document</title>
 </head>
-
 <body>
     <div class="container">
-        <form action=" " method="post">
-            <!-- <div class="row">
-                <div class="col-md-5">
-                <div class="col-md-12">
-                        <label for="" class="form-control">Name</label>
-                        <input type="text" name="user_name" class="form-control" id="">
-                    </div>
-                    <div class="col-md-12">
-                        <label for="" class="form-control">Email</label>
-                        <input type="text" name="user_email" class="form-control" id="">
-                    </div>
-                    <div class="col-md-12">
-                        <label for="" class="form-control">Password</label>
-                        <input type="password" name="user_password" class="form-control" id="">
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-primary" name="register">Register</button>
-                    </div>
-                </div>
-            </div> -->
+        <form action="" method="post" enctype="multipart/form-data">
+            
             <div class="row">
                 <div class="col-lg-10 col-xl-9 mx-auto">
                     <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-                        <div class="card-img-left d-none d-md-flex">
-                            <!-- Background image for card set in CSS! -->
+                    <div class="card-img-left d-none d-md-flex">
+                        <!-- Background image for card set in CSS! -->
+                    </div>
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+
+                        <div class="upload-circle ">
+                            <div class="image-preview d-flex justify-content-center">
+                                <div class="image-circle">
+                                <img id="preview" src="image/nurse.jpg" alt="" title="">
+                                </div>
+                                <div class="cancel-button">
+                                    <i class="fa-solid fa-xmark cross d-none"></i>
+                                </div>
+
+                                <!-- <div class="round">
+                                    <i class="fa fa-camera camera" style="color: #fff;"></i>
+                                </div> -->
+                            </div>
                         </div>
-                        <div class="card-body p-4 p-sm-5">
-                            <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
-
-
-                            <div class="form-floating mb-3">
-                                <input type="text" name="user_name" class="form-control" id="floatingInputUsername"
-                                    placeholder="myusername" required autofocus>
-                                <label for="floatingInputUsername">Username</label>
-                                <span></span>
+                        <div class="d-flex justify-content-center my-2">
+                            <div class="round">
+                                <!-- <i class="fa-regular fa-camera-retro fa-lg" style="color: #00ffe1;"></i> -->
+                                <i class="fa fa-camera camera"  style="color: #00000;"></i>
+                                <input type="file" src="" name="image"  alt="" id="input"  class="world">
                             </div>
+                        </div>
+                        
+                        <hr>
 
-                            <div class="form-floating mb-3">
-                                <input type="email" name="user_email" class="form-control" id="floatingInputEmail"
-                                    placeholder="name@example.com">
-                                <label for="floatingInputEmail">Email address</label>
-                            </div>
-
-                            <hr>
-
-                            <div class="form-floating mb-3">
-                                <input type="password" name="user_password1" class="form-control" id="floatingPassword"
-                                    placeholder="Password">
-                                <label for="floatingPassword">Create Password</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" name="user_password2" class="form-control" id="floatingPassword"
-                                    placeholder="Password">
-                                <label for="floatingPassword">Re_Enter Password</label>
-                            </div>
-
-                            <!-- <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="Confirm Password">
-                            <label for="floatingPasswordConfirm">Confirm Password</label>
-                        </div> -->
-
-                            <div class="d-grid mb-2">
-                                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit"
-                                    name="register">Register</button>
-                            </div>
-
-                            <a class="d-block text-center mt-2 small" href="login.php">Have an account? Sign In</a>
-
-                            <hr class="my-4">
-
-                            <!-- <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">
-                            <i class="fab fa-google me-2"></i> Sign up with Google
-                            </button>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="user_name" class="form-control" required value="<?php if(isset($user_name)) echo $user_name ?>" id="floatingInputUsername" placeholder="myusername">
+                            <label for="floatingInputUsername">Username</label>
+                            <span class="text-danger"><?php if(isset($error_name)) echo $error_name; ?></span>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="email" name="user_email"  class="form-control" required value="<?php if(isset($user_email)) echo $user_email ?>" id="floatingInputEmail" placeholder="name@example.com">
+                            <label for="floatingInputEmail">Email address</label>
+                            <span class="text-danger"><?php if(isset($error_email)) echo $error_email;  ?></span>
                         </div>
 
-                        <div class="d-grid">
-                            <button class="btn btn-lg btn-facebook btn-login fw-bold text-uppercase" type="submit">
-                            <i class="fab fa-facebook-f me-2"></i> Sign up with Facebook
-                            </button>
-                        </div> -->
+                        <hr>
 
-
+                        <div class="form-floating mb-3">
+                            <input type="password" name="create_password" required value="" class="form-control password1" id="floatingPassWord" placeholder="Password">
+                            <label for="floatingPassword">Create Password</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="re_enter_password" required value=""  class="form-control password2"  id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Comfirm Password</label>
+                        </div>
+                        <div class="text-center">
+                            <p class="note text-danger"><?php if(isset($exit_acc)) echo $exit_acc ?></p>
+                        </div>
+                        <div class="d-grid mb-2">
+                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase register" type="submit"  name="register">Register</button>
+                        </div>
+
+                        <a class="d-block text-center mt-2 small" href="login.php">Have an account? Sign In</a>
+
+                        <hr class="my-4">
+
+                        
+                    </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </body>
-
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.7.0.min.js"></script>
+<script src="js/checkpassword.js"></script>
+<script src="js/image.js"></script>
 </html>

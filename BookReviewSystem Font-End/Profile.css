@@ -6,9 +6,20 @@
   
   .profile-header {
     text-align: center;
+    height: 300px;
+    position: relative;
   }
-  
-  .profile-avatar img {
+  /* .cross{
+    size: 40rem;
+  } */
+  .cancel-button{
+    position: absolute;
+    top:0%;
+    right: 40%;
+  }
+
+  .img 
+  {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -98,5 +109,36 @@
   .Profile-Active{
     border: 2px solid #007bff;
   }
-
+  .allbtn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   
+  .camera {
+    font-size: 30px; /* Adjust the font-size to your desired larger size */
+}
+  
+  .upload-circle .round:hover {
+    opacity: 1;
+  }
+  
+  .round input[type="file"] {
+    display: none;
+  }
+
+  .border-danger {
+    border-color: red !important;
+}
+  .usereditname,.usereditbio{
+    background: transparent;
+  border-width: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  background: transparent;
+  outline: 0;
+  height: 23px;
+  border-color: rgb(66, 57, 57);
+  width: 200px;
+  }

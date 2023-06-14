@@ -1,7 +1,29 @@
+
 <?php
-
-include_once('latestBook.php');
-
+session_start();
+include_once "../controllers/registercontroller.php";
+$getUserData=new RegisterController();
+$getUserinfo=$getUserData->getUserList();
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
+if(!isset($_SESSION['user_email']))
+	{
+		header("location:login.php");
+	}else{
+		
+		echo $_SESSION["userid"] ;
+	
+		echo $_SESSION["user_email"];
+	}
+	if($_SESSION["user_email"]==$getUser['email'])
+	{
+		$userimg=$getUser['image'];
+		$username=$getUser['name'];
+		$userbio=$getUser['bio'];
+		$useremail=$getUser['email'];
+		echo $userimg;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +70,7 @@ include_once('latestBook.php');
 				<li class="nav-item account">
 					<a href="Profile.php">
 						<div class="avatar">
-							<img src="user-avatar.jpg" alt="User Avatar" />
+							<img src="../image/<?php echo $userimg;  ?>" alt="User Avatar" />
 						</div>
 					</a>
 
@@ -127,7 +149,6 @@ include_once('latestBook.php');
 		<div class="container swiper">
 			<h2>Misctry</h2>
 			<div class=" swiper-wrapper">
-				
 				<div class="card swiper-slide">
 					<img src="book-image.jpg" class="card-img-top" alt="Book 1">
 					<div class="card-body">
@@ -203,7 +224,6 @@ include_once('latestBook.php');
 						<p class="card-text">Description of Book 3</p>
 					</div>
 				</div>
-				
 
 			</div>
 			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
@@ -229,26 +249,58 @@ include_once('latestBook.php');
 					</button>
 				</div>
 				<div class="book-card-grid">
-					
-					<?php
-					foreach ($book_list as $book) {
-					?>
 					<div class="book-card">
 						<div class="book-card-image">
-							<img src="../img/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
+							<img src="book-image.jpg" alt="Book 1" />
 							<div class="book-card-overlay">
-								<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read More</a>
+								<a href="#" class="book-card-button">Read More</a>
 							</div>
 						</div>
 						<div class="book-card-info">
-							<h3 class="book-card-title"><?php echo $book['name'] ?></h3>
-							<p class="book-card-author"><?php echo $book['auther_name'] ?></p>
-							<p class="book-card-genre"><?php echo $book['category_name'] ?></p>
+							<h3 class="book-card-title">Book 1</h3>
+							<p class="book-card-author">Author: John Doe</p>
+							<p class="book-card-genre">Genre: Fiction</p>
 						</div>
 					</div>
-				<?php
-					}
-				?>
+					<div class="book-card">
+						<div class="book-card-image">
+							<img src="book-image.jpg" alt="Book 2" />
+							<div class="book-card-overlay">
+								<a href="#" class="book-card-button">Read More</a>
+							</div>
+						</div>
+						<div class="book-card-info">
+							<h3 class="book-card-title">Book 2</h3>
+							<p class="book-card-author">Author: Jane Smith</p>
+							<p class="book-card-genre">Genre: Mystery</p>
+						</div>
+					</div>
+					<div class="book-card">
+						<div class="book-card-image">
+							<img src="book-image.jpg" alt="Book 3" />
+							<div class="book-card-overlay">
+								<a href="#" class="book-card-button">Read More</a>
+							</div>
+						</div>
+						<div class="book-card-info">
+							<h3 class="book-card-title">Book 3</h3>
+							<p class="book-card-author">Author: Michael Johnson</p>
+							<p class="book-card-genre">Genre: Fantasy</p>
+						</div>
+					</div>
+					<div class="book-card">
+						<div class="book-card-image">
+							<img src="book-image.jpg" alt="Book 3" />
+							<div class="book-card-overlay">
+								<a href="#" class="book-card-button">Read More</a>
+							</div>
+						</div>
+						<div class="book-card-info">
+							<h3 class="book-card-title">Book 3</h3>
+							<p class="book-card-author">Author: Michael Johnson</p>
+							<p class="book-card-genre">Genre: Fantasy</p>
+						</div>
+					</div>
 
 				</div>
 				<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
@@ -353,8 +405,6 @@ include_once('latestBook.php');
 
 				});		</script>
 		<script src="app.js"></script>
-		<script src="latestBook.js"></script>
-		<script src="../neon/js/jquery-3.7.0.min.js"></script>
 </body>
 
 </html>

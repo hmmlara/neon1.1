@@ -1,3 +1,28 @@
+
+<?php
+session_start();
+include_once "../controllers/registercontroller.php";
+$getUserData=new RegisterController();
+$getUserinfo=$getUserData->getUserList();
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
+if(!isset($_SESSION['user_email']))
+	{
+		header("location:login.php");
+	}else{
+		echo $_SESSION["user_email"];
+	}
+	if($_SESSION["user_email"]==$getUser['email'])
+	{
+		$userimg=$getUser['image'];
+		$username=$getUser['name'];
+		$userbio=$getUser['bio'];
+		$useremail=$getUser['email'];
+		echo $userimg;
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -88,7 +113,7 @@
 						<a href="Profile.php">
 							<div class="avatar">
 								<img
-									src="user-avatar.jpg"
+									src="../image/<?php echo $userimg;  ?>"
 									alt="User Avatar"
 								/>
 							</div>

@@ -9,9 +9,14 @@ class RegisterController extends CreateUser{
     }
     
     //RegisterUser
-    public function registerUser($user_name,$user_email,$user_password)
+    public function registerUser($user_name,$user_email,$confirmPassword,$filename)
     {
-        return $this->createUserAccount($user_name,$user_email,$user_password);
+        return $this->createUserAccount($user_name,$user_email,$confirmPassword,$filename);
+    }
+
+    public function getUserInfo($email)
+    {
+        return $this->getUserId($email);
     }
 }
 

@@ -1,27 +1,3 @@
-<?php
-session_start();
-$email=$_SESSION['user_email'];
-echo $email;
-include_once '../neon/controller/bookController.php';
-include_once __DIR__.('/../controllers/commentController.php');
-$cid=$_GET['id'];
-$book_controller=new BookController();
-$book=$book_controller->getBook($cid);
-$comment_controller=new CommentController();
-$comment=$comment_controller->getAllComments($book['id']);
-
-if(isset($_POST['submit'])){
-	$comment=$_POST['comment'];
-	if($comment!=""){
-		
-	}
-}
-?>
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -139,16 +115,14 @@ if(isset($_POST['submit'])){
 				</div>
 
 				<div class="book-info">
-					<h3 class="book-title"><?php echo $book['name'] ?></h3>
-					<h3 class="book-title"><?php echo $book['name'] ?></h3>
+					<h3 class="book-title">Book Title</h3>
 					<div class="book-image">
 						<img
-							src="../img/photos/<?php echo $book['image'] ?>"
-							alt="<?php echo $book['name'] ?>"
+							src="book-image.jpg"
+							alt="Book Image"
 						/>
 					</div>
-					<p class="book-author"><?php echo $book['auther_name'] ?></p>
-					<p class="book-author"><?php echo $book['auther_name'] ?></p>
+					<p class="book-author">Author Name</p>
 					<span class="current-rating">4.5</span>
 
 					<p class="book-description">
@@ -205,24 +179,6 @@ if(isset($_POST['submit'])){
 			<div class="comments">
 				<h4>Comments</h4>
 				<ul class="comment-list">
-					<?php
-					foreach ($comment as $com) {
-					?>
-					<li class="comment">
-						<div class="comment-avatar">
-							<img
-								src="<?php echo $com['image'] ?>"
-								alt="<?php echo $com['name'] ?>"
-							/>
-						</div>
-						<div class="comment-content">
-							<p class="comment-text"><?php echo $com['comment'] ?></p>
-							<span class="comment-meta">- <?php echo $com['name'] ?></span>
-						</div>
-					</li>
-					<?php
-					}
-					?>
 					<li class="comment">
 						<div class="comment-avatar">
 							<img
@@ -287,12 +243,12 @@ if(isset($_POST['submit'])){
 				</ul>
 				<button class="load-more-btn btn">Load More</button>
 
-				<form class="comment-form" method="post">
+				<form class="comment-form">
 					<textarea
 						class="form-control"
-						placeholder="Add a comment" name="comment"
+						placeholder="Add a comment"
 					></textarea>
-					<button class="btn btn-primary" name="submit">Submit</button>
+					<button class="btn btn-primary">Submit</button>
 				</form>
 			</div>
 		</div>
