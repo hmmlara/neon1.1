@@ -9,7 +9,7 @@ foreach ($getUserinfo as $getUser) {
 }
 if(!isset($_SESSION['user_email']))
 	{
-		header("location:login.php");
+		header("location:../login.php");
 	}else{
 		
 		echo $_SESSION["userid"] ;

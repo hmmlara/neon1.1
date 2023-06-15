@@ -82,6 +82,15 @@ class Reviews
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    function ger_review_by_userId($id){
+        $sql = "SELECT * FROM `user_review` WHERE `user_id` = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":id",$id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 
 
