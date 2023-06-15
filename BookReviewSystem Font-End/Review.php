@@ -11,7 +11,6 @@ if(!isset($_SESSION['user_email']))
 	{
 		header("location:../login.php");
 	}else{
-		echo $_SESSION["user_email"];
 	}
 	if($_SESSION["user_email"]==$getUser['email'])
 	{
@@ -19,7 +18,6 @@ if(!isset($_SESSION['user_email']))
 		$username=$getUser['name'];
 		$userbio=$getUser['bio'];
 		$useremail=$getUser['email'];
-		echo $userimg;
 	}
 	
 	//Connect With Reviews Models;

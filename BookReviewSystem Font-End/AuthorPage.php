@@ -17,8 +17,6 @@ foreach ($getUserinfo as $getUser) {
 if(!isset($_SESSION['user_email']))
 	{
 		header("location:../login.php");
-	}else{
-		echo $_SESSION["user_email"];
 	}
 	if($_SESSION["user_email"]==$getUser['email'])
 	{
@@ -38,7 +36,6 @@ if(!isset($_SESSION['user_email']))
 		 if(sizeof($searchAuthor)==0)
 		 {
 			$searchAuthor=[];
-			echo "Hello";
 		 }
 		// foreach ($searchAuthor as  $someauthor) {
 		// 	var_dump($someauthor['name']);
@@ -75,83 +72,9 @@ if(!isset($_SESSION['user_email']))
 	</head>
 	<body>
 		<!-- Navigation bar -->
-<<<<<<< HEAD
 		<?php 
 	include_once "nav.php";
 	?>
-=======
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a
-				class="navbar-brand-logo"
-				href="index.php"
-			>
-				<img
-					src="logo.png"
-					style="width: 200px; height: 100px"
-					alt="Book Review System Logo"
-				/>
-			</a>
-
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-toggle="collapse"
-				data-target="#navbarNav"
-				aria-controls="navbarNav"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div
-				class="collapse navbar-collapse justify-content-end"
-				id="navbarNav"
-			>
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="index.php"
-							>Home</a
-						>
-					</li>
-
-					<li class="nav-item active">
-						<a
-							class="nav-link"
-							href="AuthorPage.php"
-							>Author</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="Review.php"
-							>Reviews</a
-						>
-					</li>
-				
-					<li class="nav-item hide-in-large">
-						<a
-							class="nav-link"
-							href="Profile.php"
-							>Profile</a
-						>
-					</li>
-					<li class="nav-item account">
-						<a href="Profile.php">
-							<div class="avatar">
-								<img
-									src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>"
-									alt="User Avatar"
-								/>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
->>>>>>> c233a2017b2e8677933c72e0fa88ed1fe66e94d8
 		<!-- search bar -->
 		
 			

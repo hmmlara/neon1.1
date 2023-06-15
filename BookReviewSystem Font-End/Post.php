@@ -13,9 +13,15 @@ $register_model = new CreateUser();
 
 $userId = $register_model->getUserId($userEmail);
 var_dump($userId);
-$BookList = [];
-$_SESSION["content"] = $_POST["review-content"];
-if (isset($_POST['review']) && count($BookList) != 0) {
+if(isset($_SESSION['bookList'])){
+    $BookList = $_SESSION['bookList'];
+
+}
+if (isset($_POST['review-content'])) {
+    echo "true";
+    $_SESSION["content"] = $_POST["review-content"];
+}
+if (isset($_POST['submit']) && isset($_POST['review']) && count($BookList) != 0) {
     $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $BookList);
 }
 ?>
@@ -41,7 +47,7 @@ if (isset($_POST['review']) && count($BookList) != 0) {
 
     <div class="container mt-4">
         <h1>Upload Review</h1>
-        <form id="upload-form">
+        <form id="upload-form" method="Post">
             <div class="form-group">
                 <label for="review-content">Review</label>
                 <textarea id="review-content" name="review-content" rows="8" required>
@@ -93,8 +99,8 @@ if (isset($_POST['review']) && count($BookList) != 0) {
                                     <img src="../image/photos/<?php echo $book['image'] ?>"
                                         alt="<?php echo $book['name'] ?>" />
                                     <div class="book-card-overlay">
-                                        <a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
-                                            More</a>
+                                        <a href="Post.php?id=<?php echo $book['id'] ?>" class="book-card-button">Add
+                                            Book</a>
                                     </div>
                                 </div>
                                 <div class="book-card-info">
