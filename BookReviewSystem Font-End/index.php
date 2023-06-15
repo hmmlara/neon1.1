@@ -70,7 +70,7 @@ if(!isset($_SESSION['user_email']))
 				<li class="nav-item account">
 					<a href="Profile.php">
 						<div class="avatar">
-							<img src="../image/<?php echo $userimg;  ?>" alt="User Avatar" />
+							<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>" alt="User Avatar" />
 						</div>
 					</a>
 

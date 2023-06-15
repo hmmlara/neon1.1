@@ -7,11 +7,10 @@ $getUserinfo=$getUserData->getUserList();
 $updateUserInfo=new UserController();
 
 
-
 	//Add User img
 	if(!isset($_SESSION['user_email']))
 	{
-		header("location:login.php");
+		header("location:../login.php");
 	}else{
 		echo $_SESSION["user_email"];
 	}
@@ -34,37 +33,41 @@ $updateUserInfo=new UserController();
 	//if(isset())
 
 
-	if(isset($_POST['editProfile']))
-	{
-		//change img
-		$filename=$_FILES['image']['name'];
-		$filesize=$_FILES['image']['size'];
-		$allowed_files=['jpg','png','jpeg','svg'];
-		$temp_path=$_FILES['image']['tmp_name'];
+	// if(isset($_POST['edituserprofile']))
+	// {
+	// 	echo "Hello Mingalr Par";
+	// 	//change img
+	// 	$filename=$_FILES['img']['name'];
+	// 	$filesize=$_FILES['img']['size'];
+	// 	$allowed_files=['jpg','png','jpeg','svg'];
+	// 	$temp_path=$_FILES['img']['tmp_name'];
 
-		$fileinfo=explode('.',$filename);
-		$filetype=end($fileinfo);
-		$maxsize=2000000000;
-		if(in_array($filetype,$allowed_files)){
-			if($filesize<$maxsize)
-			{
-				move_uploaded_file($temp_path,'../image/'.$filename);
-			}else{
-				echo "file size exceeds maximum allowed";
-			}
-		}else{
-			echo "file type is not allowed";
-		}
-	}
+	// 	$fileinfo=explode('.',$filename);
+	// 	$filetype=end($fileinfo);
+	// 	$maxsize=2000000000;
+	// 	if(in_array($filetype,$allowed_files)){
+	// 		if($filesize<$maxsize)
+	// 		{
+	// 			move_uploaded_file($temp_path,'../image/'.$filename);
+	// 		}else{
+	// 			echo "file size exceeds maximum allowed";
+	// 		}
+	// 	}else{
+	// 		echo "file type is not allowed";
+	// 	}
+	// 	echo "userimg".$filename;
+	// }
 	
 
 	//click save btn
-	if(isset($_POST['save']))
+	 if(isset($_POST['save']))
 	{
-		$filename=$_FILES['image']['name'];
-		$filesize=$_FILES['image']['size'];
+		//$userimg=$_POST['userimg'];
+		//$src = "../image/nurse.jpg"
+		$filename=$_FILES['img']['name'];
+		$filesize=$_FILES['img']['size'];
 		$allowed_files=['jpg','png','jpeg','svg'];
-		$temp_path=$_FILES['image']['tmp_name'];
+		$temp_path=$_FILES['img']['tmp_name'];
 
 		$fileinfo=explode('.',$filename);
 		$filetype=end($fileinfo);
@@ -79,7 +82,22 @@ $updateUserInfo=new UserController();
 		}else{
 			echo "file type is not allowed";
 		}
+		//$userimg=$_POST['img']
+		// if(isset($_POST['cancelbtn']))
+		// {
+		// 	echo "Hello";
+		// 	$useimg="nurse.jpg";
+		// }
 		
+		// if($filename==null)
+		// {
+		// 	$filename=$userimg;
+		// }elseif ($filename=="nurse.jpg") {
+		// 	$filename="nurse.jpg";
+		// }else{
+		// 	$filename=$_FILES['img']['name'];
+		// }
+
 		$error_status=false;
 
 		if(!empty($_POST['usereditname']))
@@ -149,7 +167,7 @@ $updateUserInfo=new UserController();
 				<li class="nav-item account">
 					<a href="Profile.php">
 						<div class="avatar active Profile-Active">
-							<img src="../image/<?php echo $userimg;  ?>" alt="User Avatar" />
+							<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}   ?>" alt="User Avatar" />
 						</div>
 					</a>
 				</li>
@@ -161,16 +179,15 @@ $updateUserInfo=new UserController();
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="profile-header">
 				<div class="profile-edit d-flex justify-content-center">
-					<img src="../image/<?php echo $userimg; ?>" class="img" alt="" />
+					<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>" class="img" id="profileimg" alt="" />
 					
 				</div>
-				<div class="cancel-button d-none">
+				<div class="cancel-button d-none" id="cancelButton">
 					<i class="fa-solid fa-xmark fa-xl cross"></i>
 				</div>
 				<div class="round d-none">
-						<!-- <i class="fa-regular fa-camera-retro fa-lg" style="color: #00ffe1;"></i> -->
-						<i class="fa fa-camera camera"  style="color: #00000;"></i>
-						<input type="file" src="<?php echo $userimg;  ?>" name="image"  alt="" id="input"  class="world">
+					<i class="fa fa-camera camera"  style="color: #00000;"></i>
+					<input type="file" name="img" src=""  alt="" id="input"  class="world">
 				</div>
 				<h1 class="profile-name username mt-3"><?php echo $username; ?></h1>
 
@@ -188,7 +205,8 @@ $updateUserInfo=new UserController();
 				
 			</div>
 				<div class="allbtn">
-					<a href="" class="btn btn-primary mx-3 editProfile">Edit Profile</a>
+					<button class="btn btn-primary mx-3 editProfile" name="edituserprofile">Edit Profile</button>
+					<!-- <a href="" class="btn btn-primary mx-3 editProfile" name="edituserprofile">Edit Profile</a> -->
 					<a href="../login.php" class="btn btn-danger logout">Log Out</a>
 					
 					<button class="btn btn-info d-none save mx-3" name="save">Save</button>
