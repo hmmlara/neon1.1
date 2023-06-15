@@ -898,3 +898,7 @@
 .author-website:hover {
   color: #0056b3;
 }
+
+.swiper{
+  height:max-content;
+}

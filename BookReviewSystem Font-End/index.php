@@ -165,7 +165,7 @@ if(!isset($_SESSION['user_email']))
 				</div>
 				<div class="card swiper-slide">
 					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
+					<div class="card-body ">
 						<h5 class="card-title">Book 3</h5>
 						<p class="card-text">Description of Book 3</p>
 					</div>
