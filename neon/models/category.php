@@ -3,7 +3,7 @@ include_once __DIR__."/../vendor/db.php";
 class Category{
     public function getCategoryList(){
         //1.DB connection
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2. sql statementfa
         $sql="SELECT * from category";

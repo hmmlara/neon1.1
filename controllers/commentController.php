@@ -4,9 +4,9 @@ class CommentController extends Comment{
     public function getAllComments($id){
         return $this->getCommentList($id);
     }
-    // public function addNewBook($name,$category,$auther,$image,$pdf,$date){
-    //     return $this->createNewBook($name,$category,$auther,$image,$pdf,$date);
-    // }
+    public function addNewComment($comment,$user_id,$cid){
+        return $this->createNewComment($comment,$user_id,$cid);
+    }
     // public function getBook($id){
     //     return $this->getBookInfo($id);
     // }

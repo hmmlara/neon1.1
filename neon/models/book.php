@@ -3,7 +3,7 @@ include_once __DIR__."/../vendor/db.php";
 class Book{
     public function getBookList(){
         //1.DB connection
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2. sql statementfa
         $sql="SELECT book.id, book.name,book.image,book.pdf_file, category.name as category_name, auther.name as auther_name
@@ -18,7 +18,7 @@ class Book{
     }
     public function createNewBook($name,$category,$auther,$image,$pdf,$date){
         //1.DB connection
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2.sql statement
         $sql="INSERT INTO book( name, category_id, auther_id, date, image, pdf_file) VALUES
@@ -38,7 +38,7 @@ class Book{
         }
     }
     public function getBookInfo($id){
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         $sql="SELECT book.*, category.name as category_name, auther.name as auther_name,book.image,book.pdf_file
@@ -54,7 +54,7 @@ class Book{
     }
     public function updateBookInfo($cid,$name,$category,$auther,$image,$pdf,$date){
         //1.DB connection
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2.sql statement
         $sql="UPDATE book SET  name = :name, category_id = :category_id, auther_id=:auther_id,
@@ -77,7 +77,7 @@ class Book{
     }
     public function deleteBookInfo($id){
         
-            $this->connection = Database::connect();
+            $this->connection = Database1::connect();
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $sql = "delete from book where id=:id";

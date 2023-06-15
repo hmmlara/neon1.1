@@ -1,6 +1,6 @@
 <?php
 
-class Database{
+class Database1{
     private static $host="localhost";
     private static $username="root";
     private static $dbname="neon-1.1";

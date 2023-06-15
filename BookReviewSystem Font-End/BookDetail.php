@@ -1,3 +1,24 @@
+
+<?php
+session_start();
+$user_id=$_SESSION['userid'];
+
+include_once('../neon/controller/bookController.php');
+include_once('../controllers/commentController.php');
+$cid=$_GET['id'];
+$book_controller=new BookController();
+$book=$book_controller->getBook($cid);
+$comment_controller=new CommentController();
+$comment=$comment_controller->getAllComments($cid);
+if(isset($_POST['submit'])){
+	$comment=trim($_POST['comment']);
+	if (strlen($comment) > 0 && $comment !== str_repeat(' ', strlen($comment))){
+		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book['id']);
+		$comment=$comment_controller->getAllComments($cid);
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -115,14 +136,14 @@
 				</div>
 
 				<div class="book-info">
-					<h3 class="book-title">Book Title</h3>
+				<h3 class="book-title"><?php echo $book['name'] ?></h3>
 					<div class="book-image">
 						<img
-							src="book-image.jpg"
-							alt="Book Image"
+							src="../image/photos/<?php echo $book['image'] ?>"
+							alt="<?php echo $book['name'] ?>"
 						/>
 					</div>
-					<p class="book-author">Author Name</p>
+					<p class="book-author"><?php echo $book['auther_name'] ?></p>
 					<span class="current-rating">4.5</span>
 
 					<p class="book-description">
@@ -145,7 +166,7 @@
 
 					<div class="actions">
 						<div class="bottom-icons">
-							<div class="rating">
+							<div class="rating " id=<?php $book['id'] ?>>
 								<span class="star"></span>
 								<span class="star"></span>
 								<span class="star"></span>
@@ -179,6 +200,24 @@
 			<div class="comments">
 				<h4>Comments</h4>
 				<ul class="comment-list">
+					<?php
+					foreach ($comment as $com) {
+					?>
+					<li class="comment">
+						<div class="comment-avatar">
+							<img
+								src="../image/photos/<?php echo $com['image'] ?>"
+								alt="<?php echo $com['name'] ?>"
+							/>
+						</div>
+						<div class="comment-content">
+							<p class="comment-text"><?php echo $com['comment'] ?></p>
+							<span class="comment-meta">- <?php echo $com['name'] ?></span>
+						</div>
+					</li>
+					<?php
+					}
+					?>
 					<li class="comment">
 						<div class="comment-avatar">
 							<img
@@ -243,12 +282,12 @@
 				</ul>
 				<button class="load-more-btn btn">Load More</button>
 
-				<form class="comment-form">
+				<form class="comment-form" method='post'>
 					<textarea
 						class="form-control"
-						placeholder="Add a comment"
+						placeholder="Add a comment" name="comment"
 					></textarea>
-					<button class="btn btn-primary">Submit</button>
+					<button class="btn btn-primary" name="submit">Submit</button>
 				</form>
 			</div>
 		</div>

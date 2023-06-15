@@ -3,7 +3,7 @@ include_once __DIR__."/../vendor/db.php";
 class User{
     public function getUserList(){
         //1.DB connection
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2. sql statementfa
         $sql="Select * from user";
@@ -41,7 +41,7 @@ class User{
     //     }
     // }
     public function getUserInfo($id){
-        $this->connection=Database::connect();
+        $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         $sql="select * from user where id=:id";
@@ -83,7 +83,7 @@ class User{
     // }
     public function deleteUserInfo($id){
         
-            $this->connection = Database::connect();
+            $this->connection = Database1::connect();
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $sql = "delete from user where id=:id";

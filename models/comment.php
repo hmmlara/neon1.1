@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__."/../neon/vendor/db.php";
+include_once __DIR__."/../vendor/db.php";
 class Comment{
     public function getCommentList($id){
         //1.DB connection
@@ -9,7 +9,7 @@ class Comment{
         $sql="SELECT book_comment.*, user.name,user.image
         FROM book_comment
         INNER JOIN user ON book_comment.user_id = user.id
-        WHERE book_comment.id = :id";
+        WHERE book_comment.book_id = :id";
         $statement=$this->connection->prepare($sql);
         $statement->bindParam(":id",$id);
         //3. execute
@@ -17,27 +17,24 @@ class Comment{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    // public function createNewBook($name,$category,$auther,$image,$pdf,$date){
-    //     //1.DB connection
-    //     $this->connection=Database::connect();
-    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    //     //2.sql statement
-    //     $sql="INSERT INTO book( name, category_id, auther_id, date, image, pdf_file) VALUES
-    //     (:name,:category_id,:auther_id,:date,:image,:pdf_file)";
-    //     $statement=$this->connection->prepare($sql);
-    //     $statement->bindParam(":name",$name);
-    //     $statement->bindParam(":category_id",$category);
-    //     $statement->bindParam(":auther_id",$auther);
-    //     $statement->bindParam(":date",$date);
-    //     $statement->bindParam(":image",$image);
-    //     $statement->bindParam(":pdf_file",$pdf);
-    //     if($statement->execute()){
-    //         return true;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-    // }
+    public function createNewComment($comment,$user_id,$cid){
+        //1.DB connection
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //2.sql statement
+        $sql="INSERT INTO book_comment( comment, user_id, book_id) VALUES
+        (:comment,:user_id,:book_id)";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":comment",$comment);
+        $statement->bindParam(":user_id",$user_id);
+        $statement->bindParam(":book_id",$cid);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     // public function getBookInfo($id){
     //     $this->connection=Database::connect();
     //     $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);

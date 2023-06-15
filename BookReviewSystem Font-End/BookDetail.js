@@ -28,8 +28,17 @@ let rating = 0;
 
 stars.forEach((star, index) => {
   star.addEventListener('click', () => {
+    let book_id = $(this).parent().attr('id');
     rating = index + 1;
     highlightStars(rating);
+    $.ajax({
+      method:'post',
+      url:'rating.php',
+      data:{rating:rating,book_id:book_id},
+      success:function(response){
+        console.log(response)
+      }
+    })
   });
 
   star.addEventListener('mouseover', () => {

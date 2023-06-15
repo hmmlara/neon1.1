@@ -2,105 +2,123 @@
 session_start();
 include_once "../controllers/registercontroller.php";
 include_once "../controllers/usercontroller.php";
-$getUserData=new RegisterController();
-$getUserinfo=$getUserData->getUserList();
-$updateUserInfo=new UserController();
+include_once "../models/register.php";
+include_once "../models/reviews.php";
+
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
+$updateUserInfo = new UserController();
 
 
+//Add User img
+if (!isset($_SESSION['user_email'])) {
+	header("location:../login.php");
+} else {
+	$userEmail = $_SESSION["user_email"];
+}
 
-	//Add User img
-	if(!isset($_SESSION['user_email']))
-	{
-		header("location:login.php");
-	}else{
-		echo $_SESSION["user_email"];
+foreach ($getUserinfo as $getUser) {
+	if ($_SESSION["user_email"] == $getUser['email']) {
+		$userimg = $getUser['image'];
+		$username = $getUser['name'];
+		$userbio = $getUser['bio'];
+		$useremail = $getUser['email'];
+
+	}
+}
+
+
+//click cancel
+//if(isset())
+
+
+// if(isset($_POST['edituserprofile']))
+// {
+// 	echo "Hello Mingalr Par";
+// 	//change img
+// 	$filename=$_FILES['img']['name'];
+// 	$filesize=$_FILES['img']['size'];
+// 	$allowed_files=['jpg','png','jpeg','svg'];
+// 	$temp_path=$_FILES['img']['tmp_name'];
+
+// 	$fileinfo=explode('.',$filename);
+// 	$filetype=end($fileinfo);
+// 	$maxsize=2000000000;
+// 	if(in_array($filetype,$allowed_files)){
+// 		if($filesize<$maxsize)
+// 		{
+// 			move_uploaded_file($temp_path,'../image/'.$filename);
+// 		}else{
+// 			echo "file size exceeds maximum allowed";
+// 		}
+// 	}else{
+// 		echo "file type is not allowed";
+// 	}
+// 	echo "userimg".$filename;
+// }
+
+
+//click save btn
+if (isset($_POST['save'])) {
+	//$userimg=$_POST['userimg'];
+	//$src = "../image/nurse.jpg"
+	$filename = $_FILES['img']['name'];
+	$filesize = $_FILES['img']['size'];
+	$allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
+	$temp_path = $_FILES['img']['tmp_name'];
+
+	$fileinfo = explode('.', $filename);
+	$filetype = end($fileinfo);
+	$maxsize = 2000000000;
+	if (in_array($filetype, $allowed_files)) {
+		if ($filesize < $maxsize) {
+			move_uploaded_file($temp_path, '../image/' . $filename);
+		} else {
+			echo "file size exceeds maximum allowed";
+		}
+	} else {
+		echo "file type is not allowed";
+	}
+	//$userimg=$_POST['img']
+	// if(isset($_POST['cancelbtn']))
+	// {
+	// 	echo "Hello";
+	// 	$useimg="nurse.jpg";
+	// }
+
+	// if($filename==null)
+	// {
+	// 	$filename=$userimg;
+	// }elseif ($filename=="nurse.jpg") {
+	// 	$filename="nurse.jpg";
+	// }else{
+	// 	$filename=$_FILES['img']['name'];
+	// }
+
+	$error_status = false;
+
+	if (!empty($_POST['usereditname'])) {
+		$editusername = $_POST['usereditname'];
+	} else {
+		$error_status = true;
+		$error_username = "Please Enter Your Name";
+	}
+	$edituserbio = $_POST['usereditbio'];
+
+	if ($error_status == false) {
+		$updateUser = $updateUserInfo->updateUserInfo($editusername, $useremail, $edituserbio, $filename);
+		header("Location: " . $_SERVER['PHP_SELF']);
+		echo $filename;
 	}
 
-	foreach ($getUserinfo as $getUser) {
-		if($_SESSION["user_email"]==$getUser['email'])
-			{
-				$userimg=$getUser['image'];
-				$username=$getUser['name'];
-				$userbio=$getUser['bio'];
-				$useremail=$getUser['email'];
-				
-				var_dump($username);
-				echo $userimg;
-			}
-	}
-	
+}
 
-	//click cancel
-	//if(isset())
-
-
-	if(isset($_POST['editProfile']))
-	{
-		//change img
-		$filename=$_FILES['image']['name'];
-		$filesize=$_FILES['image']['size'];
-		$allowed_files=['jpg','png','jpeg','svg'];
-		$temp_path=$_FILES['image']['tmp_name'];
-
-		$fileinfo=explode('.',$filename);
-		$filetype=end($fileinfo);
-		$maxsize=2000000000;
-		if(in_array($filetype,$allowed_files)){
-			if($filesize<$maxsize)
-			{
-				move_uploaded_file($temp_path,'../image/'.$filename);
-			}else{
-				echo "file size exceeds maximum allowed";
-			}
-		}else{
-			echo "file type is not allowed";
-		}
-	}
-	
-
-	//click save btn
-	if(isset($_POST['save']))
-	{
-		$filename=$_FILES['image']['name'];
-		$filesize=$_FILES['image']['size'];
-		$allowed_files=['jpg','png','jpeg','svg'];
-		$temp_path=$_FILES['image']['tmp_name'];
-
-		$fileinfo=explode('.',$filename);
-		$filetype=end($fileinfo);
-		$maxsize=2000000000;
-		if(in_array($filetype,$allowed_files)){
-			if($filesize<$maxsize)
-			{
-				move_uploaded_file($temp_path,'../image/'.$filename);
-			}else{
-				echo "file size exceeds maximum allowed";
-			}
-		}else{
-			echo "file type is not allowed";
-		}
-		
-		$error_status=false;
-
-		if(!empty($_POST['usereditname']))
-		{
-			$editusername=$_POST['usereditname'];
-		}else
-		{
-			$error_status=true;
-			$error_username="Please Enter Your Name";
-		}
-		$edituserbio=$_POST['usereditbio'];
-
-		if($error_status==false)
-		{
-			$updateUser=$updateUserInfo->updateUserInfo($editusername,$useremail,$edituserbio,$filename);
-			header("Location: ".$_SERVER['PHP_SELF']);
-			echo $filename;
-		}
-		
-	}
-
+//connect With Register Models 
+$register_model = new CreateUser();
+//Connect With Reviews Models;
+$reviews_model = new Reviews();
+$userid = $register_model->getUserId($userEmail);
+$reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,8 +128,8 @@ $updateUserInfo=new UserController();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Book Review System</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-	
-    
+
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 	<link rel="stylesheet" href="../fontawesome/css/all.css">
 	<link rel="stylesheet" href="style.css" />
@@ -149,51 +167,71 @@ $updateUserInfo=new UserController();
 				<li class="nav-item account">
 					<a href="Profile.php">
 						<div class="avatar active Profile-Active">
-							<img src="../image/<?php echo $userimg;  ?>" alt="User Avatar" />
+							<img src="../image/<?php if (empty($userimg)) {
+								echo "nurse.jpg";
+							} else {
+								echo $userimg;
+							} ?>"
+								alt="User Avatar" />
 						</div>
 					</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
-	
+
 	<div class="profile-page">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="profile-header">
 				<div class="profile-edit d-flex justify-content-center">
-					<img src="../image/<?php echo $userimg; ?>" class="img" alt="" />
-					
+					<img src="../image/<?php if (empty($userimg)) {
+						echo "nurse.jpg";
+					} else {
+						echo $userimg;
+					} ?>" class="img"
+						id="profileimg" alt="" />
+
 				</div>
-				<div class="cancel-button d-none">
+				<div class="cancel-button d-none" id="cancelButton">
 					<i class="fa-solid fa-xmark fa-xl cross"></i>
 				</div>
 				<div class="round d-none">
-						<!-- <i class="fa-regular fa-camera-retro fa-lg" style="color: #00ffe1;"></i> -->
-						<i class="fa fa-camera camera"  style="color: #00000;"></i>
-						<input type="file" src="<?php echo $userimg;  ?>" name="image"  alt="" id="input"  class="world">
+					<i class="fa fa-camera camera" style="color: #00000;"></i>
+					<input type="file" name="img" src="" alt="" id="input" class="world">
 				</div>
-				<h1 class="profile-name username mt-3"><?php echo $username; ?></h1>
+				<h1 class="profile-name username mt-3">
+					<?php echo $username; ?>
+				</h1>
 
 				<div class="d-flex justify-content-center">
-					<input type="text" name="usereditname" placeholder="Please Enter Your Name"class="form-control usereditname d-none my-3 text-center <?php if(isset($error_username)) echo "border border-danger" ?>"
-					id="" value="<?php echo $username ?>" required>
+					<input type="text" name="usereditname" placeholder="Please Enter Your Name"
+						class="form-control usereditname d-none my-3 text-center <?php if (isset($error_username))
+							echo "border border-danger" ?>"
+							id="" value="<?php echo $username ?>" required>
 				</div>
-				<p class="profile-bio"><?php if(!empty($userbio))
-				{echo $userbio;}else{echo "Edit Your Bio";}  ?></p>
+				<p class="profile-bio">
+					<?php if (!empty($userbio)) {
+						echo $userbio;
+					} else {
+						echo "Edit Your Bio";
+					} ?>
+				</p>
 				<div class="d-flex justify-content-center">
-					
-					<input type="text" name="usereditbio" placeholder="Bio" class="form-control usereditbio d-none my-3 text-center"  id="" value="<?php echo $userbio ?>">
-					
+
+					<input type="text" name="usereditbio" placeholder="Bio"
+						class="form-control usereditbio d-none my-3 text-center" id="" value="<?php echo $userbio ?>">
+
 				</div>
-				
+
 			</div>
-				<div class="allbtn">
-					<a href="" class="btn btn-primary mx-3 editProfile">Edit Profile</a>
-					<a href="../login.php" class="btn btn-danger logout">Log Out</a>
-					
-					<button class="btn btn-info d-none save mx-3" name="save">Save</button>
-					<button class="btn btn-warning d-none cancel" name="cancel">Cancel</button>
-				</div>
+			<div class="allbtn">
+				<button class="btn btn-primary mx-3 editProfile" name="edituserprofile">Edit Profile</button>
+				<!-- <a href="" class="btn btn-primary mx-3 editProfile" name="edituserprofile">Edit Profile</a> -->
+				<a href="../login.php" class="btn btn-danger logout">Log Out</a>
+
+				<button class="btn btn-info d-none save mx-3" name="save">Save</button>
+				<button class="btn btn-warning d-none cancel" name="cancel">Cancel</button>
+			</div>
 		</form>
 		<div class="profile-content mt-4	">
 			<h2 class="section-title">Favorite Books</h2>
@@ -263,235 +301,144 @@ $updateUserInfo=new UserController();
 					</div>
 				</div>
 			</div>
+			
 			<h2 class="section-title" class="mt-4">Reviews</h2>
-			<div class="reviews">
-				<!-- Review cards here -->
-				<div class="review">
-					<div class="review-header">
-						<div class="user-profile">
-							<img src="user-avatar.jpg" alt="User Avatar" />
-							<div class="user-details">
-								<h3>John Doe</h3>
-								<p>June 1, 2023</p>
+			
+			<div class="container mt-4">
+				<main>
+					<?php
+					foreach ($reviews as $review) {
+						$userinfo = $reviews_model->get_userinfo_by_id($review['user_id']);
+
+						$review_books = $reviews_model->get_review_book($review['id']);
+
+						?>
+						<div class="review">
+							<div class="review-header">
+								<div class="user-profile">
+									<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
+									<div class="user-details">
+										<h3>
+											<?php echo $userinfo["name"] ?>
+										</h3>
+										<p>June 1, 2023</p>
+									</div>
+								</div>
+							</div>
+							<div class="review-content">
+								<div class="d-flex flex-wrap">
+
+									<?php
+									foreach ($review_books as $review_book_id) {
+										$book = $reviews_model->get_bookinfo_by_id($review_book_id["book_id"]);
+										?>
+										<a href="BookDetail.php">
+											<div class="book-details">
+												<img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
+												<div class="book-info">
+													<h2>
+														<?php echo $book["name"] ?>
+													</h2>
+													<?php
+													$author = $reviews_model->get_author_by_id($book["auther_id"]);
+													?>
+													<p>by
+														<?php echo $author["name"] ?>
+													</p>
+												</div>
+											</div>
+										</a>
+									<?php
+									}
+									?>
+
+								</div>
+
+								<p>
+									<?php
+									echo $review["content"];
+									?>
+								</p>
+							</div>
+							<div class="review-actions position-relative">
+								<button class="like-btn" onclick="toggleLike(this)">
+									<i class="fas fa-thumbs-up"></i>
+									<span class="like-text">Like</span>
+									<span class="like-count">10</span>
+								</button>
+								<button class="comment-btn">
+									<i class="fas fa-comment"></i> Comment
+								</button>
+								<div class="who-viewed">
+									<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
+									<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
+									<span class="view-count">+3</span>
+								</div>
+							</div>
+							<div class="comments">
+								<h4>Comments</h4>
+								<ul class="comment-list">
+									<li class="comment">
+										<div class="comment-avatar">
+											<img src="avatar.jpg" alt="User Avatar" />
+										</div>
+										<div class="comment-content">
+											<p class="comment-text">This book was amazing!</p>
+											<span class="comment-meta">- John Doe</span>
+										</div>
+									</li>
+									<li class="comment">
+										<div class="comment-avatar">
+											<img src="avatar.jpg" alt="User Avatar" />
+										</div>
+										<div class="comment-content">
+											<p class="comment-text">Highly recommended!</p>
+											<span class="comment-meta">- Jane Smith</span>
+										</div>
+									</li>
+									<li class="comment">
+										<div class="comment-avatar">
+											<img src="avatar.jpg" alt="User Avatar" />
+										</div>
+										<div class="comment-content">
+											<p class="comment-text">Highly recommended!</p>
+											<span class="comment-meta">- Jane Smith</span>
+										</div>
+									</li>
+									<li class="comment">
+										<div class="comment-avatar">
+											<img src="avatar.jpg" alt="User Avatar" />
+										</div>
+										<div class="comment-content">
+											<p class="comment-text">Highly recommended!</p>
+											<span class="comment-meta">- Jane Smith</span>
+										</div>
+									</li>
+									<li class="comment">
+										<div class="comment-avatar">
+											<img src="avatar.jpg" alt="User Avatar" />
+										</div>
+										<div class="comment-content">
+											<p class="comment-text">Highly recommended!</p>
+											<span class="comment-meta">- Jane Smith</span>
+										</div>
+									</li>
+									<!-- Add more comment list items as needed -->
+								</ul>
+								<button class="load-more-btn btn">Load More</button>
+
+								<form class="comment-form">
+									<textarea class="form-control" placeholder="Add a comment"></textarea>
+									<button class="btn btn-primary">Submit</button>
+								</form>
 							</div>
 						</div>
-					</div>
-					<div class="review-content">
-						<div class="d-flex flex-wrap">
-							<a href="BookDetail.php">
-								<div class="book-details">
-									<img src="book-image.jpg" alt="Book Cover" />
-									<div class="book-info">
-										<h2>The Book Title</h2>
-										<p>by Author Name</p>
-									</div>
-								</div>
-							</a>
-							<a href="BookDetail.php">
-								<div class="book-details">
-									<img src="book-image.jpg" alt="Book Cover" />
-									<div class="book-info">
-										<h2>The Book Title</h2>
-										<p>by Author Name</p>
-									</div>
-								</div>
-							</a>
-						</div>
+						<?php
+					}
+					?>
 
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-							scelerisque volutpat nisl vitae vestibulum. Duis vel velit a justo
-							tincidunt dictum in vitae ante. Proin lobortis pulvinar diam, nec
-							dapibus felis vestibulum ut. Sed euismod nibh quis ligula
-							pellentesque, at iaculis sem tincidunt.
-						</p>
-					</div>
-					<div class="review-actions position-relative">
-						<button class="like-btn" onclick="toggleLike(this)">
-							<i class="fas fa-thumbs-up"></i>
-							<span class="like-text">Like</span>
-							<span class="like-count">10</span>
-						</button>
-						<button class="comment-btn">
-							<i class="fas fa-comment"></i> Comment
-						</button>
-						<div class="who-viewed">
-							<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
-							<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
-							<span class="view-count">+3</span>
-						</div>
-					</div>
-					<div class="comments">
-						<h4>Comments</h4>
-						<ul class="comment-list">
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">This book was amazing!</p>
-									<span class="comment-meta">- John Doe</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<!-- Add more comment list items as needed -->
-						</ul>
-						<button class="load-more-btn btn">Load More</button>
 
-						<form class="comment-form">
-							<textarea class="form-control" placeholder="Add a comment"></textarea>
-							<button class="btn btn-primary">Submit</button>
-						</form>
-					</div>
-				</div>
-				<div class="review">
-					<div class="review-header">
-						<div class="user-profile">
-							<img src="user-avatar.jpg" alt="User Avatar" />
-							<div class="user-details">
-								<h3>John Doe</h3>
-								<p>June 1, 2023</p>
-							</div>
-						</div>
-					</div>
-					<div class="review-content">
-						<div class="d-flex flex-wrap">
-							<a href="BookDetail.php">
-								<div class="book-details">
-									<img src="book-image.jpg" alt="Book Cover" />
-									<div class="book-info">
-										<h2>The Book Title</h2>
-										<p>by Author Name</p>
-									</div>
-								</div>
-							</a>
-							<a href="BookDetail.php">
-								<div class="book-details">
-									<img src="book-image.jpg" alt="Book Cover" />
-									<div class="book-info">
-										<h2>The Book Title</h2>
-										<p>by Author Name</p>
-									</div>
-								</div>
-							</a>
-						</div>
-
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-							scelerisque volutpat nisl vitae vestibulum. Duis vel velit a justo
-							tincidunt dictum in vitae ante. Proin lobortis pulvinar diam, nec
-							dapibus felis vestibulum ut. Sed euismod nibh quis ligula
-							pellentesque, at iaculis sem tincidunt.
-						</p>
-					</div>
-					<div class="review-actions position-relative">
-						<button class="like-btn" onclick="toggleLike(this)">
-							<i class="fas fa-thumbs-up"></i>
-							<span class="like-text">Like</span>
-							<span class="like-count">10</span>
-						</button>
-						<button class="comment-btn">
-							<i class="fas fa-comment"></i> Comment
-						</button>
-						<div class="who-viewed">
-							<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
-							<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
-							<span class="view-count">+3</span>
-						</div>
-					</div>
-					<div class="comments">
-						<h4>Comments</h4>
-						<ul class="comment-list">
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">This book was amazing!</p>
-									<span class="comment-meta">- John Doe</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="avatar.jpg" alt="User Avatar" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text">Highly recommended!</p>
-									<span class="comment-meta">- Jane Smith</span>
-								</div>
-							</li>
-							<!-- Add more comment list items as needed -->
-						</ul>
-						<button class="load-more-btn btn">Load More</button>
-
-						<form class="comment-form">
-							<textarea class="form-control" placeholder="Add a comment"></textarea>
-							<button class="btn btn-primary">Submit</button>
-						</form>
-					</div>
-				</div>
+				</main>
 			</div>
 		</div>
 	</div>

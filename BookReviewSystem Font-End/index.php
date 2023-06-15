@@ -2,6 +2,7 @@
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
+include_once('latestBook.php');
 $getUserData=new RegisterController();
 $getUserinfo=$getUserData->getUserList();
 foreach ($getUserinfo as $getUser) {
@@ -249,58 +250,25 @@ if(!isset($_SESSION['user_email']))
 					</button>
 				</div>
 				<div class="book-card-grid">
-					<div class="book-card">
-						<div class="book-card-image">
-							<img src="book-image.jpg" alt="Book 1" />
-							<div class="book-card-overlay">
-								<a href="#" class="book-card-button">Read More</a>
+					<?php
+						foreach ($book_list as $book) {
+						?>
+						<div class="book-card">
+							<div class="book-card-image">
+								<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
+								<div class="book-card-overlay">
+									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read More</a>
+								</div>
+							</div>
+							<div class="book-card-info">
+								<h3 class="book-card-title"><?php echo $book['name'] ?></h3>
+								<p class="book-card-author"><?php echo $book['auther_name'] ?></p>
+								<p class="book-card-genre"><?php echo $book['category_name'] ?></p>
 							</div>
 						</div>
-						<div class="book-card-info">
-							<h3 class="book-card-title">Book 1</h3>
-							<p class="book-card-author">Author: John Doe</p>
-							<p class="book-card-genre">Genre: Fiction</p>
-						</div>
-					</div>
-					<div class="book-card">
-						<div class="book-card-image">
-							<img src="book-image.jpg" alt="Book 2" />
-							<div class="book-card-overlay">
-								<a href="#" class="book-card-button">Read More</a>
-							</div>
-						</div>
-						<div class="book-card-info">
-							<h3 class="book-card-title">Book 2</h3>
-							<p class="book-card-author">Author: Jane Smith</p>
-							<p class="book-card-genre">Genre: Mystery</p>
-						</div>
-					</div>
-					<div class="book-card">
-						<div class="book-card-image">
-							<img src="book-image.jpg" alt="Book 3" />
-							<div class="book-card-overlay">
-								<a href="#" class="book-card-button">Read More</a>
-							</div>
-						</div>
-						<div class="book-card-info">
-							<h3 class="book-card-title">Book 3</h3>
-							<p class="book-card-author">Author: Michael Johnson</p>
-							<p class="book-card-genre">Genre: Fantasy</p>
-						</div>
-					</div>
-					<div class="book-card">
-						<div class="book-card-image">
-							<img src="book-image.jpg" alt="Book 3" />
-							<div class="book-card-overlay">
-								<a href="#" class="book-card-button">Read More</a>
-							</div>
-						</div>
-						<div class="book-card-info">
-							<h3 class="book-card-title">Book 3</h3>
-							<p class="book-card-author">Author: Michael Johnson</p>
-							<p class="book-card-genre">Genre: Fantasy</p>
-						</div>
-					</div>
+					<?php
+						}
+					?>
 
 				</div>
 				<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
