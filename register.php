@@ -107,9 +107,7 @@ if(isset($_POST['register']))
         if(isset($_SESSION['user_name']) && isset($_SESSION['user_email']) && $_SESSION['user_password']=$user_password)
         {
             $userid = $register_controller->getUserInfo($_SESSION['user_email']);
-            
-            echo $_SESSION['user_password'];
-          $_SESSION["userid"] = $userid[0]["id"];
+            $_SESSION["userid"] = $userid[0]["id"];
             header("location:BookReviewSystem Font-End/index.php");
         }
 

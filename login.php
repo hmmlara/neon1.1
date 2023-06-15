@@ -38,6 +38,8 @@ if(isset($_POST['signIn']))
             
             foreach ($getUserList as $user) {
                 if($user['email']==$user_email && $user['password']==$user_password){
+                    $userid = $register_controller->getUserInfo($_SESSION['user_email']);
+                    $_SESSION["userid"] = $userid[0]["id"];
                     header("location:BookReviewSystem Font-End/index.php");
                 }else{
                         $error_message="Incorret Email Address or Password";
