@@ -303,7 +303,6 @@ $reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
 			</div>
 			
 			<h2 class="section-title" class="mt-4">Reviews</h2>
-			
 			<div class="container mt-4">
 				<main>
 					<?php

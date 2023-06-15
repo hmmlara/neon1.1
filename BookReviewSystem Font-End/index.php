@@ -10,7 +10,7 @@ foreach ($getUserinfo as $getUser) {
 }
 if(!isset($_SESSION['user_email']))
 	{
-		header("location:login.php");
+		header("location:../login.php");
 	}else{
 		
 		echo $_SESSION["userid"] ;
@@ -71,7 +71,7 @@ if(!isset($_SESSION['user_email']))
 				<li class="nav-item account">
 					<a href="Profile.php">
 						<div class="avatar">
-							<img src="../image/<?php echo $userimg;  ?>" alt="User Avatar" />
+							<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>" alt="User Avatar" />
 						</div>
 					</a>
 
