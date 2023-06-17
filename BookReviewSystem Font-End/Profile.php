@@ -79,21 +79,6 @@ if (isset($_POST['save'])) {
 	} else {
 		echo "file type is not allowed";
 	}
-	//$userimg=$_POST['img']
-	// if(isset($_POST['cancelbtn']))
-	// {
-	// 	echo "Hello";
-	// 	$useimg="nurse.jpg";
-	// }
-
-	// if($filename==null)
-	// {
-	// 	$filename=$userimg;
-	// }elseif ($filename=="nurse.jpg") {
-	// 	$filename="nurse.jpg";
-	// }else{
-	// 	$filename=$_FILES['img']['name'];
-	// }
 
 	$error_status = false;
 
@@ -192,8 +177,8 @@ $reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
 						id="profileimg" alt="" />
 
 				</div>
-				<div class="cancel-button d-none" id="cancelButton">
-					<i class="fa-solid fa-xmark fa-xl cross"></i>
+				<div class="cancel-button" id="cancelButton">
+					<i class="fa-solid fa-xmark fa-xl cross d-none"></i>
 				</div>
 				<div class="round d-none">
 					<i class="fa fa-camera camera" style="color: #00000;"></i>

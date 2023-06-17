@@ -61,7 +61,6 @@ if(!isset($_SESSION['user_email']))
 			</ul>
 		</div>
 	</nav>
-	<!-- search bar -->
 	<div class="container mt-4">
 		<div class="author-card-grid-view">
 			<!-- Author cards here -->
