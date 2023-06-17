@@ -1,9 +1,16 @@
-
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
+include_once "../controllers/authorController.php";
+
 $getUserData=new RegisterController();
 $getUserinfo=$getUserData->getUserList();
+
+$getAllAuthorInfo=new authorController();
+$getAllAuthor=$getAllAuthorInfo->getAllAuthorInfo();
+//var_dump($getAllAuthor);
+
+
 foreach ($getUserinfo as $getUser) {
 	//var_dump($getUser) ;
 }
@@ -19,7 +26,24 @@ if(!isset($_SESSION['user_email']))
 		$username=$getUser['name'];
 		$userbio=$getUser['bio'];
 		$useremail=$getUser['email'];
-		echo $userimg;
+		//echo $userimg;
+	}
+
+	if(isset($_POST['search']))
+	{
+		$usersearch=$_POST['usersearch'];
+		$searchAuthor=$getAllAuthorInfo->searchAuthorInfo($usersearch);
+		//$getAllAuthor=$searchAuthor;
+		 //var_dump($searchAuthor);
+		 if(sizeof($searchAuthor)==0)
+		 {
+			$searchAuthor=[];
+			echo "Hello";
+		 }
+		// foreach ($searchAuthor as  $someauthor) {
+		// 	var_dump($someauthor['name']);
+		// }
+		// echo $usersearch;
 	}
 ?>
 
@@ -51,71 +75,169 @@ if(!isset($_SESSION['user_email']))
 	</head>
 	<body>
 		<!-- Navigation bar -->
+<<<<<<< HEAD
 		<?php 
 	include_once "nav.php";
 	?>
-		<!-- search bar -->
-		<div class="container mt-4">
-			<!-- Search Bar -->
-			<div class="search-bar">
-				<div class="input-group">
-					<input
-						type="text"
-						class="form-control"
-						placeholder="Search..."
-					/>
-					<div class="input-group-append">
-						<button
-							class="btn btn-primary"
-							type="button"
+=======
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a
+				class="navbar-brand-logo"
+				href="index.php"
+			>
+				<img
+					src="logo.png"
+					style="width: 200px; height: 100px"
+					alt="Book Review System Logo"
+				/>
+			</a>
+
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarNav"
+				aria-controls="navbarNav"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div
+				class="collapse navbar-collapse justify-content-end"
+				id="navbarNav"
+			>
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a
+							class="nav-link"
+							href="index.php"
+							>Home</a
 						>
-							Search
-						</button>
-					</div>
-				</div>
-			</div>
+					</li>
 
-			<!-- Filter Component -->
-			<div class="filter-component">
-				<select class="form-control filter-select">
-					<option selected>Genre..</option>
-					<option>Action</option>
-					<option>Comedy</option>
-					<option>Biography</option>
-				</select>
+					<li class="nav-item active">
+						<a
+							class="nav-link"
+							href="AuthorPage.php"
+							>Author</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link"
+							href="Review.php"
+							>Reviews</a
+						>
+					</li>
+				
+					<li class="nav-item hide-in-large">
+						<a
+							class="nav-link"
+							href="Profile.php"
+							>Profile</a
+						>
+					</li>
+					<li class="nav-item account">
+						<a href="Profile.php">
+							<div class="avatar">
+								<img
+									src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>"
+									alt="User Avatar"
+								/>
+							</div>
+						</a>
+					</li>
+				</ul>
 			</div>
-
-			<!-- Rest of the Book Review System content -->
-		</div>
-		<!--  -->
+		</nav>
+>>>>>>> c233a2017b2e8677933c72e0fa88ed1fe66e94d8
+		<!-- search bar -->
+		
+			
+			
+		
+		<!-- Rest of the Book Review System content -->
 		<div class="container mt-4">
-			<div class="author-card-grid-view">
-                
-				<!-- Author cards  -->
-                    <div class="author-card">
-                    <img class="author-image" src="book-image.jpg" alt="Author Image">
-                    <h2 class="author-name">Author Name</h2>
-                    <p class="author-bio">Author Bio</p>
-                    <a class="author-website" href="AuthorDetail.php" target="_blank">Author's Books</a>
-                  </div>
-                  <div class="author-card">
-                    <img class="author-image" src="book-image.jpg" alt="Author Image">
-                    <h2 class="author-name">Author Name</h2>
-                    <p class="author-bio">Author Bio</p>
-                    <a class="author-website" href="AuthorDetail.php" target="_blank">Author's Books</a>
-                  </div>
-                  <div class="author-card">
-                    <img class="author-image" src="book-image.jpg" alt="Author Image">
-                    <h2 class="author-name">Author Name</h2>
-                    <p class="author-bio">Author Bio</p>
-                    <a class="author-website" href="AuthorDetail.php" target="_blank">Author's Books</a>
-                  </div>
-            </div>
-			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
-				<a href="" class="btn btn-primary m-auto" >Load More</a>
-			</div>
+			<!-- Filter Component -->
+			<form action="" method="post">
+				
+				<div class="row">
+					
+						<div class="col-md-12">
+							<div class="search-bar">
+								<div class="input-group">
+									<input	type="text"	class="form-control" placeholder="Search..." name="usersearch" value="<?php if(isset($usersearch)){echo $usersearch;} ?>"/>
+									<div class="input-group-append">
+										<button class="btn btn-primary" id="usersearchauthor"  style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" name="search">
+											Search
+										</button>
+									</div>
+									<div class="col-md-1">
+							
+										<button class="btn btn-info">Clear</button>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					
+				</div>
+			</form>
+			
+				<div class="row col-md-12 authors allauthors" id="authorContainer"
+				<?php if(!isset($_POST['search']) || empty($_POST['usersearch'])  === 0) { echo 'style="display: flex;"'; } else { echo 'style="display: none;"'; } ?>>
+					
+					<?php
+					foreach ($getAllAuthor as $key => $author) {
+					?>
+					<div class="col-md-3 sm-4 mb-3 originalauthors">
+						<div class="card-parent">
+							<div class="author-card">
+							<img class="author-image card-img-top" src="../image/<?php echo $author['image'] ?>" alt="Author Image">
+							<h2 class="author-name"><?php echo $author['name'] ?></h2>
+							<p class="author-bio">Author Bio</p>
+							<a class="author-website" href="AuthorDetail.php" target="_blank">Author's Books</a>
+							</div>
+						</div>
+					</div>
+					<?php
+					}
+					?>
+				</div>
+				<div class="row col-md-12 authors" id="usersearchauthorname"
+				 <?php if(isset($_POST['search']) && !empty($_POST['usersearch'])) { echo 'style="display: flex;"'; } else { echo 'style="display: none;"'; } ?>>
+					<!-- Author cards  -->
+					
+					<?php
+					// if(count($searchAuthor)==0)
+					// {
+					// 	echo "";
+					// }
+					foreach ($searchAuthor as $key => $someauthor) {
+					?>
+					<div class="col-md-3 sm-4 mb-3 originalauthors">
+						<div class="card-parent">
+							<div class="author-card">
+							<img class="author-image card-img-top" src="../image/<?php echo $someauthor['image'] ?>" >
+							<h2 class="author-name"><?php echo $someauthor['name'] ?></h2>
+							<p class="author-bio">Author Bio</p>
+							<a class="author-website" href="AuthorDetail.php" target="_blank">Author's Books</a>
+							</div>
+						</div>
+					</div>
+					<?php
+					}
+					?>
+				</div>
+				<?php if(!isset($_POST['search'])){ ?>
+					<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
+						<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn">Load More</button>
+					</div>
+			<?php }?>
 		</div>
-		</div>
+		
 
 		<footer class="footer mt-4">
 			<div class="footer-container">
@@ -208,5 +330,6 @@ if(!isset($_SESSION['user_email']))
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script src="app.js"></script>
+		<script src="../js/author.js"></script>
 	</body>
 </html>

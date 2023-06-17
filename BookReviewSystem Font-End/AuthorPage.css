@@ -6,15 +6,24 @@
   }
   
   .author-card {
+    transition: transform 0.3s;
+    height: 350px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .author-card:hover {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  /* .author-card {
     background-color: #fff;
-    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+  } */
   
   .author-image {
     width: 100%;
-    height: auto;
+    height: 200px;
     border-radius: 5px;
   }
   
@@ -30,7 +39,7 @@
   }
   
   .author-website {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     color: #007bff;
     text-decoration: none;
     transition: color 0.3s;
