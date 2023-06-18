@@ -24,19 +24,34 @@ seeMoreLinks.forEach(link => {
 
 //Rating Function
 const stars = document.querySelectorAll('.star');
-let rating = 0;
+let book_id=$('.rating').attr('id');
+let original_rating;
+$.ajax({
+    method:'post',
+    url:'rating.php',
+    data:{book_id: book_id},
+    success:function(response){
+      if(response!=null){
+        original_rating=response;
+        highlightStars(original_rating)
+      }
+      
+    }
+  })
+
 
 stars.forEach((star, index) => {
   star.addEventListener('click', () => {
-    let book_id = $(this).parent().attr('id');
-    rating = index + 1;
-    highlightStars(rating);
+    let rating = index + 1;
+    
     $.ajax({
+      
       method:'post',
-      url:'rating.php',
+      url:'addRating.php',
       data:{rating:rating,book_id:book_id},
       success:function(response){
-        console.log(response)
+        original_rating=response;
+      highlightStars(original_rating)
       }
     })
   });
@@ -46,7 +61,8 @@ stars.forEach((star, index) => {
   });
 
   star.addEventListener('mouseout', () => {
-    highlightStars(rating);
+    highlightStars(original_rating);
+    
   });
 });
 

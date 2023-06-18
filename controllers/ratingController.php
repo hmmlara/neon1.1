@@ -1,11 +1,14 @@
 <?php
-include_once __DIR__."/../models/comment.php";
+include_once __DIR__."/../models/rating.php";
 class RatingController extends Rating{
-    public function getAllComments($id){
-        return $this->getCommentList($id);
+    public function viewRating($book_id,$user_id){
+        return $this->viewRatingInfo($book_id,$user_id);
     }
-    public function addNewComment($comment,$user_id,$cid){
-        return $this->createNewComment($comment,$user_id,$cid);
+    public function addNewRating($user_id,$book_id,$rating_id){
+        return $this->createNewRating($user_id,$book_id,$rating_id);
+    }
+    public function deleteRating($book_id,$user_id){
+        return $this->deleteRatingInfo($book_id,$user_id);
     }
     // public function getBook($id){
     //     return $this->getBookInfo($id);
