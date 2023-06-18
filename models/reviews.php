@@ -113,9 +113,18 @@ class Reviews
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    function get_review_comments($Review_id){
+        $sql = "SELECT `id`, `user_id`, `review_book_id`, `comment` FROM `review_comment` WHERE `review_book_id` = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":id", $Review_id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 
 $reviews_model = new Reviews();
-// $result = $reviews_model->get_review_reacts(10);
+// $result = $reviews_model->get_review_comments(10);
 // var_dump($result);
 ?>
