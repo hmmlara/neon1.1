@@ -102,7 +102,20 @@ class Reviews
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    function get_review_reacts($Review_id){
+        $sql = "SELECT COUNT(*) AS user_react
+        FROM review_react
+        WHERE review_book_id = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":id", $Review_id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 
-
+$reviews_model = new Reviews();
+// $result = $reviews_model->get_review_reacts(10);
+// var_dump($result);
 ?>
