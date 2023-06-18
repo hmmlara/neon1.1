@@ -1,4 +1,7 @@
 <?php
+//Remain 2 Err 
+
+
 session_start();
 
 include_once "../models/reviews.php";
@@ -10,26 +13,30 @@ include_once('latestBook.php');
 $userEmail = $_SESSION['user_email'];
 $reviews_model = new Reviews();
 $register_model = new CreateUser();
+$book_model = new Book();
 
 $userId = $register_model->getUserId($userEmail);
 if (isset($_SESSION['bookList']) && isset($_GET['id'])) {
-    $BookList = $_SESSION['bookList'];
-    $BookList[] = (int) $_GET['id'];
-    $_SESSION['bookList'] = $BookList;
+    $ReviewBookList_id = $_SESSION['bookList'];
+    $ReviewBookList_id[] = (int) $_GET['id'];
+    $_SESSION['bookList'] = $ReviewBookList_id;
+} else if (isset($_SESSION['bookList']) && isset($_GET['del'])) {
+    $ReviewBookList_id = $_SESSION['bookList'];
+    unset($ReviewBookList_id[$_GET['del']]);
+    $_SESSION['bookList'] = $ReviewBookList_id;
 } else {
     $_SESSION['bookList'] = [];
 }
-var_dump(isset($_POST['review-content']));
 if (isset($_POST['review-content'])) {
     $_SESSION["content"] = $_POST["review-content"];
 }
-if (isset($_POST['submit']) && isset($_POST['review-content']) && count($BookList) != 0) {
+if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewBookList_id) != 0) {
     // echo "true"."<br>";
     // echo "id :".$userId[0]['id']."<br>";
     // echo "content :".$_SESSION['content']."<br>";
-    // var_dump($BookList);
+    // var_dump($ReviewBookList_id);
     if (
-        $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $BookList)
+        $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $ReviewBookList_id)
     ) {
         header("location:Review.php");
     }
@@ -61,29 +68,42 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($BookLis
             <div class="form-group">
                 <label for="review-content">Review</label>
                 <textarea id="review-content" name="review-content" rows="8" required>
-                        <?php echo $_SESSION['content'] ?>
                     </textarea>
             </div>
             <div class="container">
                 <div class="d-flex flex-wrap">
-                    <a href="BookDetail.php">
-                        <div class="book-details">
-                            <img src="book-image.jpg" alt="Book Cover" />
-                            <div class="book-info">
-                                <h2>The Book Title</h2>
-                                <p>by Author Name</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="BookDetail.php">
-                        <div class="book-details">
-                            <img src="book-image.jpg" alt="Book Cover" />
-                            <div class="book-info">
-                                <h2>The Book Title</h2>
-                                <p>by Author Name</p>
-                            </div>
-                        </div>
-                    </a>
+                    <?php
+                    if (isset($ReviewBookList_id)) {
+                        foreach ($ReviewBookList_id as $key => $ReviewBook_id) {
+                            $book = $book_model->getBookInfo($ReviewBook_id);
+
+
+
+
+
+                            ?>
+                            <a href="Post.php?del=<?php echo $key ?>">
+                                <div class="book-details">
+                                    <img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
+                                    <div class="book-info">
+                                        <h2>
+                                            <?php echo $book["name"] ?>
+                                        </h2>
+                                        <?php
+                                        $author = $reviews_model->get_author_by_id($book["auther_id"]);
+                                        ?>
+                                        <p>by
+                                            <?php echo $author["name"] ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                            <?php
+                        }
+                    } else {
+                        echo "<h1>Pleawe Choice Books</h1>";
+                    }
+                    ?>
                 </div>
             </div>
             <div class="container mt-4">
@@ -102,6 +122,7 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($BookLis
 
                     <div class="book-card-grid">
                         <?php
+
                         foreach ($book_list as $book) {
                             ?>
                             <div class="book-card">
