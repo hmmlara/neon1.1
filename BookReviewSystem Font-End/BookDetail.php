@@ -18,7 +18,6 @@ if(isset($_POST['submit'])){
 	}
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -100,7 +99,7 @@ if(isset($_POST['submit'])){
 
 					<div class="actions">
 						<div class="bottom-icons">
-							<div class="rating " id=<?php $book['id'] ?>>
+							<div class="rating" id=<?php echo $book['id'] ?>>
 								<span class="star"></span>
 								<span class="star"></span>
 								<span class="star"></span>

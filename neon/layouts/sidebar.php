@@ -11,7 +11,7 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-
+	
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
@@ -20,6 +20,8 @@
 
 	<link href="css/datatables.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../BookReviewSystem Font-End/BookDetail.css">
 	<link href="css/app.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>

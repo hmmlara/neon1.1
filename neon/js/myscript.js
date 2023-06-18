@@ -62,19 +62,19 @@ $(document).ready(function(){
             });
         }
     })
-    $(document).on('click','.open',function(){
-        let id=$(this).attr('id')
-            $.ajax({
-                method:'post',
-                url: 'openPdf.php',
-                data:{id:id},
-                success:function(response){
-                    let pdfUrl='pdf/'+response;
+    // $(document).on('click','.open',function(){
+    //     let id=$(this).attr('id')
+    //         $.ajax({
+    //             method:'post',
+    //             url: 'openPdf.php',
+    //             data:{id:id},
+    //             success:function(response){
+    //                 let pdfUrl='pdf/'+response;
                     
-                    window.open(pdfUrl,'_blank')
-                }
-            })
-    })
+    //                 window.open(pdfUrl,'_blank')
+    //             }
+    //         })
+    // })
     
     
 })
