@@ -12,17 +12,27 @@ $reviews_model = new Reviews();
 $register_model = new CreateUser();
 
 $userId = $register_model->getUserId($userEmail);
-var_dump($userId);
-if(isset($_SESSION['bookList'])){
+if (isset($_SESSION['bookList']) && isset($_GET['id'])) {
     $BookList = $_SESSION['bookList'];
-
+    $BookList[] = (int) $_GET['id'];
+    $_SESSION['bookList'] = $BookList;
+} else {
+    $_SESSION['bookList'] = [];
 }
+var_dump(isset($_POST['review-content']));
 if (isset($_POST['review-content'])) {
-    echo "true";
     $_SESSION["content"] = $_POST["review-content"];
 }
-if (isset($_POST['submit']) && isset($_POST['review']) && count($BookList) != 0) {
-    $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $BookList);
+if (isset($_POST['submit']) && isset($_POST['review-content']) && count($BookList) != 0) {
+    // echo "true"."<br>";
+    // echo "id :".$userId[0]['id']."<br>";
+    // echo "content :".$_SESSION['content']."<br>";
+    // var_dump($BookList);
+    if (
+        $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $BookList)
+    ) {
+        header("location:Review.php");
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -125,7 +135,7 @@ if (isset($_POST['submit']) && isset($_POST['review']) && count($BookList) != 0)
                     </div>
                 </div>
             </div>
-            <button type="submit" class="mt-4">Upload</button>
+            <button type="submit" name="submit" class="mt-4">Upload</button>
         </form>
     </div>
 
