@@ -9,12 +9,8 @@ foreach ($getUserinfo as $getUser) {
 }
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
-} else {
+} 
 
-	echo $_SESSION["userid"];
-
-	echo $_SESSION["user_email"];
-}
 if ($_SESSION["user_email"] == $getUser['email']) {
 	$userimg = $getUser['image'];
 	$username = $getUser['name'];
