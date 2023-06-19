@@ -24,7 +24,7 @@ $(document).ready(function(){
                             '<img class="author-image card-img-top" src="../image/' + author.image + '" alt="Author Image">' +
                             '<h2 class="author-name">' + author.name + '</h2>' +
                             '<p class="author-bio">Author Bio</p>' +
-                            '<a class="author-website" href="AuthorDetail.php" target="_blank">Author\'s Books</a>' +
+                            '<a class="author-website"  href="AuthorDetail.php?id=' + author.id + '" target="_blank">Author\'s Books</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>';

@@ -4,13 +4,19 @@ include_once "../controllers/registercontroller.php";
 include_once('latestBook.php');
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
 foreach ($getUserinfo as $getUser) {
 	//var_dump($getUser) ;
 }
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
-} 
+} else {
 
+	echo $_SESSION["userid"];
+
+	echo $_SESSION["user_email"];
+}
 if ($_SESSION["user_email"] == $getUser['email']) {
 	$userimg = $getUser['image'];
 	$username = $getUser['name'];
@@ -36,9 +42,46 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 
 <body>
 	<!-- Navigation bar -->
-	<?php 
-	include_once "nav.php";
-	?>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand-logo" href="#">
+			<img src="logo.png" style="width: 200px; height: 100px" alt="Book Review System Logo" />
+		</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.php">Home</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="AuthorPage.php">Author</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="Review.php">Reviews</a>
+				</li>
+
+				<li class="nav-item hide-in-large">
+					<a class="nav-link" href="Profile.php">Profile</a>
+				</li>
+				<li class="nav-item account">
+					<a href="Profile.php">
+						<div class="avatar">
+							<img src="../image/<?php if (empty($userimg)) {
+								echo "nurse.jpg";
+							} else {
+								echo $userimg;
+							} ?>" alt="User Avatar" />
+						</div>
+					</a>
+
+				</li>
+			</ul>
+		</div>
+	</nav>
 	<!-- search bar -->
 	<div class="container mt-4">
 		<!-- Search Bar -->
@@ -201,40 +244,41 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 		<div class="book-card-list">
 			<!-- <h2 class="ms-2 float-left">Books</h2> -->
 
-			<div class="view-options  ">
-				<button class="view-option-btn active" data-update="list">
-					Lastest Update
-				</button>
-				<button class="view-option-btn" data-radom="grid">
-					Content at redom
-				</button>
-			</div>
-			<div class="book-card-grid">
-				<?php
-				foreach ($book_list as $book) {
-					?>
-					<div class="book-card">
-						<div class="book-card-image">
-							<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
-							<div class="book-card-overlay">
-								<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read More</a>
+				<div class="view-options  ">
+					<button class="view-option-btn active" data-update="list">
+						Lastest Update
+					</button>
+					<button class="view-option-btn" data-radom="grid">
+						Content at redom
+					</button>
+				</div>
+				<div class="book-card-grid">
+					<?php
+					foreach ($book_list as $book) {
+						?>
+						<div class="book-card">
+							<div class="book-card-image">
+								<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
+								<div class="book-card-overlay">
+									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
+										More</a>
+								</div>
+							</div>
+							<div class="book-card-info">
+								<h3 class="book-card-title">
+									<?php echo $book['name'] ?>
+								</h3>
+								<p class="book-card-author">
+									<?php echo $book['auther_name'] ?>
+								</p>
+								<p class="book-card-genre">
+									<?php echo $book['category_name'] ?>
+								</p>
 							</div>
 						</div>
-						<div class="book-card-info">
-							<h3 class="book-card-title">
-								<?php echo $book['name'] ?>
-							</h3>
-							<p class="book-card-author">
-								<?php echo $book['auther_name'] ?>
-							</p>
-							<p class="book-card-genre">
-								<?php echo $book['category_name'] ?>
-							</p>
-						</div>
-					</div>
-					<?php
-				}
-				?>
+						<?php
+					}
+					?>
 
 			</div>
 			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
@@ -314,32 +358,35 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	<script type="module">
 		import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.esm.browser.min.js'
 
-		const swiper = new Swiper('.swiper', {
-			slidesPerView: '3',
-			spaceBetween: 20,
-			autoplay: {
-				delay: 5000,
-			},
-			breakpoints: {
-				// when window width is >= 320px
-				480: {
-					slidesPerView: 2,
-					spaceBetween: 20
+			const swiper = new Swiper('.swiper', {
+				slidesPerView: '3',
+				spaceBetween: 20,
+				parallax: true,
+				loop:true,
+				autoplay: {
+					delay: 5000,
 				},
-				// when window width is >= 480px
-				740: {
-					slidesPerView: 3,
-					spaceBetween: 30
-				},
-				// when window width is >= 640px
-				1040: {
-					slidesPerView: 4,
-					spaceBetween: 40
+			
+				breakpoints: {
+					// when window width is >= 320px
+					480: {
+						slidesPerView: 2,
+						spaceBetween: 20
+					},
+					// when window width is >= 480px
+					740: {
+						slidesPerView: 3,
+						spaceBetween: 30
+					},
+					// when window width is >= 640px
+					1040: {
+						slidesPerView: 4,
+						spaceBetween: 40
+					}
 				}
-			}
 
-		});		</script>
-	<script src="app.js"></script>
+			});		</script>
+		<script src="app.js"></script>
 </body>
 
 </html>
