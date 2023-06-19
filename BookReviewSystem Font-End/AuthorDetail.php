@@ -1,10 +1,51 @@
 <?php
 session_start();
+include_once "../controllers/registercontroller.php";
+include_once "../controllers/authorController.php";
+
+$getUserData=new RegisterController();
+$getUserinfo=$getUserData->getUserList();
+
+$getAllAuthorInfo=new authorController();
+$getAllAuthor=$getAllAuthorInfo->getAllAuthorFromAuthorDetail();
+
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
 
 if(!isset($_SESSION['user_email']))
+	{
+		header("location:../login.php");
+	}else{
+		echo $_SESSION["user_email"];
+	}
+
+	if($_SESSION["user_email"]==$getUser['email'])
+	{
+		$userimg=$getUser['image'];
+		$username=$getUser['name'];
+		$userbio=$getUser['bio'];
+		$useremail=$getUser['email'];
+		//echo $userimg;
+	}
+
+
+if(isset($_GET['id']))
 {
-	header("location:login.php");
+	$id=$_GET['id'];
+	echo $id;
 }
+
+foreach($getAllAuthor as $getAuthor)
+{
+	if($id==$getAuthor['id'])
+	{
+		$authorname=$getAuthor['name'];
+		$authorimg=$getAuthor['image'];
+		 echo $authorname;
+	}
+ }
+
 ?>
 
 
@@ -22,17 +63,50 @@ if(!isset($_SESSION['user_email']))
 
 <body>
 	<!-- Navigation bar -->
-	<?php 
-	include_once "nav.php";
-	?>
-	<!-- search bar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand-logo" href="#">
+			<img src="logo.png" style="width: 200px; height: 100px" alt="Book Review System Logo" />
+		</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="index.php">Home</a>
+				</li>
+
+				<li class="nav-item active">
+					<a class="nav-link" href="AuthorPage.php">Author</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="Review.php">Reviews</a>
+				</li>
+
+				<li class="nav-item hide-in-large">
+					<a class="nav-link" href="Profile.php">Profile</a>
+				</li>
+				<li class="nav-item account">
+					<a href="Profile.php
+						">
+						<div class="avatar">
+							<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>" alt="User Avatar" />
+						</div>
+					</a>
+
+				</li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container mt-4">
-		<div class="author-card-grid-view">
-			<!-- Author cards here -->
-			<div class="author-card">
-				<img class="author-image" src="
-					Book-image.jpg" alt="Author Image" />
-				<h2 class="author-name">Author Name</h2>
+		<div class="row">
+ 			<div class="col-md-4">
+				<img class="author-image" src="../image/<?php echo $authorimg;  ?>"  width="100%" alt="Author Image" />
+			</div>
+			<div class="col-md-6">
+				<h2 class="author-name"><?php echo $authorname;  ?></h2>
 				<p class="author-bio">Author Bio</p>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam
@@ -40,6 +114,11 @@ if(!isset($_SESSION['user_email']))
 					laborum nesciunt alias nulla minima explicabo sunt suscipit iste
 					nihil beatae aliquid hic.
 				</p>
+			</div>
+		</div>
+		<div class="author-card-grid-view">
+			<!-- Author cards here -->
+			<div class="author-card">
 				<a class="author-website" href="https://www.author-website.com" target="_blank">Visit Website</a>
 			</div>
 		</div>
