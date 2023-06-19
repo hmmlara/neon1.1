@@ -1,12 +1,51 @@
 <?php
 session_start();
+include_once "../controllers/registercontroller.php";
+include_once "../controllers/authorController.php";
+
+$getUserData=new RegisterController();
+$getUserinfo=$getUserData->getUserList();
+
+$getAllAuthorInfo=new authorController();
+$getAllAuthor=$getAllAuthorInfo->getAllAuthorFromAuthorDetail();
+
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
 
 if(!isset($_SESSION['user_email']))
+	{
+		header("location:../login.php");
+	}else{
+		echo $_SESSION["user_email"];
+	}
+
+	if($_SESSION["user_email"]==$getUser['email'])
+	{
+		$userimg=$getUser['image'];
+		$username=$getUser['name'];
+		$userbio=$getUser['bio'];
+		$useremail=$getUser['email'];
+		//echo $userimg;
+	}
+
+
+if(isset($_GET['id']))
 {
-	header("location:login.php");
-}else{
-	echo $_SESSION["user_email"];
+	$id=$_GET['id'];
+	echo $id;
 }
+
+foreach($getAllAuthor as $getAuthor)
+{
+	if($id==$getAuthor['id'])
+	{
+		$authorname=$getAuthor['name'];
+		$authorimg=$getAuthor['image'];
+		 echo $authorname;
+	}
+ }
+
 ?>
 
 
@@ -53,7 +92,7 @@ if(!isset($_SESSION['user_email']))
 					<a href="Profile.php
 						">
 						<div class="avatar">
-							<img src="user-avatar.jpg" alt="User Avatar" />
+							<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>" alt="User Avatar" />
 						</div>
 					</a>
 
@@ -62,12 +101,12 @@ if(!isset($_SESSION['user_email']))
 		</div>
 	</nav>
 	<div class="container mt-4">
-		<div class="author-card-grid-view">
-			<!-- Author cards here -->
-			<div class="author-card">
-				<img class="author-image" src="
-					Book-image.jpg" alt="Author Image" />
-				<h2 class="author-name">Author Name</h2>
+		<div class="row">
+ 			<div class="col-md-4">
+				<img class="author-image" src="../image/<?php echo $authorimg;  ?>"  width="100%" alt="Author Image" />
+			</div>
+			<div class="col-md-6">
+				<h2 class="author-name"><?php echo $authorname;  ?></h2>
 				<p class="author-bio">Author Bio</p>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam
@@ -75,6 +114,11 @@ if(!isset($_SESSION['user_email']))
 					laborum nesciunt alias nulla minima explicabo sunt suscipit iste
 					nihil beatae aliquid hic.
 				</p>
+			</div>
+		</div>
+		<div class="author-card-grid-view">
+			<!-- Author cards here -->
+			<div class="author-card">
 				<a class="author-website" href="https://www.author-website.com" target="_blank">Visit Website</a>
 			</div>
 		</div>

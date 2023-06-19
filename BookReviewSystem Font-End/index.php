@@ -1,30 +1,27 @@
-
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
 include_once('latestBook.php');
-$getUserData=new RegisterController();
-$getUserinfo=$getUserData->getUserList();
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
 foreach ($getUserinfo as $getUser) {
 	//var_dump($getUser) ;
 }
-if(!isset($_SESSION['user_email']))
-	{
-		header("location:../login.php");
-	}else{
-		
-		echo $_SESSION["userid"] ;
-	
-		echo $_SESSION["user_email"];
-	}
-	if($_SESSION["user_email"]==$getUser['email'])
-	{
-		$userimg=$getUser['image'];
-		$username=$getUser['name'];
-		$userbio=$getUser['bio'];
-		$useremail=$getUser['email'];
-		echo $userimg;
-	}
+if (!isset($_SESSION['user_email'])) {
+	header("location:../login.php");
+} else {
+
+	echo $_SESSION["userid"];
+
+	echo $_SESSION["user_email"];
+}
+if ($_SESSION["user_email"] == $getUser['email']) {
+	$userimg = $getUser['image'];
+	$username = $getUser['name'];
+	$userbio = $getUser['bio'];
+	$useremail = $getUser['email'];
+	echo $userimg;
+}
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +68,11 @@ if(!isset($_SESSION['user_email']))
 				<li class="nav-item account">
 					<a href="Profile.php">
 						<div class="avatar">
-							<img src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>" alt="User Avatar" />
+							<img src="../image/<?php if (empty($userimg)) {
+								echo "nurse.jpg";
+							} else {
+								echo $userimg;
+							} ?>" alt="User Avatar" />
 						</div>
 					</a>
 
@@ -251,23 +252,30 @@ if(!isset($_SESSION['user_email']))
 				</div>
 				<div class="book-card-grid">
 					<?php
-						foreach ($book_list as $book) {
+					foreach ($book_list as $book) {
 						?>
 						<div class="book-card">
 							<div class="book-card-image">
 								<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
 								<div class="book-card-overlay">
-									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read More</a>
+									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
+										More</a>
 								</div>
 							</div>
 							<div class="book-card-info">
-								<h3 class="book-card-title"><?php echo $book['name'] ?></h3>
-								<p class="book-card-author"><?php echo $book['auther_name'] ?></p>
-								<p class="book-card-genre"><?php echo $book['category_name'] ?></p>
+								<h3 class="book-card-title">
+									<?php echo $book['name'] ?>
+								</h3>
+								<p class="book-card-author">
+									<?php echo $book['auther_name'] ?>
+								</p>
+								<p class="book-card-genre">
+									<?php echo $book['category_name'] ?>
+								</p>
 							</div>
 						</div>
-					<?php
-						}
+						<?php
+					}
 					?>
 
 				</div>
@@ -351,9 +359,12 @@ if(!isset($_SESSION['user_email']))
 			const swiper = new Swiper('.swiper', {
 				slidesPerView: '3',
 				spaceBetween: 20,
+				parallax: true,
+				loop:true,
 				autoplay: {
 					delay: 5000,
 				},
+			
 				breakpoints: {
 					// when window width is >= 320px
 					480: {
@@ -369,9 +380,10 @@ if(!isset($_SESSION['user_email']))
 					1040: {
 						slidesPerView: 4,
 						spaceBetween: 40
-					}}
+					}
+				}
 
-				});		</script>
+			});		</script>
 		<script src="app.js"></script>
 </body>
 

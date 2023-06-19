@@ -50,22 +50,22 @@ class author{
         $statement->execute();
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
 
-        //$authors = array();
+    public function getAllAuthorFromDetail()
+    {
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Loop through the query results and build the authors array
-        // while ($row = mysqli_fetch_assoc($result)) {
-        //     $author = array(
-        //         'name' => $row['name'],
-        //         'image' => $row['image'],
-        //         // Add more author data fields as needed
-        //     );
+        //2.sql Statement
+        $sql="select * from auther";
+        $statement=$this->connection->prepare($sql);
 
-            //$authors[] = $author;
-        //}
-
-        // Return the authors array
-        //return $authors;
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 }
 

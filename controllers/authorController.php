@@ -14,6 +14,11 @@ class authorController extends author{
     {
         return $this->getMoreAuthor($offset, $limit);
     }
+
+    public function getAllAuthorFromAuthorDetail()
+    {
+        return $this->getAllAuthorFromDetail();
+    }
 }
 
 

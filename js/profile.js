@@ -57,30 +57,38 @@ $(document).ready(function(){
             $('.cross').removeClass('d-none');
             console.log("change")
           }else{
+           
             $('.cross').addClass('d-none');
           }
+
       }
+    //   $(".cancel-button").on("click",function(){
+    //     $('.img').attr('src','../image/nurse.jpg');
+    //    $('#cancelButton').addClass('d-none');
+    //  })
       if (file) {
+        console.log(file);
           reader.readAsDataURL(file);
       }
       
   });
 
-    // let input = document.getElementById('input');
-    //   let img =document.getElementsByClassName('img')
-    //   $('#input').on('change',function(){
-    //     img.src = URL.createObjectURL(input.files[0]);
-    //   })
       
       $(".cancel-button").on("click",function(){
          $('.img').attr('src','../image/nurse.jpg');
+         $("#input").val("");
         $('#cancelButton').addClass('d-none');
       })
     
-
-      $(".save").on("click",function(){
-        let img=$('#profileimg').attr('src');
-        $('#profileimg').attr('src')=img;
-        console.log(img);
-      })  
+      $(".save").on("click", function() {
+        let img = $('#profileimg').attr('src');
+        if (img == '../image/nurse.jpg') {
+          console.log(img)
+          $('#profileimg').attr('src', img);
+          console.log("Hello");
+        } else {
+          $('#profileimg').attr('src', img);
+          console.log(img);
+        }
+      });
 })
