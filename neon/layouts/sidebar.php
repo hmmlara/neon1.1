@@ -1,3 +1,6 @@
+<?php
+$active_page=$_SERVER['PHP_SELF'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,19 +42,19 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item <?php echo ($active_page=='/neo/neon/index.php')? 'active' : '' ?>">
 						<a class="sidebar-link" href="index.php">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
 
-					<li class="sidebar-item">
+					<li class="sidebar-item <?php if($active_page=='/neo/neon/user.php' || $active_page=='/neo/neon/viewUser.php') {echo 'active';} ?>">
 						<a class="sidebar-link" href="user.php">
               <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
             </a>
 					</li>
 
-					<li class="sidebar-item">
+					<li class="sidebar-item <?php if($active_page=='/neo/neon/book.php' || $active_page=='/neo/neon/viewBook.php' || $active_page=='/neo/neon/editBook.php') {echo 'active';} ?>">
 						<a class="sidebar-link" href="book.php">
               <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Book</span>
             </a>
