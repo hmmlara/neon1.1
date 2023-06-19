@@ -17,8 +17,6 @@ foreach ($getUserinfo as $getUser) {
 if(!isset($_SESSION['user_email']))
 	{
 		header("location:../login.php");
-	}else{
-		echo $_SESSION["user_email"];
 	}
 	if($_SESSION["user_email"]==$getUser['email'])
 	{
@@ -41,7 +39,6 @@ if(!isset($_SESSION['user_email']))
 		 if(sizeof($searchAuthor)==0)
 		 {
 			$searchAuthor=[];
-			echo "Hello";
 		 }
 		
 		// echo $usersearch;

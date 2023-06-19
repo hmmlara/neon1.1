@@ -11,7 +11,6 @@ if(!isset($_SESSION['user_email']))
 	{
 		header("location:../login.php");
 	}else{
-		echo $_SESSION["user_email"];
 	}
 	if($_SESSION["user_email"]==$getUser['email'])
 	{
@@ -19,7 +18,6 @@ if(!isset($_SESSION['user_email']))
 		$username=$getUser['name'];
 		$userbio=$getUser['bio'];
 		$useremail=$getUser['email'];
-		echo $userimg;
 	}
 	
 	//Connect With Reviews Models;
@@ -57,77 +55,9 @@ if(!isset($_SESSION['user_email']))
 	</head>
 	<body>
 		<!-- Navigation bar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a
-				class="navbar-brand-logo"
-				href="#"
-			>
-				<img
-					src="logo.png"
-					style="width: 200px; height: 100px"
-					alt="Book Review System Logo"
-				/>
-			</a>
-
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-toggle="collapse"
-				data-target="#navbarNav"
-				aria-controls="navbarNav"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div
-				class="collapse navbar-collapse justify-content-end"
-				id="navbarNav"
-			>
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="index.php"
-							>Home</a
-						>
-					</li>
-
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="AuthorPage.php"
-							>Author</a
-						>
-					</li>
-					<li class="nav-item active">
-						<a
-							class="nav-link"
-							href="Review.php"
-							>Reviews</a
-						>
-					</li>
-
-					<li class="nav-item hide-in-large">
-						<a
-							class="nav-link"
-							href="Profile.php"
-							>Profile</a
-						>
-					</li>
-					<li class="nav-item account">
-						<a href="Profile.php">
-							<div class="avatar">
-								<img
-									src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>"
-									alt="User Avatar"
-								/>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
+		<?php 
+	include_once "nav.php";
+	?>
 
 		<a href="Post.php" class="btn btn-primary float-right mt-2 mr-2">Post</a>
 
@@ -161,7 +91,7 @@ if(!isset($_SESSION['user_email']))
 							foreach($review_books as $review_book_id){ 
 								$book = $reviews_model->get_bookinfo_by_id($review_book_id["book_id"]);
 							?>
-							<a href="BookDetail.php">
+							<a href="BookDetail.php?id=<?php echo $review_book_id['book_id'] ?>">
 								<div class="book-details">
 									<img
 										src="<?php echo $book["image"] ?>"

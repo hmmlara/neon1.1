@@ -1,32 +1,32 @@
 //Comment Load More Function
-$(document).ready(function() {
-    var commentsPerPage = 2; // Number of comments to show per page
-    var $commentList = $('.comment-list');
-    var $loadMoreBtn = $('.load-more-btn');
-    var totalComments = $commentList.children('.comment').length;
-    var visibleComments = commentsPerPage;
+// $(document).ready(function() {
+//     var commentsPerPage = 2; // Number of comments to show per page
+//     var $commentList = $('.comment-list');
+//     var $loadMoreBtn = $('.load-more-btn');
+//     var totalComments = $commentList.children('.comment').length;
+//     var visibleComments = commentsPerPage;
     
-    // Initially hide all comments beyond the specified limit
-    $commentList.children('.comment:gt(' + (visibleComments - 1) + ')').hide();
+//     // Initially hide all comments beyond the specified limit
+//     $commentList.children('.comment:gt(' + (visibleComments - 1) + ')').hide();
     
-    // Show/hide "Load More" button based on the number of comments
-    if (totalComments <= visibleComments) {
-      $loadMoreBtn.hide();
-    }
+//     // Show/hide "Load More" button based on the number of comments
+//     if (totalComments <= visibleComments) {
+//       $loadMoreBtn.hide();
+//     }
     
-    // Handle "Load More" button click event
-    $loadMoreBtn.on('click', function() {
-      visibleComments += commentsPerPage;
+//     // Handle "Load More" button click event
+//     $loadMoreBtn.on('click', function() {
+//       visibleComments += commentsPerPage;
       
-      // Show the next set of comments
-      $commentList.children('.comment:lt(' + visibleComments + ')').show();
+//       // Show the next set of comments
+//       $commentList.children('.comment:lt(' + visibleComments + ')').show();
       
-      // Hide the "Load More" button if all comments are visible
-      if (visibleComments >= totalComments) {
-        $loadMoreBtn.hide();
-      }
-    });
-  });
+//       // Hide the "Load More" button if all comments are visible
+//       if (visibleComments >= totalComments) {
+//         $loadMoreBtn.hide();
+//       }
+//     });
+//   });
   
   //Like Btn 
   function toggleLike(btn) {
