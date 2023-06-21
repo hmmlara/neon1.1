@@ -2,12 +2,12 @@
 
 include_once "layouts/sidebar.php";
 include_once "controller/autherController.php";
-include_once "controller/categoryController.php";
+// include_once "controller/categoryController.php";
 include_once "controller/bookController.php";
 $auther_controller=new AutherController();
 $auther_list=$auther_controller->getAllAuthers();
-$category_controller=new CategoryController();
-$category_list=$category_controller->getAllCategory();
+// $category_controller=new CategoryController();
+// $category_list=$category_controller->getAllCategory();
 
 if(isset($_POST['submit'])){
     $error=false;
@@ -17,7 +17,6 @@ if(isset($_POST['submit'])){
         $book_name_error="You need to Fill Book Name";
         $error=true;
     }
-    $category=$_POST['category'];
     $auther=$_POST['auther'];
     
     
@@ -78,8 +77,8 @@ if(isset($_POST['submit'])){
     
     $book_controller=new BookController();
     if($error==false){
-        echo $name.$category.$auther.$image.$pdf.$date;
-        $status=$book_controller->addNewBook($name,$category,$auther,$image,$pdf,$date);
+        echo $name.$auther.$image.$pdf.$date;
+        $status=$book_controller->addNewBook($name,$auther,$image,$pdf,$date);
         if($status){
             echo "<script> location.href='book.php?status=".$status."';</script>";
         }
@@ -112,9 +111,9 @@ if(isset($_POST['submit'])){
                             <label for="" class="form-label">Category</label>
                             <select name="category" id="" class="form-select">
                                 <?php
-                                foreach ($category_list as $cate) {
-                                    echo "<option value='".$cate['id']."'>".$cate['name']."</option>";
-                                }
+                                // foreach ($category_list as $cate) {
+                                //     echo "<option value='".$cate['id']."'>".$cate['name']."</option>";
+                                // }
                                 ?>
                             </select>
                         </div>
