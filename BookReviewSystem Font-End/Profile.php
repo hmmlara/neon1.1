@@ -8,80 +8,62 @@ include_once "../models/reviews.php";
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
 $updateUserInfo = new UserController();
-
+$getPersonalInfo = $updateUserInfo->getSingleUser($_SESSION['user_email']);
+	//var_dump($getPersonalInfo[0]["image"]);
 
 //Add User img
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
 } else {
 	$userEmail = $_SESSION["user_email"];
+	//echo $userEmail;
 }
-
+//var_dump($_SESSION["user_email"]);
 foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser);
 	if ($_SESSION["user_email"] == $getUser['email']) {
 		$userimg = $getUser['image'];
 		$username = $getUser['name'];
 		$userbio = $getUser['bio'];
 		$useremail = $getUser['email'];
-
 	}
 }
 
-
-//click cancel
-//if(isset())
-
-
-// if(isset($_POST['edituserprofile']))
-// {
-// 	echo "Hello Mingalr Par";
-// 	//change img
-// 	$filename=$_FILES['img']['name'];
-// 	$filesize=$_FILES['img']['size'];
-// 	$allowed_files=['jpg','png','jpeg','svg'];
-// 	$temp_path=$_FILES['img']['tmp_name'];
-
-// 	$fileinfo=explode('.',$filename);
-// 	$filetype=end($fileinfo);
-// 	$maxsize=2000000000;
-// 	if(in_array($filetype,$allowed_files)){
-// 		if($filesize<$maxsize)
-// 		{
-// 			move_uploaded_file($temp_path,'../image/'.$filename);
-// 		}else{
-// 			echo "file size exceeds maximum allowed";
-// 		}
-// 	}else{
-// 		echo "file type is not allowed";
-// 	}
-// 	echo "userimg".$filename;
-// }
+if(isset($_POST['edituserprofile'])){
+	$getPersonalInfo = $updateUserInfo->getUser($_SESSION['user_email']);
+	//var_dump($getPersonalInfo);
+}
 
 
 //click save btn
 if (isset($_POST['save'])) {
-	//$userimg=$_POST['userimg'];
-	//$src = "../image/nurse.jpg"
+
 	$filename = $_FILES['img']['name'];
 	$filesize = $_FILES['img']['size'];
 	$allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
 	$temp_path = $_FILES['img']['tmp_name'];
-
-	$fileinfo = explode('.', $filename);
-	$filetype = end($fileinfo);
-	$maxsize = 2000000000;
-	if (in_array($filetype, $allowed_files)) {
-		if ($filesize < $maxsize) {
-			move_uploaded_file($temp_path, '../image/' . $filename);
+	
+	// echo $filename;
+	if($_FILES['img']['error']!=0){
+		$filename =$getPersonalInfo[0]["image"];
+	}
+	else{
+		$fileinfo = explode('.', $filename);	
+		$filetype = end($fileinfo);
+		$maxsize = 2000000000;
+		if (in_array($filetype, $allowed_files)) {
+			if ($filesize < $maxsize) {
+				move_uploaded_file($temp_path, '../image/' . $filename);
+			} else {
+				echo "file size exceeds maximum allowed";
+			}
 		} else {
-			echo "file size exceeds maximum allowed";
+			echo "file type is not allowed";
 		}
-	} else {
-		echo "file type is not allowed";
 	}
 
 	$error_status = false;
-
+	
 	if (!empty($_POST['usereditname'])) {
 		$editusername = $_POST['usereditname'];
 	} else {
@@ -89,13 +71,21 @@ if (isset($_POST['save'])) {
 		$error_username = "Please Enter Your Name";
 	}
 	$edituserbio = $_POST['usereditbio'];
-
+	//echo $filename;
 	if ($error_status == false) {
 		$updateUser = $updateUserInfo->updateUserInfo($editusername, $useremail, $edituserbio, $filename);
 		header("Location: " . $_SERVER['PHP_SELF']);
-		echo $filename;
+		
 	}
 
+}
+
+
+//user log out
+if(isset($_POST['logout']))
+{
+	unset($_SESSION['user_email']);
+	header("location:../login.php");
 }
 
 //connect With Register Models 
@@ -131,21 +121,22 @@ $reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
 	<div class="profile-page">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="profile-header">
-				<div class="profile-edit d-flex justify-content-center">
-					<img src="../image/<?php if (empty($userimg)) {
-						echo "nurse.jpg";
-					} else {
+				<div class="profile-edit d-flex justify-content-center ">
+					<img src="../image/<?php if (!empty($userimg)) {
+						
 						echo $userimg;
+					} else {
+						echo "nurse.jpg";
 					} ?>" class="img"
 						id="profileimg" alt="" />
 
 				</div>
-				<div class="cancel-button" id="cancelButton">
-					<i class="fa-solid fa-xmark fa-xl cross d-none"></i>
+				<div class="cancel-button d-none" id="cancelButton">
+					<i class="fa-solid fa-xmark fa-xl cross "></i>
 				</div>
 				<div class="round d-none">
 					<i class="fa fa-camera camera" style="color: #00000;"></i>
-					<input type="file" name="img" src="" alt="" id="input" class="world">
+					<input type="file" name="img" src="" alt="" id="input" class="world" >
 				</div>
 				<h1 class="profile-name username mt-3">
 					<?php echo $username; ?>
@@ -173,12 +164,12 @@ $reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
 
 			</div>
 			<div class="allbtn">
-				<button class="btn btn-primary mx-3 editProfile" name="edituserprofile">Edit Profile</button>
-				<!-- <a href="" class="btn btn-primary mx-3 editProfile" name="edituserprofile">Edit Profile</a> -->
-				<a href="../login.php" class="btn btn-danger logout">Log Out</a>
+				<button class="btn btn-primary mx-3 editProfile" name="edituserprofile" id="edit_profile"><i class="fa-regular fa-pen-to-square mr-2"></i>Edit Profile</button>
+				<button class="btn btn-danger logout" name="logout"><i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Log Out</button>
+				<!-- <a href="../login.php" class="btn btn-danger logout">Log Out</a> -->
 
-				<button class="btn btn-info d-none save mx-3" name="save">Save</button>
-				<button class="btn btn-warning d-none cancel" name="cancel">Cancel</button>
+				<button class="btn btn-info d-none save mx-3" name="save"><i class="fa-regular fa-floppy-disk mr-2"></i>Save</button>
+				<button class="btn btn-warning d-none cancel" name="cancel"><i class="fa-solid fa-xmark mr-2"></i>Cancel</button>
 			</div>
 		</form>
 		<div class="profile-content mt-4	">

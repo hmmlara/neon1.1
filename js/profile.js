@@ -1,21 +1,5 @@
 $(document).ready(function(){
-    // $(".editProfile").on('click',function(e){
-    //     e.preventDefault();
-    //     $('.round').removeClass('d-none');
-        
-    //     $('.editProfile').addClass('d-none');
-    //     $('.logout').addClass('d-none');
-    //     $('.save').removeClass('d-none');
-    //     $('.cancel').removeClass('d-none');
-    //     $('.username').addClass('d-none');
-    //     $('.usereditname').removeClass('d-none');
-    //     $('.profile-bio').addClass('d-none');
-    //     $('.usereditbio').removeClass('d-none');
-
-    //     if ($('.img').attr('src') !== '../image/nurse.jpg') {
-    //       $('#cancelButton').removeClass('d-none');
-    //     }
-    // })
+    
     $(".editProfile").on('click', function(e) {
       e.preventDefault();
       $('.round').removeClass('d-none');
@@ -29,13 +13,10 @@ $(document).ready(function(){
       $('.usereditbio').removeClass('d-none');
   
       if ($('.img').attr('src') !== '../image/nurse.jpg') {
-        console.log("MIngal")
-        $('.cross').removeClass('d-none');
-        console.log("Nihao")
+        $('#cancelButton').removeClass('d-none');
       }
     });
     $(".cancel").on("click",function(){
-        
         $('.round').addClass('d-none');
         $('.save').addClass('d-none');
         $('.cancel').addClass('d-none');
@@ -50,22 +31,17 @@ $(document).ready(function(){
   $("input[name='img']").on("change", function () {
       var file = this.files[0];
       var reader = new FileReader();
-      reader.onloadend = function () {
+      reader.onload= function () {
           $(".img").attr("src", reader.result);
-          if ($('.img').attr('src') !== '../image/nurse.jpg') {
-            console.log("change")
-            $('.cross').removeClass('d-none');
-            console.log("change")
+          if ($('.img').attr('src') != '../image/nurse.jpg') {
+            console.log("Not Equal");
+            $('#cancelButton').removeClass('d-none');
           }else{
-           
-            $('.cross').addClass('d-none');
+            $('#cancelButton').addClass('d-none');
           }
 
       }
-    //   $(".cancel-button").on("click",function(){
-    //     $('.img').attr('src','../image/nurse.jpg');
-    //    $('#cancelButton').addClass('d-none');
-    //  })
+    
       if (file) {
         console.log(file);
           reader.readAsDataURL(file);
@@ -73,22 +49,40 @@ $(document).ready(function(){
       
   });
 
+  
       
       $(".cancel-button").on("click",function(){
          $('.img').attr('src','../image/nurse.jpg');
          $("#input").val("");
         $('#cancelButton').addClass('d-none');
+        let user_image = "nurse.jpg";
+        $.ajax({
+          url : "changeImage.php",
+          type : 'post',
+          data : {user_image : user_image},
+          success : function(response){
+            console.log(response);
+          }
+        })
       })
     
-      $(".save").on("click", function() {
-        let img = $('#profileimg').attr('src');
-        if (img == '../image/nurse.jpg') {
-          console.log(img)
-          $('#profileimg').attr('src', img);
-          console.log("Hello");
-        } else {
-          $('#profileimg').attr('src', img);
-          console.log(img);
-        }
-      });
+    //   $(".save").on("click", function(e) {
+    //     if ($('.img').attr('src') !== '../image/nurse.jpg') {
+    //       console.log("I am Hello")
+// 
+    //       let imgSrc = $('#profileimg').attr('src');
+    //     console.log(imgSrc);
+    //     $("#profileimg").attr("src", imgSrc);
+    //       //$('.cross').removeClass('d-none');
+    //        e.preventDefault();
+    //     }
+        
+        
+    // });
+      // $(".save").on("click", function(e) {
+      //   let img = $('#profileimg').attr('src');
+      //   console.log(img)
+      //   $("#profileimg").attr("src",img);
+      //   e.preventDefault();
+      // });
 })

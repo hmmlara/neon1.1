@@ -9,6 +9,12 @@
     height: 300px;
     position: relative;
   }
+
+  /* .profile-edit .img {
+    border: 100px solid blue;
+  } */
+
+
   /* .cross{
     size: 40rem;
   } */
@@ -24,6 +30,7 @@
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    /* border: 100px solid blue; */
   }
   
   .profile-name {
