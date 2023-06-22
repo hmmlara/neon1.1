@@ -93,7 +93,7 @@ $register_model = new CreateUser();
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
 $userid = $register_model->getUserId($userEmail);
-$reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
+// $reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
