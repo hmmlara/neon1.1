@@ -11,18 +11,13 @@ foreach ($getUserinfo as $getUser) {
 }
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
-} else {
+} 
 
-	echo $_SESSION["userid"];
-
-	echo $_SESSION["user_email"];
-}
 if ($_SESSION["user_email"] == $getUser['email']) {
 	$userimg = $getUser['image'];
 	$username = $getUser['name'];
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
-	echo $userimg;
 }
 ?>
 
@@ -49,32 +44,38 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	<!-- search bar -->
 	<div class="container mt-4">
 		<!-- Search Bar -->
-		<div class="search-bar">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search..." />
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-						Search
-					</button>
+		
+		<div class="row my-3">
+			<div class="col-md-4">
+				<select class="form-control filter-select">
+					<option selected>Genre..</option>
+					<option>Action</option>
+					<option>Comedy</option>
+					<option>Biography</option>
+				</select>
+			</div>
+			<div class="col-md-8">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search..." />
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button">
+							Search
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
+    	</div>
 
-		<!-- Filter Component -->
-		<div class="filter-component">
-			<select class="form-control filter-select">
-				<option selected>Genre..</option>
-				<option>Action</option>
-				<option>Comedy</option>
-				<option>Biography</option>
-			</select>
-		</div>
-	</div>
+		
+	
+
+		
+	
 	<!-- Popular Session -->
-	<div class="container mt-4">
+	
 		<h1>Collection for May</h1>
 
-		<div class="container swiper">
+		<div class="container swiper mb-3">
 			<h2>Biography</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
@@ -114,7 +115,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 				</div>
 			</div>
 		</div>
-		<div class="container swiper">
+		<div class="container swiper mb-4">
 			<h2>Misctry</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
@@ -222,7 +223,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 						?>
 						<div class="book-card">
 							<div class="book-card-image">
-								<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
+								<img src="../neon/img/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
 								<div class="book-card-overlay">
 									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
 										More</a>
