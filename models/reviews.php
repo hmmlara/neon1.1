@@ -53,6 +53,17 @@ class Reviews
 
     }
 
+    function get_review_with_limit_offset($limit,$offset){
+        $sql = "SELECT * FROM `user_review` LIMIT :limit_num OFFSET :offset_num";
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindValue(':limit_num', $limit, PDO::PARAM_INT);
+        $statement->bindValue(':offset_num', $offset, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     function get_review_book($review_id)
     {
         $sql = "SELECT * FROM `review_book` WHERE `user_review_id`=:id";
@@ -75,7 +86,7 @@ class Reviews
 
     function get_userinfo_by_id($id)
     {
-        $sql = "SELECT * FROM `user` WHERE `id` = :id";
+        $sql = "SELECT name,image FROM `user` WHERE `id` = :id";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -125,6 +136,6 @@ class Reviews
 }
 
 $reviews_model = new Reviews();
-// $result = $reviews_model->get_review_comments(10);
+// $result = $reviews_model->get_review_with_limit_offset(5,0);
 // var_dump($result);
 ?>
