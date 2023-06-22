@@ -7,6 +7,15 @@ class UserController extends Users{
     {
         return $this->updateUser($editusername,$useremail,$edituserbio,$filename);
     }
+    public function getSingleUser($useremail)
+    {
+        return $this->get_user($useremail);
+    }
+
+    public function changeImage($user_image,$user_email)
+    {
+        return $this->change_image($user_image,$user_email);
+    }
 }
 
 ?>

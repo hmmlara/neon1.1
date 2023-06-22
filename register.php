@@ -168,7 +168,7 @@ if(isset($_POST['register']))
 
                         <div class="form-floating mb-3">
                             <input type="text" name="user_name" class="form-control" required value="<?php if(isset($user_name)) echo $user_name ?>" id="floatingInputUsername" placeholder="myusername">
-                            <label for="floatingInputUsername">Username</label>
+                            <label for="floatingInputUsername"><i class="fa-solid fa-user mx-2"></i>Username</label>
                             <span class="text-danger"><?php if(isset($error_name)) echo $error_name; ?></span>
                         </div>
                         

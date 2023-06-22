@@ -33,8 +33,7 @@ $(document).ready(function(){
                     });
 
                     offset += limit; 
-                    console.log(offset)
-                    console.log(authors.length)
+                    
                 }
                 
                 if(authors.length<3)               

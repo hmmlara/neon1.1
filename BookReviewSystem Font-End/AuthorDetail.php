@@ -16,8 +16,6 @@ foreach ($getUserinfo as $getUser) {
 if(!isset($_SESSION['user_email']))
 	{
 		header("location:../login.php");
-	}else{
-		echo $_SESSION["user_email"];
 	}
 
 	if($_SESSION["user_email"]==$getUser['email'])
@@ -26,14 +24,12 @@ if(!isset($_SESSION['user_email']))
 		$username=$getUser['name'];
 		$userbio=$getUser['bio'];
 		$useremail=$getUser['email'];
-		//echo $userimg;
 	}
 
 
 if(isset($_GET['id']))
 {
 	$id=$_GET['id'];
-	echo $id;
 }
 
 foreach($getAllAuthor as $getAuthor)
@@ -42,7 +38,6 @@ foreach($getAllAuthor as $getAuthor)
 	{
 		$authorname=$getAuthor['name'];
 		$authorimg=$getAuthor['image'];
-		 echo $authorname;
 	}
  }
 
@@ -67,9 +62,13 @@ foreach($getAllAuthor as $getAuthor)
 	include_once "nav.php";
 	?>
 
-	<div class="container mt-4">
-		<div class="row">
- 			<div class="col-md-4">
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container mt-4 mb-3">
+		<div class="row ">
+ 			<div class="col-md-4 " >
 				<img class="author-image" src="../image/<?php echo $authorimg;  ?>"  width="100%" alt="Author Image" />
 			</div>
 			<div class="col-md-6">
@@ -83,12 +82,12 @@ foreach($getAllAuthor as $getAuthor)
 				</p>
 			</div>
 		</div>
-		<div class="author-card-grid-view">
-			<!-- Author cards here -->
+		<!-- <div class="author-card-grid-view">
+			Author cards here 
 			<div class="author-card">
 				<a class="author-website" href="https://www.author-website.com" target="_blank">Visit Website</a>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<!-- Books -->

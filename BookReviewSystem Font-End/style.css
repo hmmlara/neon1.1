@@ -63,7 +63,7 @@
 
   h1 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     color: #333;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -192,6 +192,8 @@
   text-align: center;
 }
 
+
+
 /* quick link */
 .Quick-Link{
   display: flex;
@@ -207,13 +209,8 @@
   flex-grow: 1;
 }
 
-.filter-component {
-  margin-bottom: 20px;
-}
 
-.filter-select {
-  width: 200px;
-}
+
 
 /* Responsive Styles */
 @media (max-width: 767px) {
