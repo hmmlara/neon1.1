@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__."/../vendor/db.php";
 class Book{
+    private $connection="";
     public function getBookList(){
         //1.DB connection
         $this->connection=Database1::connect();
@@ -8,7 +9,7 @@ class Book{
         //2. sql statementfa
         $sql="SELECT book.id, book.name,book.image,book.pdf_file, category.name as category_name, auther.name as auther_name
         FROM book 
-        INNER JOIN category ON book.category_id = category.id
+        INNER JOIN category ON book.id = category.id
         INNER JOIN auther ON book.auther_id = auther.id ";
         $statement=$this->connection->prepare($sql);
         //3. execute
@@ -92,5 +93,36 @@ class Book{
         
     }
 
+    public function getSearchBook($bookname){
+        $this->connection = Database1::connect();
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "SELECT * FROM book WHERE name LIKE '%" . $bookname . "%'";
+
+            $statement = $this->connection->prepare($sql);
+            //$statement->bindParam(":name", $bookname);
+
+            $statement->execute();
+            $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+    }
+
+    public function searchBook($bookname,$categoryName){
+        $this->connection = Database1::connect();
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "SELECT book.*
+            FROM book
+            JOIN book_category ON book.id = book_category.book_id
+            JOIN category ON book_category.category_id = category.id
+            WHERE category.id = $categoryName and book.name LIKE '%" . $bookname . "%'" ;
+
+            $statement = $this->connection->prepare($sql);
+            //$statement->bindParam(":name", $bookname);
+
+            $statement->execute();
+            $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+    }
 }
 ?>

@@ -4,6 +4,10 @@ class CategoryController extends Category{
     public function getAllCategory(){
         return $this->getCategoryList();
     }
+
+    public function getSelectCategory($value){
+        return $this->getCategory($value);
+    }
     // public function addNewAuther($name,$profile){
     //     return $this->createNewAuther($name,$profile);
     // }
