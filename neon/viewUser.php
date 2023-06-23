@@ -13,29 +13,15 @@ $user=$user_controller->getUser($cid);
 <main class="content">
 	<div class="container-fluid p-0">
 		<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
-        <div class="card col-md">
-            <div class="card-body">
-            <div class="row">
-                    
-                    <label for="" class="form-label">id:<strong><?php echo $user['id'] ?></strong></label>
-                
-            </div>
-                <div class="row">
-                    
-                        <label for="" class="form-label">User Name:<strong><?php echo $user['name'] ?></strong></label>
-                    
+                <div class="card" style="width: 18rem;">
+                <img src="img/photos/<?php echo $user['image'] ?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                        <h3 class="card-tit"><strong><?php echo $user['name'] ?></strong></h1>
+                        <h4 class="card-title"><strong><?php echo $user['email'] ?></h3>
+                        <h4 class="card-title"><strong><?php echo $user['password'] ?></h3>
+                        <h4 class="card-title"><strong><?php echo $user['bio'] ?></h3>
+                        
                 </div>
-                <div class="row">
-                    
-                        <label for="" class="form-label">Email:<strong><?php echo $user['email'] ?></strong></label>
-                    
-                </div>
-                <div class="row">
-                    
-                        <label for="" class="form-label">Password:<strong><?php echo $user['password'] ?></strong></label>
-                    
-                </div>
-            </div>
         </div>
         <div>
             <a href="user.php" class="btn btn-success">Back to Users</a>

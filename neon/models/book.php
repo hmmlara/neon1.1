@@ -17,16 +17,15 @@ class Book{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function createNewBook($name,$category,$auther,$image,$pdf,$date){
+    public function createNewBook($name,$auther,$image,$pdf,$date){
         //1.DB connection
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2.sql statement
-        $sql="INSERT INTO book( name, category_id, auther_id, date, image, pdf_file) VALUES
-        (:name,:category_id,:auther_id,:date,:image,:pdf_file)";
+        $sql="INSERT INTO book( name, auther_id, date, image, pdf_file) VALUES
+        (:name,:auther_id,:date,:image,:pdf_file)";
         $statement=$this->connection->prepare($sql);
         $statement->bindParam(":name",$name);
-        $statement->bindParam(":category_id",$category);
         $statement->bindParam(":auther_id",$auther);
         $statement->bindParam(":date",$date);
         $statement->bindParam(":image",$image);
@@ -42,10 +41,11 @@ class Book{
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-        $sql="SELECT book.*, category.name as category_name, auther.name as auther_name,book.image,book.pdf_file
-        FROM book 
-        INNER JOIN category ON book.category_id = category.id
-        INNER JOIN auther ON book.auther_id = auther.id where book.id=:id";
+        $sql="SELECT book.id, book.name,book.image,book.pdf_file,book.date , category.name as category_name , auther.name as auther_name
+        FROM book_category
+        INNER JOIN category ON book_category.category_id = category.id
+        INNER JOIN book ON book_category.book_id = book.id
+        INNER join auther on book.auther_id = auther.id where book.id=:id";
         $statement = $this->connection->prepare($sql);
 
         $statement->bindParam(":id",$id);
@@ -53,17 +53,16 @@ class Book{
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
-    public function updateBookInfo($cid,$name,$category,$auther,$image,$pdf,$date){
+    public function updateBookInfo($cid,$name,$auther,$image,$pdf,$date){
         //1.DB connection
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2.sql statement
-        $sql="UPDATE book SET  name = :name, category_id = :category_id, auther_id=:auther_id,
+        $sql="UPDATE book SET  name = :name,  auther_id=:auther_id,
         date = :date, image = :image, pdf_file = :pdf_file WHERE id=:id;
         ";
         $statement=$this->connection->prepare($sql);
         $statement->bindParam(":name",$name);
-        $statement->bindParam(":category_id",$category);
         $statement->bindParam(":auther_id",$auther);
         $statement->bindParam(":date",$date);
         $statement->bindParam(":image",$image);
