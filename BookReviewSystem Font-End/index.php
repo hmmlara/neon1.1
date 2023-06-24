@@ -32,23 +32,6 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 }
 
 
-$getAllBookList = [];
-
-if(isset($_POST['searchbyuser'])){
-	$bookname=$_POST['bookname'];
-	// if(isset($_POST['categoryName'])){
-		
-		
-	// }
-	
-	$categoryName=$_POST['categoryName'];
-		if($categoryName=="All"){
-			$getAllBookList=$getAllBook->getSearchBooks($bookname);
-		}
-		if($categoryName!="All"){
-			$getAllBookList=$getAllBook->searchBooks($bookname,$categoryName);
-		}
-}
 ?>
 
 <!DOCTYPE html>
@@ -71,64 +54,9 @@ if(isset($_POST['searchbyuser'])){
 
 	<div class="container mt-4">
 		<!-- Search Bar -->
-		<form action="" method="post">
-			<div class="row my-3">
-				<div class="col-md-4">
-					<select class="form-control filter-select" name="categoryName" id="filter_category">
-						<option value="All" id="something" >All</option>
-						<?php foreach($getCategory as $category){
-						?>
-						<option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-						<?php } ?>
-					</select>
-				</div>
-				<div class="col-md-8">
-					<div class="input-group">
-						<input type="text" class="form-control" name="bookname" id="booksearch" placeholder="Search..." />
-						<div class="input-group-append">
-							<button class="btn btn-primary" name="searchbyuser"  id="search">
-								Search
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
+		
 		
 
-	<div class="container" height="500px">
-			<div class="row">
-				<!-- <div class=""> -->
-					<div class="col-md-12 d-flex justify-content-evenly" id="filterbook">
-					
-					</div>
-				<!-- </div> -->
-				
-			</div>
-			<div class="row">
-				
-					<div class="col-md-12 d-flex justify-content-evenly"
-				 	<?php if(!isset($_POST['searchbyuser']) || empty($_POST['searchbyuser'])) { echo 'style="display: none;"'; } else { echo 'style="display: flex;"'; }?>>
-						<?php foreach($getAllBookList as $BookList){
-						?>
-						<div class="col-md-3 usersearch_book">
-							<div class="card  sm-4 mb-3" width="100%" height="400px">
-								<img src="../image/photos/<?php echo $BookList['image'] ?>" class="card-img-top" alt="...">
-								<div class="card-body">
-									<h5 class="card-title"><?php echo $BookList['name'] ?></h5>
-									<p class="card-text"><?php echo $BookList['preview'] ?></p>
-									<p class="card-text"><?php echo $BookList['date'] ?></p>
-									<a href="#" class="btn btn-primary">Go somewhere</a>
-								</div>
-							</div>
-                      	</div>
-						<?php  } ?>
-					</div>
-				
-				
-			</div>
-			
-	</div>
 	<!-- Popular Session -->
 	
 		<h1>Collection for May</h1>
@@ -412,7 +340,7 @@ if(isset($_POST['searchbyuser'])){
 
 			});		</script>
 		<script src="app.js"></script>
-		<script src="../js/index.js"></script>
+		
 </body>
 
 </html>
