@@ -39,7 +39,7 @@ $auther_list=$auther_controller->getAllAuthers();
                         for($r=0;$r<sizeof($auther_list);$r++)
                         {
                             echo "<tr id='". $auther_list[$r]['id'] ."'>";
-                            echo "<td>" . $auther_list[$r]['id']."</td>";
+                            echo "<td>" . ($r+1)."</td>";
                             echo "<td>" . $auther_list[$r]['name']."</td>";
                             echo "<td>" . $auther_list[$r]['profile']."</td>";
                             echo "<td><a class='btn btn-success' href='viewAuther.php?id=".$auther_list[$r]['id']."'>View</a><a class='btn btn-warning' href='editAuther.php?id=".$auther_list[$r]['id']."'>Edit</a><a class='btn btn-danger delete_auther'>Delete</a></td>";

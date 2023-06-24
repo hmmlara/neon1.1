@@ -14,7 +14,7 @@ $comment = array_reverse($comment);
 if(isset($_POST['submit'])){
 	$comment=trim($_POST['comment']);
 	if (strlen($comment) > 0 && $comment !== str_repeat(' ', strlen($comment))){
-		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book['id']);
+		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book[0]['id']);
 		$comment=$comment_controller->getAllComments($cid);
 		$comment = array_reverse($comment);
 	}
@@ -72,16 +72,22 @@ if(isset($_POST['submit'])){
 				</div>
 
 				<div class="book-info">
-				<h3 class="book-title"><?php echo $book['name'] ?></h3>
+				<h3 class="book-title"><?php echo $book[0]['name'] ?></h3>
 					<div class="book-image">
 						<img
-							src="../image/photos/<?php echo $book['image'] ?>"
-							alt="<?php echo $book['name'] ?>"
+							src="../image/photos/<?php echo $book[0]['image'] ?>"
+							alt="<?php echo $book[0]['name'] ?>"
 						/>
 					</div>
-					<p class="book-author"><?php echo $book['auther_name'] ?></p>
-					<span class="current-rating">4.5</span>
-
+					<p class="book-author"><?php echo $book[0]['auther_name'] ?></p>
+					<span><strong>
+						<?php
+							foreach ($book as $value) {
+								echo $value['category_name']. '  /';
+							}  
+						?>  
+						</strong>
+					</span>
 					<p class="book-description">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
 						temporibus et voluptate id. Nobis, dicta! Doloribus, illum dolore
@@ -102,7 +108,7 @@ if(isset($_POST['submit'])){
 
 					<div class="actions">
 						<div class="bottom-icons">
-							<div class="rating" id=<?php echo $book['id'] ?>>
+							<div class="rating" id=<?php echo $book[0]['id'] ?>>
 								<span class="star"></span>
 								<span class="star"></span>
 								<span class="star"></span>
