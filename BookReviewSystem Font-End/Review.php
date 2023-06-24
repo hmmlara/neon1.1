@@ -127,23 +127,27 @@ $reviews = $reviews_model->get_all_review();
 					<div class="comments">
 						<h4>Comments</h4>
 						<ul class="comment-list">
-							<?php 
+							<?php
 							$comments = $reviews_model->get_review_comments($id_of_review);
-							foreach($comments as $comment){
+							foreach ($comments as $comment) {
 
 								$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id'])
 
-							?>
-							<li class="comment">
-								<div class="comment-avatar">
-									<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
-								</div>
-								<div class="comment-content">
-									<p class="comment-text"><?php $comment['comment'] ?></p>
-									<span class="comment-meta">-<?php echo $userinfo['name'] ?></span>
-								</div>
-							</li>
-							<?php 
+									?>
+								<li class="comment">
+									<div class="comment-avatar">
+										<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
+									</div>
+									<div class="comment-content">
+										<p class="comment-text">
+											<?php echo $comment['comment'] ?>
+										</p>
+										<span class="comment-meta">-
+											<?php echo $userinfo['name'] ?>
+										</span>
+									</div>
+								</li>
+							<?php
 							}
 							?>
 
@@ -151,9 +155,9 @@ $reviews = $reviews_model->get_all_review();
 						</ul>
 						<button class="load-more-btn btn">Load More</button>
 
-						<form class="comment-form">
-							<textarea class="form-control" placeholder="Add a comment"></textarea>
-							<button class="btn btn-primary">Submit</button>
+						<form class="comment-form" method='post'>
+							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
+							<button class="btn btn-primary" name="submit">Submit</button>
 						</form>
 					</div>
 				</div>

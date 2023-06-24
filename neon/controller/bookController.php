@@ -16,6 +16,14 @@ class BookController extends Book{
     public function deleteBook($id){
         return $this->deleteBookInfo($id);
     }
+
+    public function getSearchBooks($bookname){
+        return $this->getSearchBook($bookname);
+    }
+
+    public function searchBooks($bookname,$categoryName){
+        return $this->searchBook($bookname,$categoryName);
+    }
 }
 
 ?>
