@@ -32,7 +32,7 @@ $user_list=$user_controller->getAllUsers();
                         for($r=0;$r<sizeof($user_list);$r++)
                         {
                             echo "<tr id='". $user_list[$r]['id'] ."'>";
-                            echo "<td>" . $user_list[$r]['id']."</td>";
+                            echo "<td>" . ($r+1)."</td>";
                             echo "<td>" . $user_list[$r]['name']."</td>";
                             echo "<td>" . $user_list[$r]['email']."</td>";
                             echo "<td>" . $user_list[$r]['password']."</td>";

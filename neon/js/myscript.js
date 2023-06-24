@@ -22,18 +22,16 @@ $(document).ready(function(){
         }
     })
     $(document).on('click','.delete_book',function(){
-        
         let status=confirm('Are you sure want to delete')
         let tr=$(this).parent().parent();
         let id=tr.attr('id');
         if (status) {
+            
             $.ajax({
                 method: 'post',
                 url: 'deleteBook.php',
                 data: { id: id },
                 success: function(response) {
-                    
-                    console.log(response)
                     if (response = "success") {
                         location.href="book.php";
                     }
