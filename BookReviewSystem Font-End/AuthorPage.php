@@ -8,11 +8,9 @@ $getUserinfo=$getUserData->getUserList();
 
 $getAllAuthorInfo=new authorController();
 $getAllAuthor=$getAllAuthorInfo->getAllAuthorInfo();
-//var_dump($getAllAuthor);
 
-
+$notfoundimg=false;
 foreach ($getUserinfo as $getUser) {
-	//var_dump($getUser) ;
 }
 if(!isset($_SESSION['user_email']))
 	{
@@ -24,24 +22,19 @@ if(!isset($_SESSION['user_email']))
 		$username=$getUser['name'];
 		$userbio=$getUser['bio'];
 		$useremail=$getUser['email'];
-		//echo $userimg;
 	}
 
 	if(isset($_POST['search']))
 	{
 		$usersearch=$_POST['usersearch'];
 		$searchAuthor=$getAllAuthorInfo->searchAuthorInfo($usersearch);
-		//$getAllAuthor=$searchAuthor;
-		 //var_dump($searchAuthor);
 		 foreach ($searchAuthor as  $someauthor) {
-			var_dump($someauthor);
 		}
 		 if(sizeof($searchAuthor)==0)
 		 {
 			$searchAuthor=[];
+			$notfoundimg=true;
 		 }
-		
-		// echo $usersearch;
 	}
 
 	
@@ -75,98 +68,30 @@ if(!isset($_SESSION['user_email']))
 	</head>
 	<body>
 		<!-- Navigation bar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a
-				class="navbar-brand-logo"
-				href="index.php"
-			>
-				<img
-					src="logo.png"
-					style="width: 200px; height: 100px"
-					alt="Book Review System Logo"
-				/>
-			</a>
+		<?php
+	include_once "nav.php";
+	?>
 
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-toggle="collapse"
-				data-target="#navbarNav"
-				aria-controls="navbarNav"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div
-				class="collapse navbar-collapse justify-content-end"
-				id="navbarNav"
-			>
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="index.php"
-							>Home</a
-						>
-					</li>
-
-					<li class="nav-item active">
-						<a
-							class="nav-link"
-							href="AuthorPage.php"
-							>Author</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="Review.php"
-							>Reviews</a
-						>
-					</li>
-				
-					<li class="nav-item hide-in-large">
-						<a
-							class="nav-link"
-							href="Profile.php"
-							>Profile</a
-						>
-					</li>
-					<li class="nav-item account">
-						<a href="Profile.php">
-							<div class="avatar">
-								<img
-									src="../image/<?php if(empty($userimg)){echo "nurse.jpg";}else{echo $userimg;}  ?>"
-									alt="User Avatar"
-								/>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
 		<!-- Rest of the Book Review System content -->
 		<div class="container mt-4">
 			<!-- Filter Component -->
 			<form action="" method="post">
-				
 				<div class="row">
-						<div class="col-md-12">
-							<div class="search-bar">
-								<div class="input-group">
-									<input	type="text"	class="form-control" placeholder="Search..." name="usersearch" value="<?php if(isset($usersearch)){echo $usersearch;} ?>"/>
-									<div class="input-group-append">
-										<button class="btn btn-primary" id="usersearchauthor"  style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" name="search">
-											Search
-										</button>
-									</div>
-									<div class="col-md-1">
-										<button class="btn btn-info">Clear</button>
-									</div>
+					<div class="col-md-9">
+						<div class="search-bar">
+							<div class="input-group">
+								<input	type="text"	class="form-control" placeholder="Search..." name="usersearch" value="<?php if(isset($usersearch)){echo $usersearch;} ?>"/>
+								<div class="input-group-append">
+									<button class="btn btn-primary" id="usersearchauthor"  style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" name="search">
+										Search
+									</button>
+								</div>
+								<div class="col-md-1">
+									<button class="btn btn-info">Clear</button>
 								</div>
 							</div>
 						</div>
+					</div>
 				</div>
 			</form>
 			
@@ -208,12 +133,24 @@ if(!isset($_SESSION['user_email']))
 					<?php
 					}
 					?>
+					
 				</div>
+				
 				<?php if(!isset($_POST['search'])){ ?>
 					<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
 						<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn">Load More</button>
 					</div>
 			<?php }?>
+			<?php
+						if($notfoundimg==true)
+						{
+					?>
+					<div class="notfoundauthor  d-flex justify-content-center">
+						<img src="../image/notfound/no-results (1).png" width="300px" height="auto" alt="">
+					</div>
+					<?php
+						}
+					?>
 		</div>
 		<footer class="footer mt-4">
 			<div class="footer-container">

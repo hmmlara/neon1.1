@@ -11,18 +11,13 @@ foreach ($getUserinfo as $getUser) {
 }
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
-} else {
+} 
 
-	echo $_SESSION["userid"];
-
-	echo $_SESSION["user_email"];
-}
 if ($_SESSION["user_email"] == $getUser['email']) {
 	$userimg = $getUser['image'];
 	$username = $getUser['name'];
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
-	echo $userimg;
 }
 ?>
 
@@ -42,75 +37,45 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 
 <body>
 	<!-- Navigation bar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand-logo" href="#">
-			<img src="logo.png" style="width: 200px; height: 100px" alt="Book Review System Logo" />
-		</a>
+	<?php
+	include_once "nav.php";
+	?>
 
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item active">
-					<a class="nav-link" href="index.php">Home</a>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link" href="AuthorPage.php">Author</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="Review.php">Reviews</a>
-				</li>
-
-				<li class="nav-item hide-in-large">
-					<a class="nav-link" href="Profile.php">Profile</a>
-				</li>
-				<li class="nav-item account">
-					<a href="Profile.php">
-						<div class="avatar">
-							<img src="../image/<?php if (empty($userimg)) {
-								echo "nurse.jpg";
-							} else {
-								echo $userimg;
-							} ?>" alt="User Avatar" />
-						</div>
-					</a>
-
-				</li>
-			</ul>
-		</div>
-	</nav>
 	<!-- search bar -->
 	<div class="container mt-4">
 		<!-- Search Bar -->
-		<div class="search-bar">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search..." />
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-						Search
-					</button>
+		
+		<div class="row my-3">
+			<div class="col-md-4">
+				<select class="form-control filter-select">
+					<option selected>Genre..</option>
+					<option>Action</option>
+					<option>Comedy</option>
+					<option>Biography</option>
+				</select>
+			</div>
+			<div class="col-md-8">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search..." />
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button">
+							Search
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
+    	</div>
 
-		<!-- Filter Component -->
-		<div class="filter-component">
-			<select class="form-control filter-select">
-				<option selected>Genre..</option>
-				<option>Action</option>
-				<option>Comedy</option>
-				<option>Biography</option>
-			</select>
-		</div>
-	</div>
+		
+	
+
+		
+	
 	<!-- Popular Session -->
-	<div class="container mt-4">
+	
 		<h1>Collection for May</h1>
 
-		<div class="container swiper">
+		<div class="container swiper mb-3">
 			<h2>Biography</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
@@ -150,7 +115,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 				</div>
 			</div>
 		</div>
-		<div class="container swiper">
+		<div class="container swiper mb-4">
 			<h2>Misctry</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
@@ -258,7 +223,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 						?>
 						<div class="book-card">
 							<div class="book-card-image">
-								<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
+								<img src="../neon/img/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
 								<div class="book-card-overlay">
 									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
 										More</a>

@@ -10,11 +10,13 @@ $book_controller=new BookController();
 $book=$book_controller->getBook($cid);
 $comment_controller=new CommentController();
 $comment=$comment_controller->getAllComments($cid);
+$comment = array_reverse($comment);
 if(isset($_POST['submit'])){
 	$comment=trim($_POST['comment']);
 	if (strlen($comment) > 0 && $comment !== str_repeat(' ', strlen($comment))){
 		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book['id']);
 		$comment=$comment_controller->getAllComments($cid);
+		$comment = array_reverse($comment);
 	}
 }
 ?>
@@ -39,6 +41,7 @@ if(isset($_POST['submit'])){
 			rel="stylesheet"
 			href="BookDetail.css"
 		/>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<!-- <link
 			rel="stylesheet"
 			href="style.css"
@@ -136,7 +139,7 @@ if(isset($_POST['submit'])){
 					<?php
 					foreach ($comment as $com) {
 					?>
-					<li class="comment">
+					<li class="comment" data-comment-id="<?php echo $com['id']; ?>">
 						<div class="comment-avatar">
 							<img
 								src="../image/photos/<?php echo $com['image'] ?>"
@@ -144,73 +147,16 @@ if(isset($_POST['submit'])){
 							/>
 						</div>
 						<div class="comment-content">
+							<p class="ago"></p>
 							<p class="comment-text"><?php echo $com['comment'] ?></p>
 							<span class="comment-meta">- <?php echo $com['name'] ?></span>
 						</div>
 					</li>
+	
 					<?php
 					}
 					?>
-					<li class="comment">
-						<div class="comment-avatar">
-							<img
-								src="avatar.jpg"
-								alt="User Avatar"
-							/>
-						</div>
-						<div class="comment-content">
-							<p class="comment-text">This book was amazing!</p>
-							<span class="comment-meta">- John Doe</span>
-						</div>
-					</li>
-					<li class="comment">
-						<div class="comment-avatar">
-							<img
-								src="avatar.jpg"
-								alt="User Avatar"
-							/>
-						</div>
-						<div class="comment-content">
-							<p class="comment-text">Highly recommended!</p>
-							<span class="comment-meta">- Jane Smith</span>
-						</div>
-					</li>
-					<li class="comment">
-						<div class="comment-avatar">
-							<img
-								src="avatar.jpg"
-								alt="User Avatar"
-							/>
-						</div>
-						<div class="comment-content">
-							<p class="comment-text">Highly recommended!</p>
-							<span class="comment-meta">- Jane Smith</span>
-						</div>
-					</li>
-					<li class="comment">
-						<div class="comment-avatar">
-							<img
-								src="avatar.jpg"
-								alt="User Avatar"
-							/>
-						</div>
-						<div class="comment-content">
-							<p class="comment-text">Highly recommended!</p>
-							<span class="comment-meta">- Jane Smith</span>
-						</div>
-					</li>
-					<li class="comment">
-						<div class="comment-avatar">
-							<img
-								src="avatar.jpg"
-								alt="User Avatar"
-							/>
-						</div>
-						<div class="comment-content">
-							<p class="comment-text">Highly recommended!</p>
-							<span class="comment-meta">- Jane Smith</span>
-						</div>
-					</li>
+					
 					<!-- Add more comment list items as needed -->
 				</ul>
 				<button class="load-more-btn btn">Load More</button>
@@ -314,8 +260,42 @@ if(isset($_POST['submit'])){
 		</footer>
 
 		<!-- JavaScript -->
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script src="BookDetail.js"></script>
+		<script>
+		$(document).ready(function() {
+			<?php foreach ($comment as $com) : ?>
+				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
+				var writingTime = "<?php echo $com['date']; ?>";
+
+				// Convert the writing time to JavaScript Date object
+				var writingDate = new Date(writingTime);
+
+				// Calculate the time difference in milliseconds
+				var timeDiff = Date.now() - writingDate.getTime();
+
+				// Define time intervals in milliseconds
+				var minute = 60 * 1000;
+				var hour = 60 * minute;
+				var day = 24 * hour;
+
+				// Calculate the time difference in different units
+				var diff;
+				if (timeDiff < minute) {
+					diff =  "now";
+				} else if (timeDiff < hour) {
+					diff = Math.floor(timeDiff / minute) + " minutes ago";
+				} else if (timeDiff < day) {
+					diff = Math.floor(timeDiff / hour) + " hours ago";
+				} else {
+					diff = writingDate.toDateString(); // Writing time as a formatted date if it's more than a day ago
+				}
+
+				// Output the time difference
+				$('.comment[data-comment-id="<?php echo $com['id']; ?>"] .ago').text(diff);
+			<?php endforeach; ?>
+		});
+	</script>
 	</body>
 </html>
