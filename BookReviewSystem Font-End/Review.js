@@ -30,6 +30,10 @@
 
 //Like Btn
 function toggleLike(btn) {
+	let user_id = btn.dataset.userId;
+	console.log(user_id); // Outputs: "user id"
+	let review_id = btn.dataset.reviewId;
+	console.log(review_id);
 	btn.classList.toggle("liked");
 	const likeText = btn.querySelector(".like-text");
 	const likeCount = btn.querySelector(".like-count");
@@ -43,8 +47,8 @@ function toggleLike(btn) {
 			url: "reviews_react.php",
 			data: {
 				method: "create",
-				user_id: 1,
-				review_id: 1,
+				user_id: user_id,
+				review_id: review_id,
 			},
 			success: function (response) {
 				console.log(response);
@@ -53,13 +57,14 @@ function toggleLike(btn) {
 	} else {
 		likeText.innerText = "Like";
 		likeCount.innerText = parseInt(likeCount.innerText) - 1;
+
 		$.ajax({
 			type: "POST",
 			url: "reviews_react.php",
 			data: {
 				method: "delete",
-				user_id: 1,
-				review_id: 1,
+				user_id: user_id,
+				review_id: review_id,
 			},
 			success: function (response) {
 				console.log(response);
@@ -132,7 +137,7 @@ $(document).ready(function () {
 						authorCard += `
 						
 					<div class="review-actions position-relative">
-						<button class="like-btn" onclick="toggleLike(this)">
+						<button class="like-btn" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
 							<i class="fas fa-thumbs-up"></i>
 							<span class="like-text">Like</span>
 							<span class="like-count">
