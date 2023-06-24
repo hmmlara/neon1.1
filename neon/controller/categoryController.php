@@ -4,18 +4,22 @@ class CategoryController extends Category{
     public function getAllCategory(){
         return $this->getCategoryList();
     }
-    // public function addNewAuther($name,$profile){
-    //     return $this->createNewAuther($name,$profile);
-    // }
-    // public function getAuther($id){
-    //     return $this->getAutherInfo($id);
-    // }
+
+    public function getSelectCategory($value){
+        return $this->getCategory($value);
+    }
+    public function addNewCategory($book_id,$category_id){
+        return $this->createNewCategory($book_id,$category_id);
+    }
+    public function getCategory($id){
+        return $this->getCategoryInfo($id);
+    }
     // public function updateAuther($cid,$name,$profile){
     //     return $this->updateAutherInfo($cid,$name,$profile);
     // }
-    // public function deleteAuther($id){
-    //     return $this->deleteAutherInfo($id);
-    // }
+    public function deleteCategory($id){
+        return $this->deleteCategoryInfo($id);
+    }
 }
 
 ?>

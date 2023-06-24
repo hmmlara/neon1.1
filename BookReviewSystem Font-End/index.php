@@ -1,11 +1,22 @@
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
+include_once "../neon/controller/bookController.php";
+include_once "../neon/controller/categoryController.php";
 include_once('latestBook.php');
+
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
-$getUserData = new RegisterController();
-$getUserinfo = $getUserData->getUserList();
+
+$getAllCategory=new CategoryController();
+$getCategory=$getAllCategory->getAllCategory();
+
+$getAllBook=new BookController();
+
+foreach($getCategory as $category){
+	//var_dump($category);
+}
+
 foreach ($getUserinfo as $getUser) {
 	//var_dump($getUser) ;
 }
@@ -19,17 +30,34 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
 }
+
+
+$getAllBookList = [];
+
+if(isset($_POST['searchbyuser'])){
+	$bookname=$_POST['bookname'];
+	// if(isset($_POST['categoryName'])){
+		
+		
+	// }
+	
+	$categoryName=$_POST['categoryName'];
+		if($categoryName=="All"){
+			$getAllBookList=$getAllBook->getSearchBooks($bookname);
+		}
+		if($categoryName!="All"){
+			$getAllBookList=$getAllBook->searchBooks($bookname,$categoryName);
+		}
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Book Review System</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 	<link rel="stylesheet" href="style.css" />
@@ -41,41 +69,73 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	include_once "nav.php";
 	?>
 
-	<!-- search bar -->
 	<div class="container mt-4">
 		<!-- Search Bar -->
-		
-		<div class="row my-3">
-			<div class="col-md-4">
-				<select class="form-control filter-select">
-					<option selected>Genre..</option>
-					<option>Action</option>
-					<option>Comedy</option>
-					<option>Biography</option>
-				</select>
-			</div>
-			<div class="col-md-8">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search..." />
-					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
-							Search
-						</button>
+		<form action="" method="post">
+			<div class="row my-3">
+				<div class="col-md-4">
+					<select class="form-control filter-select" name="categoryName" id="filter_category">
+						<option value="All" id="something" >All</option>
+						<?php foreach($getCategory as $category){
+						?>
+						<option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div class="col-md-8">
+					<div class="input-group">
+						<input type="text" class="form-control" name="bookname" id="booksearch" placeholder="Search..." />
+						<div class="input-group-append">
+							<button class="btn btn-primary" name="searchbyuser"  id="search">
+								Search
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
-    	</div>
-
+		</form>
 		
-	
 
-		
-	
+	<div class="container" height="500px">
+			<div class="row">
+				<!-- <div class=""> -->
+					<div class="col-md-12 d-flex justify-content-evenly" id="filterbook">
+					
+					</div>
+				<!-- </div> -->
+				
+			</div>
+			<div class="row">
+				
+					<div class="col-md-12 d-flex justify-content-evenly"
+				 	<?php if(!isset($_POST['searchbyuser']) || empty($_POST['searchbyuser'])) { echo 'style="display: none;"'; } else { echo 'style="display: flex;"'; }?>>
+						<?php foreach($getAllBookList as $BookList){
+						?>
+						<div class="col-md-3 usersearch_book">
+							<div class="card  sm-4 mb-3" width="100%" height="400px">
+								<img src="../image/photos/<?php echo $BookList['image'] ?>" class="card-img-top" alt="...">
+								<div class="card-body">
+									<h5 class="card-title"><?php echo $BookList['name'] ?></h5>
+									<p class="card-text"><?php echo $BookList['preview'] ?></p>
+									<p class="card-text"><?php echo $BookList['date'] ?></p>
+									<a href="#" class="btn btn-primary">Go somewhere</a>
+								</div>
+							</div>
+                      	</div>
+						<?php  } ?>
+					</div>
+				
+				
+			</div>
+			
+	</div>
 	<!-- Popular Session -->
 	
 		<h1>Collection for May</h1>
-
+		
 		<div class="container swiper mb-3">
+			
+			
 			<h2>Biography</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
@@ -352,6 +412,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 
 			});		</script>
 		<script src="app.js"></script>
+		<script src="../js/index.js"></script>
 </body>
 
 </html>

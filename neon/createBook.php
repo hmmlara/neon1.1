@@ -2,13 +2,16 @@
 
 include_once "layouts/sidebar.php";
 include_once "controller/autherController.php";
-// include_once "controller/categoryController.php";
+include_once "controller/categoryController.php";
 include_once "controller/bookController.php";
 $auther_controller=new AutherController();
 $auther_list=$auther_controller->getAllAuthers();
-// $category_controller=new CategoryController();
-// $category_list=$category_controller->getAllCategory();
-
+$category_controller=new CategoryController();
+$category_list=$category_controller->getAllCategory();
+$book_controller=new BookController();
+$book_list=$book_controller->getAllBooks();
+$book = array_pop($book_list);
+$book_id= ($book['id']+1);
 if(isset($_POST['submit'])){
     $error=false;
     if(!empty($_POST['name'])){
@@ -73,13 +76,27 @@ if(isset($_POST['submit'])){
         }
     }
     $date = date('Y-m-d', strtotime($_POST['date']));
-
+    $checkedCategory=array();
+    foreach ($category_list as $category) {
+        if (isset($_POST[$category['id']])) {
+            $checkedCategory[] = $category['id'];
+        }
+    }
+    if(empty($checkedCategory)){
+        $error=true;
+        $category_error="You need to select category";
+    }
+    var_dump($checkedCategory);
     
     $book_controller=new BookController();
     if($error==false){
-        echo $name.$auther.$image.$pdf.$date;
         $status=$book_controller->addNewBook($name,$auther,$image,$pdf,$date);
+        
         if($status){
+            foreach ($checkedCategory as $category_id) {
+                $second=$category_controller->addNewCategory($book_id,$category_id);
+            }
+            
             echo "<script> location.href='book.php?status=".$status."';</script>";
         }
     }
@@ -107,16 +124,7 @@ if(isset($_POST['submit'])){
                                 ?>
                             </span>
                         </div>
-                        <div class="col-md-3">
-                            <label for="" class="form-label">Category</label>
-                            <select name="category" id="" class="form-select">
-                                <?php
-                                // foreach ($category_list as $cate) {
-                                //     echo "<option value='".$cate['id']."'>".$cate['name']."</option>";
-                                // }
-                                ?>
-                            </select>
-                        </div>
+                        
                         <div class="col-md-3">
                             <label for="" class="form-label">Auther</label>
                             <select name="auther" id="" class="form-select">
@@ -158,7 +166,20 @@ if(isset($_POST['submit'])){
                             </span>
                         </div>
                     </div>
-                    
+                    <div class="row">
+                        <?php
+                            foreach ($category_list as $category) {
+                                echo '<div class="form-check col-md-3">';
+                                echo '<label class="form-ckeck-label for="' . $category['id'] . '">' . $category['name'] . ':</label>';
+                                echo '<input class="form-check-input" type="checkbox" id="' . $category['id'] . '" name="' . $category['id'] . '" value="1"><br>';
+                                echo '</div>';
+                              }
+                        ?>
+                        <span class='text-danger'><?php 
+                            if(isset($category_error)){
+                                    echo $category_error;
+                            } ?></span>
+                    </div>
                     <div class="row my-5">
                         <div class="col-md-2">
                             <button name="submit" class="btn btn-success">Add</button>

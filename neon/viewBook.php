@@ -8,7 +8,6 @@ $book_controller=new BookController();
 $book=$book_controller->getBook($cid);
 $comment_controller=new CommentController();
 $comment=$comment_controller->getAllComments($cid);
-echo $cid;
 ?>
 
 
@@ -21,11 +20,18 @@ echo $cid;
                 
                                 <div class="col-md-3" >
                                         <div class="card" style="width: 18rem;">
-                                                <img src="img/photos/<?php echo $book['image'] ?>" class="card-img-top" alt="...">
+                                                <img src="img/photos/<?php echo $book[0]['image'] ?>" class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                        <h3 class="card-tit"><strong><?php echo $book['name'] ?></strong></h1>
-                                                        <h4 class="card-title"><strong><?php echo $book['category_name'] ?></h3>
-                                                        <h4 class="card-title"><strong><?php echo $book['auther_name'] ?></h3>
+                                                        <h3 class="card-tit"><strong><?php echo $book[0]['name'] ?></strong></h3>
+                                                        <?php  
+                                                        foreach ($book as $value) {
+                                                        ?>
+                                                        <span ><?php echo $value['category_name'] ?> /  </span>
+                                                        <?php     
+                                                        }
+                                                        ?>
+                                                        
+                                                        <h4 class="card-title"><strong><?php echo $book[0]['auther_name'] ?></h3>
                                                         <button class="btn btn-primary open" id="open">Read</button>
                                                 
                                                 </div>
