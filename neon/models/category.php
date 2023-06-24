@@ -13,35 +13,35 @@ class Category{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    // public function createNewAuther($name,$profile){
-    //     //1.DB connection
-    //     $this->connection=Database::connect();
-    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    //     //2.sql statement
-    //     $sql="INSERT INTO auther( name, profile) VALUES
-    //     (:name,:profile)";
-    //     $statement=$this->connection->prepare($sql);
-    //     $statement->bindParam(":name",$name);
-    //     $statement->bindParam(":profile",$profile);
-    //     if($statement->execute()){
-    //         return true;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-    // }
-    // public function getAutherInfo($id){
-    //     $this->connection=Database::connect();
-    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+    public function createNewCategory($book_id,$category_id){
+        //1.DB connection
+        $this->connection=Database1::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //2.sql statement
+        $sql="INSERT INTO book_category( book_id, category_id) VALUES
+        (:book_id,:category_id)";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":book_id",$book_id);
+        $statement->bindParam(":category_id",$category_id);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public function getCategoryInfo($id){
+        $this->connection=Database1::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    //     $sql="SELECT * from auther where id=:id";
-    //     $statement = $this->connection->prepare($sql);
+        $sql="SELECT * from book_category where book_id=:id";
+        $statement = $this->connection->prepare($sql);
 
-    //     $statement->bindParam(":id",$id);
+        $statement->bindParam(":id",$id);
 
-    //     $statement->execute();
-    //     return $statement->fetch(PDO::FETCH_ASSOC);
-    // }
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
     // public function updateAutherInfo($cid,$name,$profile){
     //     $this->connection=Database::connect();
     //     $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -59,22 +59,22 @@ class Category{
     //         return false;
     //     }
     // }
-    // public function deleteAutherInfo($id){
+    public function deleteCategoryInfo($id){
         
-    //         $this->connection = Database::connect();
-    //         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection = Database1::connect();
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    //         $sql = "delete from auther where id=:id";
+            $sql = "delete from book_category where book_id=:id";
 
-    //         $statement = $this->connection->prepare($sql);
-    //         $statement->bindParam(":id", $id);
+            $statement = $this->connection->prepare($sql);
+            $statement->bindParam(":id", $id);
 
-    //         if($statement->execute())
-    //     return "success";
-    //     else
-    //     return "fail";
+            if($statement->execute())
+        return "success";
+        else
+        return "fail";
         
-    // }
+    }
 
 }
 ?>

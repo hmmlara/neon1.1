@@ -6,11 +6,10 @@ class Book{
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2. sql statementfa
-        $sql="SELECT book.id, book.name,book.image,book.pdf_file,book.date , category.name as category_name , auther.name as auther_name
-        FROM book_category
-        INNER JOIN category ON book_category.category_id = category.id
-        INNER JOIN book ON book_category.book_id = book.id
-        INNER join auther on book.auther_id = auther.id";
+        $sql="SELECT book.id, book.name, book.image, book.pdf_file, book.date,  auther.name AS auther_name
+        FROM book
+        
+        LEFT JOIN auther ON book.auther_id = auther.id;";
         $statement=$this->connection->prepare($sql);
         //3. execute
         $statement->execute();
@@ -41,17 +40,17 @@ class Book{
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-        $sql="SELECT book.id, book.name,book.image,book.pdf_file,book.date , category.name as category_name , auther.name as auther_name
-        FROM book_category
-        INNER JOIN category ON book_category.category_id = category.id
-        INNER JOIN book ON book_category.book_id = book.id
-        INNER join auther on book.auther_id = auther.id where book.id=:id";
+        $sql="SELECT book.id, book.name, book.image, book.pdf_file, book.date, category.name AS category_name, auther.name AS auther_name ,auther.id as auther_id
+        FROM book
+        LEFT JOIN book_category ON book.id = book_category.book_id
+        LEFT JOIN category ON book_category.category_id = category.id
+        LEFT JOIN auther ON book.auther_id = auther.id where book.id=:id";
         $statement = $this->connection->prepare($sql);
 
         $statement->bindParam(":id",$id);
 
         $statement->execute();
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     public function updateBookInfo($cid,$name,$auther,$image,$pdf,$date){
         //1.DB connection

@@ -29,7 +29,6 @@ $book_list=$book_controller->getAllBooks();
                         <tr>
                             <th>No.</th>
                             <th>Name</th>
-                            <th>Category </th>
                             <th>Auther</th>
                             <th>image</th>
                             <th>pdf file</th>
@@ -41,9 +40,8 @@ $book_list=$book_controller->getAllBooks();
                         for($r=0;$r<sizeof($book_list);$r++)
                         {
                             echo "<tr id='". $book_list[$r]['id'] ."'>";
-                            echo "<td>" . $book_list[$r]['id']."</td>";
+                            echo "<td>" . ($r+1)."</td>";
                             echo "<td>" . $book_list[$r]['name']."</td>";
-                            echo "<td>" . $book_list[$r]['category_name']."</td>";
                             echo "<td>" . $book_list[$r]['auther_name']."</td>";
                             echo "<td><img src=img/photos/". $book_list[$r]['image']." alt='' width='50px' height='50px'></td>";
                             echo "<td>" . $book_list[$r]['pdf_file']."</td>";
