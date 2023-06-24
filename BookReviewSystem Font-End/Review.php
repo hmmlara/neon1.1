@@ -49,12 +49,126 @@ $reviews = $reviews_model->get_all_review();
 	<!-- Review  Post -->
 	<div class="container mt-4">
 		<main>
+			<?php
+			foreach ($reviews as $review) {
+				$id_of_review = $review['id'];
+				$userinfo = $reviews_model->get_userinfo_by_id($review['user_id']);
 
-			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
-				<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn">Load More</button>
-			</div>
+				$review_books = $reviews_model->get_review_book($review['id']);
+
+				?>
+				<div class="review">
+					<div class="review-header">
+						<div class="user-profile">
+							<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
+							<div class="user-details">
+								<h3>
+									<?php echo $userinfo["name"] ?>
+								</h3>
+								<p>June 1, 2023</p>
+							</div>
+						</div>
+					</div>
+					<div class="review-content">
+						<div class="d-flex flex-wrap">
+
+							<?php
+							foreach ($review_books as $review_book_id) {
+								$book = $reviews_model->get_bookinfo_by_id($review_book_id["book_id"]);
+								?>
+								<a href="BookDetail.php?id=<?php echo $review_book_id['book_id'] ?>">
+									<div class="book-details">
+										<img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
+										<div class="book-info">
+											<h2>
+												<?php echo $book["name"] ?>
+											</h2>
+											<?php
+											$author = $reviews_model->get_author_by_id($book["auther_id"]);
+											?>
+											<p>by
+												<?php echo $author["name"] ?>
+											</p>
+										</div>
+									</div>
+								</a>
+								<?php
+							}
+							?>
+
+						</div>
+
+						<p>
+							<?php
+							echo $review["content"];
+							?>
+						</p>
+					</div>
+					<div class="review-actions position-relative">
+						<button class="like-btn" onclick="toggleLike(this)">
+							<i class="fas fa-thumbs-up"></i>
+							<span class="like-text">Like</span>
+							<span class="like-count">
+								<?php
+								$total_react = $reviews_model->get_review_reacts($id_of_review);
+								echo $total_react['user_react'];
+								?>
+							</span>
+						</button>
+						<button class="comment-btn">
+							<i class="fas fa-comment"></i> Comment
+						</button>
+						<div class="who-viewed">
+							<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
+							<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
+							<span class="view-count">+3</span>
+						</div>
+					</div>
+					<div class="comments">
+						<h4>Comments</h4>
+						<ul class="comment-list">
+							<?php
+							$comments = $reviews_model->get_review_comments($id_of_review);
+							foreach ($comments as $comment) {
+
+								$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id'])
+
+									?>
+								<li class="comment">
+									<div class="comment-avatar">
+										<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
+									</div>
+									<div class="comment-content">
+										<p class="comment-text">
+											<?php echo $comment['comment'] ?>
+										</p>
+										<span class="comment-meta">-
+											<?php echo $userinfo['name'] ?>
+										</span>
+									</div>
+								</li>
+								<?php
+							}
+							?>
+
+						</ul>
+						<button class="load-more-btn btn">Load More</button>
+
+						<form class="comment-form" method='post'>
+							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
+							<button class="btn btn-primary" name="submit">Submit</button>
+						</form>
+					</div>
+				</div>
+				<?php
+			}
+			?>
+
 
 		</main>
+		<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
+			<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn">Load More</button>
+		</div>
 	</div>
 	<!-- Footer -->
 	<footer class="footer mt-4">
