@@ -35,12 +35,11 @@ class Reviews
                 $statement->execute();
             }
             return true;
-        }
-        else{
+        } else {
             return false;
         }
 
-   
+
 
     }
     function get_all_review()
@@ -53,7 +52,8 @@ class Reviews
 
     }
 
-    function get_review_with_limit_offset($limit,$offset){
+    function get_review_with_limit_offset($limit, $offset)
+    {
         $sql = "SELECT * FROM `user_review` LIMIT :limit_num OFFSET :offset_num";
         $statement = $this->connection->prepare($sql);
 
@@ -114,7 +114,8 @@ class Reviews
         return $result;
     }
 
-    function get_review_reacts($Review_id){
+    function get_review_reacts($Review_id)
+    {
         $sql = "SELECT COUNT(*) AS user_react
         FROM review_react
         WHERE review_book_id = :id";
@@ -125,13 +126,39 @@ class Reviews
         return $result;
     }
 
-    function get_review_comments($Review_id){
+    function get_review_comments($Review_id)
+    {
         $sql = "SELECT `id`, `user_id`, `review_book_id`, `comment` FROM `review_comment` WHERE `review_book_id` = :id";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(":id", $Review_id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    function create_review_react($Review_id, $userId)
+    {
+        $sql = "INSERT INTO `review_react`(`user_id`, `review_book_id`, `love`) VALUES (:user_id,:review_id,1)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindValue(":review_id", $Review_id);
+        $statement->bindValue(":user_id", $userId);
+        if ($statement->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function delete_review_react($Review_id,$user_id){
+        $sql = "DELETE FROM `review_react` WHERE user_id = :user_id and review_book_id = :review_id";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindValue(":review_id",$Review_id);
+        $statement->bindValue(":user_id",$user_id);
+        if($statement->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
 

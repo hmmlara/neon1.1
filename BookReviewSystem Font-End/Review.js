@@ -38,9 +38,33 @@ function toggleLike(btn) {
 	if (btn.classList.contains("liked")) {
 		likeText.innerText = "Liked";
 		likeCount.innerText = parseInt(likeCount.innerText) + 1;
+		$.ajax({
+			type: "POST",
+			url: "reviews_react.php",
+			data: {
+				method: "create",
+				user_id: 1,
+				review_id: 1,
+			},
+			success: function (response) {
+				console.log(response);
+			},
+		});
 	} else {
 		likeText.innerText = "Like";
 		likeCount.innerText = parseInt(likeCount.innerText) - 1;
+		$.ajax({
+			type: "POST",
+			url: "reviews_react.php",
+			data: {
+				method: "delete",
+				user_id: 1,
+				review_id: 1,
+			},
+			success: function (response) {
+				console.log(response);
+			},
+		});
 	}
 }
 
