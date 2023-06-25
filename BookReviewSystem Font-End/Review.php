@@ -17,10 +17,10 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
 }
-
+$userId = $getUserData->getUserId($useremail);
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
-$reviews = $reviews_model->get_all_review();
+$reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ $reviews = $reviews_model->get_all_review();
 
 	<!-- Review  Post -->
 	<div class="container mt-4">
-		<main>
+		<main data-user-id ="<?php echo $userId[0]['id'] ?>">
 			<?php
 			foreach ($reviews as $review) {
 				$id_of_review = $review['id'];
@@ -70,6 +70,11 @@ $reviews = $reviews_model->get_all_review();
 						</div>
 					</div>
 					<div class="review-content">
+						<p>
+							<?php
+							echo $review["content"];
+							?>
+						</p>
 						<div class="d-flex flex-wrap">
 
 							<?php
@@ -98,14 +103,10 @@ $reviews = $reviews_model->get_all_review();
 
 						</div>
 
-						<p>
-							<?php
-							echo $review["content"];
-							?>
-						</p>
+
 					</div>
 					<div class="review-actions position-relative">
-						<button class="like-btn" onclick="toggleLike(this)">
+						<button class="like-btn liked"  data-review-id="<?php echo $review['id'] ?>" onclick="toggleLike(this)">
 							<i class="fas fa-thumbs-up"></i>
 							<span class="like-text">Like</span>
 							<span class="like-count">
@@ -118,47 +119,13 @@ $reviews = $reviews_model->get_all_review();
 						<button class="comment-btn">
 							<i class="fas fa-comment"></i> Comment
 						</button>
-						<div class="who-viewed">
+						<!-- <div class="who-viewed">
 							<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
 							<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
 							<span class="view-count">+3</span>
-						</div>
+						</div> -->
 					</div>
-					<div class="comments">
-						<h4>Comments</h4>
-						<ul class="comment-list">
-							<?php
-							$comments = $reviews_model->get_review_comments($id_of_review);
-							foreach ($comments as $comment) {
 
-								$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id'])
-
-									?>
-								<li class="comment">
-									<div class="comment-avatar">
-										<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
-									</div>
-									<div class="comment-content">
-										<p class="comment-text">
-											<?php echo $comment['comment'] ?>
-										</p>
-										<span class="comment-meta">-
-											<?php echo $userinfo['name'] ?>
-										</span>
-									</div>
-								</li>
-								<?php
-							}
-							?>
-
-						</ul>
-						<button class="load-more-btn btn">Load More</button>
-
-						<form class="comment-form" method='post'>
-							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
-							<button class="btn btn-primary" name="submit">Submit</button>
-						</form>
-					</div>
 				</div>
 				<?php
 			}

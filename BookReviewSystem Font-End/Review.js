@@ -29,8 +29,24 @@
 //   });
 
 //Like Btn
+const LikesBtns = document.querySelectorAll(".like-btn");
+function checkLikes() {
+	LikesBtns.forEach(
+		(element)=>{
+			if(element.classList.contains("liked")){
+				let likeIcon = element.querySelector(".fa-thumbs-up");
+				likeIcon.classList.add("liked-like-icon");
+				let likeText = element.querySelector(".like-text");
+				likeText.innerText = "Liked"; 
+			}
+		}
+	)
+}
+checkLikes();
+
+const mainDocument = document.querySelector("main");
 function toggleLike(btn) {
-	let user_id = btn.dataset.userId;
+	let user_id = mainDocument.dataset.userId;
 	console.log(user_id); // Outputs: "user id"
 	let review_id = btn.dataset.reviewId;
 	console.log(review_id);
@@ -86,7 +102,6 @@ $(document).ready(function () {
 				limit: limit,
 			},
 			success: function (response) {
-				console.log(response);
 				var reviews = $.parseJSON(response);
 				var authorContainer = $("main");
 
@@ -137,9 +152,9 @@ $(document).ready(function () {
 						authorCard += `
 						
 					<div class="review-actions position-relative">
-						<button class="like-btn" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
-							<i class="fas fa-thumbs-up"></i>
-							<span class="like-text">Like</span>
+						<button class="like-btn liked" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
+							<i class="fas fa-thumbs-up liked-like-icon"></i>
+							<span class="like-text">Liked</span>
 							<span class="like-count">
 								${review.user_react}
 							</span>
@@ -155,6 +170,8 @@ $(document).ready(function () {
                         `;
 
 						authorContainer.append(authorCard);
+						checkLikes();
+
 					});
 
 					offset += limit;
@@ -166,5 +183,7 @@ $(document).ready(function () {
 				}
 			},
 		});
+		
+
 	});
 });
