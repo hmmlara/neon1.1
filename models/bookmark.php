@@ -1,0 +1,72 @@
+<?php
+include_once __DIR__."/../vendor/db.php";
+class Bookmark{
+    private $connection="";
+    public function getAllBookmarkList($user_id){
+        //1.DataBase Connect
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        //2.sql Statement
+        $sql="SELECT book.* ,auther.name as auther_name FROM `book_mark` inner join book on book_mark.id=book.id inner join auther on book.auther_id=auther.id where book_mark.user_id=:id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":id",$user_id);
+        //3.execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // public function searchAuthor($usersearch)
+    // {
+    //     echo "something";
+    //     //1.DataBase Connect
+    //     $this->connection=Database::connect();
+    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //     //2.sql Statement
+    //     $sql = "SELECT * FROM auther WHERE name LIKE '%" . $usersearch . "%'" ;
+    //     $statement=$this->connection->prepare($sql);
+
+    //     //$statement->bindParam(":mydata",$usersearch);
+
+    //     //3.execute
+    //     $statement->execute();
+    //     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    //     return $result;
+    // }
+
+    // public function getMoreAuthor($offset, $limit)
+    // {
+    //     //1.DataBase Connect
+    //     $this->connection=Database::connect();
+    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //     $sql = "SELECT * FROM auther LIMIT $limit OFFSET $offset";
+    //     $result =$statement=$this->connection->prepare($sql);
+
+    //     // Execute the query and fetch the results
+    //     //$result = mysqli_query($your_db_connection, $query);
+    //     $statement->execute();
+    //     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    //     return $result;
+    // }
+
+    // public function getAllAuthorFromDetail()
+    // {
+    //     //1.DataBase Connect
+    //     $this->connection=Database::connect();
+    //     $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //     //2.sql Statement
+    //     $sql="select * from auther";
+    //     $statement=$this->connection->prepare($sql);
+
+    //     //3.execute
+    //     $statement->execute();
+    //     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    //     return $result;
+    // }
+}
+
+?>
