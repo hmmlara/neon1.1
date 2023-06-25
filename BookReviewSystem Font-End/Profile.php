@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
-include_once"../controllers/bookmarkController.php";
+include_once "../controllers/bookmarkController.php";
 include_once "../controllers/usercontroller.php";
 include_once "../models/register.php";
 include_once "../models/reviews.php";
@@ -12,7 +12,6 @@ $updateUserInfo = new UserController();
 $getPersonalInfo = $updateUserInfo->getSingleUser($_SESSION['user_email']);
 $bookmark_controller=new BookmarkController();
 $bookmark_list=$bookmark_controller->getAllBookmark($user_id);
-var_dump($bookmark_list);
 	//var_dump($getPersonalInfo[0]["image"]);
 
 //Add User img

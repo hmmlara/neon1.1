@@ -76,32 +76,7 @@ function highlightStars(num) {
   });
 }
 
-//Book marked function
 
-// Get the bookmark icon element
-const bookmarkIcon = document.querySelector('.bookmark-icon');
-
-// Add click event listener to toggle bookmark status
-bookmarkIcon.addEventListener('click', function() {
-  // Toggle the 'active' class on the bookmark icon
-  this.classList.toggle('active');
-
-  // Get the bookmark status
-  const isBookmarked = this.classList.contains('active');
-
-  // Update the bookmark status based on the current state
-  if (isBookmarked) {
-    // Book is bookmarked, change the icon to indicate bookmarked state
-    this.querySelector('i').classList.remove('fa-regular');
-    this.querySelector('i').classList.add('fa-solid');
-    console.log('Bookmarked');
-  } else {
-    // Book is unbookmarked, change the icon to indicate unbookmarked state
-    this.querySelector('i').classList.remove('fa-solid');
-    this.querySelector('i').classList.add('fa-regular');
-    console.log('Unbookmarked');
-  }
-});
 
 //Comment Load More Function
 $(document).ready(function() {

@@ -4,16 +4,18 @@ class BookmarkController extends Bookmark{
     public function getAllBookmark($user_id){
         return $this->getAllBookmarkList($user_id);
     }
+    public function getAllBookmarks($user_id,$book_id){
+        return $this->getAllBookmarkLists($user_id,$book_id);
+    }
+    public function addNewBookmark($user_id,$book_id)
+    {
+        return $this->createNewBookmark($user_id,$book_id);
+    }
 
-    // public function searchAuthorInfo($usersearch)
-    // {
-    //     return $this->searchAuthor($usersearch);
-    // }
-
-    // public function getMoreAuthors($offset, $limit)
-    // {
-    //     return $this->getMoreAuthor($offset, $limit);
-    // }
+    public function deleteBookmark($user_id,$book_id)
+    {
+        return $this->deleteBookmarkInfo($user_id,$book_id);
+    }
 
     // public function getAllAuthorFromAuthorDetail()
     // {
