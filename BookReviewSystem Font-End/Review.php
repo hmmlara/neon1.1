@@ -118,7 +118,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 								?>
 							</span>
 						</button>
-						<button class="comment-btn">
+						<button class="comment-btn" data-review-id="<?php echo $review['id'] ?> " onclick=toggleComment(this)>
 							<i class="fas fa-comment"></i> Comment
 						</button>
 						<!-- <div class="who-viewed">
@@ -127,7 +127,39 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 							<span class="view-count">+3</span>
 						</div> -->
 					</div>
+					<div class="comments hide" id = "comment-<?php echo $review['id'] ?>">
+						<h4>Comments</h4>
+						<ul class="comment-list">
+							<?php 
+							$comments =	$reviews_model->get_review_comments($review['id']);
+							foreach ($comments as $key => $comment) {
+							$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id']);
+							?>
+							<li class="comment">
+								<div class="comment-avatar">
+									<img src="<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
+								</div>
+								<div class="comment-content">
+									<p class="comment-text">
+										<?php echo $comment['comment'] ?>
+									</p>
+									<span class="comment-meta">-
+										<?php echo $userInfo['name'] ?>
+									</span>
+								</div>
+							</li>
 
+							<?php 
+							}
+							?>
+						</ul>
+						<button class="load-more-btn btn">Load More</button>
+
+						<form class="comment-form" method='post'>
+							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
+							<button class="btn btn-primary" name="submit">Submit</button>
+						</form>
+					</div>
 				</div>
 				<?php
 			}

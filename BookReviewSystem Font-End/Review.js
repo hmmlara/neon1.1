@@ -140,7 +140,7 @@ $(document).ready(function () {
 							</h2>
 						
 							<p>by
-							${element.auther_id}
+							${console.log(element.auther)}
 							</p>
 						</div>
 					</div>
@@ -148,54 +148,83 @@ $(document).ready(function () {
 						});
 						if (review.isReact) {
 							authorCard += `
-						
-					<div class="review-actions position-relative">
-						<button class="like-btn liked" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
-							<i class="fas fa-thumbs-up liked-like-icon"></i>
-							<span class="like-text">Liked</span>
-							<span class="like-count">
-								${review.user_react}
-							</span>
-						</button>
-						<button class="comment-btn">
-							<i class="fas fa-comment"></i> Comment
-						</button>
-					
-					</div>
-					
-				</div>
-			
+											
+										<div class="review-actions position-relative">
+											<button class="like-btn liked" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
+												<i class="fas fa-thumbs-up liked-like-icon"></i>
+												<span class="like-text">Liked</span>
+												<span class="like-count">
+													${review.user_react}
+												</span>
+											</button>
+											<button class="comment-btn" data-review-id = "${review.id}"  onclick="toggleComment(this)">
+												<i class="fas fa-comment"></i>
+												 Comment
+											</button>
+										</div>
+										<div class="comments hide" id = "comment-${review['id']}">
+											<h4>Comments</h4>
+											<ul class="comment-list">
                         `;
-						}
-						else{
+						} else {
 							authorCard += `
 						
-					<div class="review-actions position-relative">
-						<button class="like-btn " data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
-							<i class="fas fa-thumbs-up "></i>
-							<span class="like-text">Like</span>
-							<span class="like-count">
-								${review.user_react}
-							</span>
-						</button>
-						<button class="comment-btn">
-							<i class="fas fa-comment"></i> Comment
-						</button>
-					
-					</div>
-					
-				</div>
+											<div class="review-actions position-relative">
+												<button class="like-btn " data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
+													<i class="fas fa-thumbs-up "></i>
+													<span class="like-text">Like</span>
+													<span class="like-count">
+														${review.user_react}
+													</span>
+												</button>
+												<button class="comment-btn" data-review-id = "${review.id}"  onclick="toggleComment(this)">
+													<i class="fas fa-comment"></i> 
+													Comment
+												</button>
+											</div>
+											<div class="comments hide" id = "comment-${review['id']}">
+												<h4>Comments</h4>
+												<ul class="comment-list">
+												
+													
+
+										
 			
                         `;
 						}
+							console.log(review.comments);
+							review.comments.forEach((element) => {
+								authorCard += `
+											<li class="comment">
+												<div class="comment-avatar">
+													<img src="${element.image}" alt="${element.image}" />
+												</div>
+												<div class="comment-content">
+													<p class="comment-text">
+													${element.comment}
+													</p>
+													<span class="comment-meta">-
+													${element.name}
+													</span>
+												</div>
+											</li>
+								`;
+							});
+						authorCard += `
+										</ul>
+									<button class="load-more-btn btn">Load More</button>
 
+									<form class="comment-form" method='post'>
+										<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
+										<button class="btn btn-primary" name="submit">Submit</button>
+									</form>
+								</div>
+							</div>`;
 						authorContainer.append(authorCard);
 						checkLikes();
 					});
-
 					offset += limit;
 				}
-
 				if (reviews.length < 3) {
 					console.log(authors.length);
 					$("#loadMoreBtn").hide();
@@ -204,3 +233,10 @@ $(document).ready(function () {
 		});
 	});
 });
+function toggleComment(btn) {
+	let Id = btn.dataset.reviewId;
+	let CommentDiv = document.querySelector(`#comment-${Id}`);
+	console.log(CommentDiv);
+	CommentDiv.classList.toggle("hide");
+	console.log(Id);
+}

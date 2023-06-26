@@ -197,3 +197,7 @@
 .liked-like-icon{
   color: #007bff;
 }
+
+.hide{
+  display: none;
+}
