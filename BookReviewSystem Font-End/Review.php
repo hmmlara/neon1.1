@@ -168,7 +168,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 
 		</main>
 		<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
-			<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn">Load More</button>
+			No More Result
 		</div>
 	</div>
 	<!-- Footer -->

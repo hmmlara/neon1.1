@@ -87,152 +87,9 @@ function toggleLike(btn) {
 	}
 }
 
-$(document).ready(function () {
-	var offset = 4;
-	var limit = 4;
+// $(document).ready(function () {
 
-	$("#loadMoreBtn").on("click", function () {
-		$.ajax({
-			type: "POST",
-			url: "load_more_reviews.php",
-			data: {
-				offset: offset,
-				limit: limit,
-			},
-			success: function (response) {
-				var reviews = $.parseJSON(response);
-				var authorContainer = $("main");
-
-				if (reviews.length > 0) {
-					$.each(reviews, function (index, review) {
-						let books = review.Books;
-						var authorCard = `
-			
-				<div class="review">
-					<div class="review-header">
-						<div class="user-profile">
-							<img src="${review.image}" alt="${review.image}" />
-							<div class="user-details">
-								<h3>
-                      ${review.name}
-								</h3>
-								<p>${review.date}</p>
-							</div>
-						</div>
-					</div>
-					<div class="review-content">
-						<div class="d-flex flex-wrap">
-						
-						</div>
-
-						<p>
-						${review.content}
-						</p>
-					</div>`;
-
-						books.forEach((element) => {
-							authorCard += `<a href="BookDetail.php?id=${element.id}">
-					<div class="book-details">
-						<img src="${element.image}" alt="${element.image}" />
-						<div class="book-info">
-							<h2>
-							${element.name}
-							</h2>
-						
-							<p>by
-							${console.log(element.auther)}
-							</p>
-						</div>
-					</div>
-				</a>`;
-						});
-						if (review.isReact) {
-							authorCard += `
-											
-										<div class="review-actions position-relative">
-											<button class="like-btn liked" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
-												<i class="fas fa-thumbs-up liked-like-icon"></i>
-												<span class="like-text">Liked</span>
-												<span class="like-count">
-													${review.user_react}
-												</span>
-											</button>
-											<button class="comment-btn" data-review-id = "${review.id}"  onclick="toggleComment(this)">
-												<i class="fas fa-comment"></i>
-												 Comment
-											</button>
-										</div>
-										<div class="comments hide" id = "comment-${review['id']}">
-											<h4>Comments</h4>
-											<ul class="comment-list">
-                        `;
-						} else {
-							authorCard += `
-						
-											<div class="review-actions position-relative">
-												<button class="like-btn " data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
-													<i class="fas fa-thumbs-up "></i>
-													<span class="like-text">Like</span>
-													<span class="like-count">
-														${review.user_react}
-													</span>
-												</button>
-												<button class="comment-btn" data-review-id = "${review.id}"  onclick="toggleComment(this)">
-													<i class="fas fa-comment"></i> 
-													Comment
-												</button>
-											</div>
-											<div class="comments hide" id = "comment-${review['id']}">
-												<h4>Comments</h4>
-												<ul class="comment-list">
-												
-													
-
-										
-			
-                        `;
-						}
-							console.log(review.comments);
-							review.comments.forEach((element) => {
-								authorCard += `
-											<li class="comment">
-												<div class="comment-avatar">
-													<img src="${element.image}" alt="${element.image}" />
-												</div>
-												<div class="comment-content">
-													<p class="comment-text">
-													${element.comment}
-													</p>
-													<span class="comment-meta">-
-													${element.name}
-													</span>
-												</div>
-											</li>
-								`;
-							});
-						authorCard += `
-										</ul>
-									<button class="load-more-btn btn">Load More</button>
-
-									<form class="comment-form" method='post'>
-										<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
-										<button class="btn btn-primary" name="submit">Submit</button>
-									</form>
-								</div>
-							</div>`;
-						authorContainer.append(authorCard);
-						checkLikes();
-					});
-					offset += limit;
-				}
-				if (reviews.length < 3) {
-					console.log(authors.length);
-					$("#loadMoreBtn").hide();
-				}
-			},
-		});
-	});
-});
+// });
 function toggleComment(btn) {
 	let Id = btn.dataset.reviewId;
 	let CommentDiv = document.querySelector(`#comment-${Id}`);
@@ -240,3 +97,169 @@ function toggleComment(btn) {
 	CommentDiv.classList.toggle("hide");
 	console.log(Id);
 }
+var offset = 4;
+var limit = 2;
+//funtion load more review
+function LoadMore() {
+	console.log(offset)
+	$.ajax({
+		type: "POST",
+		url: "load_more_reviews.php",
+		data: {
+			offset: offset,
+			limit: limit,
+		},
+		success: function (response) {
+			var reviews = $.parseJSON(response);
+			var authorContainer = $("main");
+
+			if (reviews.length > 0) {
+				$.each(reviews, function (index, review) {
+					let books = review.Books;
+					var authorCard = `
+		
+			<div class="review">
+				<div class="review-header">
+					<div class="user-profile">
+						<img src="${review.image}" alt="${review.image}" />
+						<div class="user-details">
+							<h3>
+				  ${review.name}
+							</h3>
+							<p>${review.date}</p>
+						</div>
+					</div>
+				</div>
+				<div class="review-content">
+					<div class="d-flex flex-wrap">
+					
+					</div>
+
+					<p>
+					${review.content}
+					</p>
+				</div>`;
+
+					books.forEach((element) => {
+						authorCard += `<a href="BookDetail.php?id=${element.id}">
+				<div class="book-details">
+					<img src="${element.image}" alt="${element.image}" />
+					<div class="book-info">
+						<h2>
+						${element.name}
+						</h2>
+					
+						<p>by
+						${console.log(element.auther)}
+						</p>
+					</div>
+				</div>
+			</a>`;
+					});
+					if (review.isReact) {
+						authorCard += `
+										
+									<div class="review-actions position-relative">
+										<button class="like-btn liked" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
+											<i class="fas fa-thumbs-up liked-like-icon"></i>
+											<span class="like-text">Liked</span>
+											<span class="like-count">
+												${review.user_react}
+											</span>
+										</button>
+										<button class="comment-btn" data-review-id = "${review.id}"  onclick="toggleComment(this)">
+											<i class="fas fa-comment"></i>
+											 Comment
+										</button>
+									</div>
+									<div class="comments hide" id = "comment-${review["id"]}">
+										<h4>Comments</h4>
+										<ul class="comment-list">
+					`;
+					} else {
+						authorCard += `
+					
+										<div class="review-actions position-relative">
+											<button class="like-btn " data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
+												<i class="fas fa-thumbs-up "></i>
+												<span class="like-text">Like</span>
+												<span class="like-count">
+													${review.user_react}
+												</span>
+											</button>
+											<button class="comment-btn" data-review-id = "${review.id}"  onclick="toggleComment(this)">
+												<i class="fas fa-comment"></i> 
+												Comment
+											</button>
+										</div>
+										<div class="comments hide" id = "comment-${review["id"]}">
+											<h4>Comments</h4>
+											<ul class="comment-list">
+											
+												
+
+									
+		
+					`;
+					}
+					console.log(review.comments);
+					review.comments.forEach((element) => {
+						authorCard += `
+										<li class="comment">
+											<div class="comment-avatar">
+												<img src="${element.image}" alt="${element.image}" />
+											</div>
+											<div class="comment-content">
+												<p class="comment-text">
+												${element.comment}
+												</p>
+												<span class="comment-meta">-
+												${element.name}
+												</span>
+											</div>
+										</li>
+							`;
+					});
+					authorCard += `
+									</ul>
+								<button class="load-more-btn btn">Load More</button>
+
+								<form class="comment-form" method='post'>
+									<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
+									<button class="btn btn-primary" name="submit">Submit</button>
+								</form>
+							</div>
+						</div>`;
+					authorContainer.append(authorCard);
+					checkLikes();
+				});
+				offset += limit;
+			}
+			if (reviews.length < 3) {
+				console.log(authors.length);
+				$("#loadMoreBtn").hide();
+			}
+		},
+	});
+}
+// Function to check if the user has reached the bottom of the page
+function isNearBottom() {
+	const scrollTop =
+		document.documentElement.scrollTop || document.body.scrollTop;
+	const windowHeight =
+		window.innerHeight || document.documentElement.clientHeight;
+	const documentHeight =
+		document.documentElement.scrollHeight || document.body.scrollHeight;
+
+	return scrollTop + windowHeight >= documentHeight - 100; // Adjust the threshold as needed
+}
+
+// Function to handle the scroll event
+function handleScroll() {
+	if (isNearBottom()) {
+		LoadMore();
+	}
+}
+
+// Add scroll event listener to the window or your desired scrollable element
+window.addEventListener("scroll", handleScroll);
