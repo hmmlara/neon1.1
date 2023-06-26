@@ -116,12 +116,36 @@ function toggleLike(btn) {
 	}
 }
 
-// $(document).ready(function () {
 
-// });
+//Create Comment Function
+function LeeError(btn) {
+	let Id = btn.dataset.reviewId;
+	let CommentDiv = document.querySelector(`#comment-form-${Id}`);
+	let form = CommentDiv.querySelector("textarea");
+	console.log(form.value);
+	if(form.value !== ''){
+		$.ajax({
+			type: "POST",
+			url: "createReviewComment.php",
+			data: {
+				review: Id,
+				comment: form.value
+			},
+			success: function(response) {
+				console.log(response);
+				if(response == 1){
+					form.value = ''
+				}
+			}
+		});
+	}
+	
+}
+
 function toggleComment(btn) {
 	let Id = btn.dataset.reviewId;
 	let CommentDiv = document.querySelector(`#comment-${Id}`);
+	
 	CheckCommentLists(Id);
 
 	CommentDiv.classList.toggle("hide");
@@ -130,7 +154,6 @@ var offset = 4;
 var limit = 2;
 //funtion load more review
 function LoadMore() {
-	console.log(offset)
 	$.ajax({
 		type: "POST",
 		url: "load_more_reviews.php",
@@ -255,7 +278,7 @@ function LoadMore() {
 
 								<form class="comment-form" method='post'>
 									<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
-									<button class="btn btn-primary" name="submit">Submit</button>
+									<button class="btn btn-primary"  name="submit">Submit</button>
 								</form>
 							</div>
 						</div>`;
@@ -271,6 +294,9 @@ function LoadMore() {
 		},
 	});
 }
+
+
+
 // Function to check if the user has reached the bottom of the page
 function isNearBottom() {
 	const scrollTop =

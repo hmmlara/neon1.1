@@ -177,12 +177,14 @@ class Reviews
         }
     }
     
-    function create_comment($Review_id, $userId)
+    function create_comment($Review_id, $userId,$comment)
     {
-        $sql = "INSERT INTO `review_comment`(`user_id`, `review_book_id`, `comment`) VALUES (:user_id,:review_id,1)";
+        $sql = "INSERT INTO `review_comment`(`user_id`, `review_book_id`, `comment`) VALUES (:user_id,:review_id,:comment)";
         $statement = $this->connection->prepare($sql);
         $statement->bindValue(":review_id", $Review_id);
         $statement->bindValue(":user_id", $userId);
+        $statement->bindValue(":comment", $comment);
+
         if ($statement->execute()) {
             return true;
         } else {

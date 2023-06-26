@@ -118,7 +118,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 								?>
 							</span>
 						</button>
-						<button class="comment-btn" data-review-id="<?php echo $review['id'] ?> " onclick=toggleComment(this)>
+						<button class="comment-btn" data-review-id="<?php echo $review['id'] ?> " onclick="toggleComment(this)">
 							<i class="fas fa-comment"></i> Comment
 						</button>
 						<!-- <div class="who-viewed">
@@ -129,7 +129,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 					</div>
 					<div class="comments hide" id = "comment-<?php echo $review['id'] ?>">
 						<h4>Comments</h4>
-						<ul class="comment-list" id = "comment-list-<?php echo $review['id'] ?> >
+						<ul class="comment-list" id = "comment-list-<?php echo $review['id'] ?>" >
 							<?php 
 							$comments =	$reviews_model->get_review_comments($review['id']);
 							foreach ($comments as $key => $comment) {
@@ -155,10 +155,12 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 						</ul>
 						<button class="load-more-btn btn">Load More</button>
 
-						<form class="comment-form" method='post'>
+						<div class="comment-form" id="comment-form-<?php echo $review['id'] ?>" >
 							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
-							<button class="btn btn-primary" name="submit">Submit</button>
-						</form>
+							<button class="btn btn-primary" name="createComment" data-review-id="<?php echo $review['id'] ?>"  onclick="LeeError(this)">Submit</button>
+
+						</div>
+						
 					</div>
 				</div>
 				<?php
@@ -171,6 +173,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 			No More Result
 		</div>
 	</div>
+
 	<!-- Footer -->
 	<footer class="footer mt-4">
 		<div class="footer-container">
