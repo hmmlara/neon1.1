@@ -3,7 +3,7 @@
 session_start();
 $user_id=$_SESSION['userid'];
 
-include_once('../neon/controller/bookController.php');
+include('../neon/controller/bookController.php');
 include_once('../controllers/commentController.php');
 $cid=$_GET['id'];
 $book_controller=new BookController();
@@ -271,6 +271,66 @@ if(isset($_POST['submit'])){
 		<script src="BookDetail.js"></script>
 		<script>
 		$(document).ready(function() {
+			const user_id = "<?php echo $user_id; ?>";
+			const book_id = "<?php echo $book[0]['id']; ?>";
+			let mark=""
+			$.ajax({
+				url: 'mark.php',
+				type: 'POST',
+				data: { user_id: user_id, book_id: book_id },
+				success: function(response) {
+					mark=response
+					if (mark==="empty") {
+				// Book is bookmarked, change the icon to indicate bookmarked state
+				document.querySelector('.fa-bookmark').classList.add('fa-regular');
+				document.querySelector('.fa-bookmark').classList.remove('fa-solid');
+				} else if(mark==="have") {
+				// Book is unbookmarked, change the icon to indicate unbookmarked state
+				document.querySelector('.fa-bookmark').classList.add('fa-solid');
+				document.querySelector('.fa-bookmark').classList.remove('fa-regular');
+				}
+				}
+				})
+			//Book marked function
+
+			// Get the bookmark icon element
+			const bookmarkIcon = document.querySelector('.bookmark-icon');
+
+			// Add click event listener to toggle bookmark status
+			bookmarkIcon.addEventListener('click', function() {
+			// Toggle the 'active' class on the bookmark icon
+			this.classList.toggle('active');
+
+			// Get the bookmark status
+			const isBookmarked = this.classList.contains('active');
+			
+			// Update the bookmark status based on the current state
+			if (mark==="empty") {
+				// Book is bookmarked, change the icon to indicate bookmarked state
+				this.querySelector('i').classList.remove('fa-regular');
+				this.querySelector('i').classList.add('fa-solid');
+				$.ajax({
+				url: 'bookmark.php',
+				type: 'POST',
+				data: { user_id: user_id, book_id: book_id },
+				success: function(response) {
+					mark=response
+				}
+				})
+			} else if(mark==="have") {
+				// Book is unbookmarked, change the icon to indicate unbookmarked state
+				this.querySelector('i').classList.remove('fa-solid');
+				this.querySelector('i').classList.add('fa-regular');
+				$.ajax({
+				url: 'unbookmark.php',
+				type: 'POST',
+				data: { user_id: user_id, book_id: book_id },
+				success: function(response) {
+					mark=response
+				}
+				})
+			}
+			});
 			<?php foreach ($comment as $com) : ?>
 				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
 				var writingTime = "<?php echo $com['date']; ?>";
