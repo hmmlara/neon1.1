@@ -129,7 +129,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 					</div>
 					<div class="comments hide" id = "comment-<?php echo $review['id'] ?>">
 						<h4>Comments</h4>
-						<ul class="comment-list">
+						<ul class="comment-list" id = "comment-list-<?php echo $review['id'] ?> >
 							<?php 
 							$comments =	$reviews_model->get_review_comments($review['id']);
 							foreach ($comments as $key => $comment) {
