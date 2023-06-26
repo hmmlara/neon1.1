@@ -29,6 +29,7 @@
 	</div>
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<script src="js/datatables.js"></script>
+	<script src="../fontawesome/js/all.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/myscript.js"></script>
 	<script>
