@@ -1,5 +1,9 @@
 <?php
 include_once __DIR__."/../models/reviews.php";
+include_once __DIR__."/../models/register.php";
+session_start();
+$register_model = new CreateUser();
+$userId = $register_model->getUserId($_SESSION['user_email']);
 class Reviews_Controller extends Reviews{
     function Get_Post($limit,$offset){
         $ReviewsContent = $this->get_review_with_limit_offset($limit,$offset);
@@ -21,6 +25,9 @@ class Reviews_Controller extends Reviews{
 
                 $BookList[] = $bookInfo;
             }
+            $isReact = $this->is_react($Review['id'],$GLOBALS['userId'][0]['id']);
+            $isReactArr = array("isReact"=>$isReact);
+            $Review+= $isReactArr;
             $Books_arr = array("Books"=>$BookList);
             $Review+= $Books_arr;
             $Review+= $ReviewUser;

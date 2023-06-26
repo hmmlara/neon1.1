@@ -31,16 +31,14 @@
 //Like Btn
 const LikesBtns = document.querySelectorAll(".like-btn");
 function checkLikes() {
-	LikesBtns.forEach(
-		(element)=>{
-			if(element.classList.contains("liked")){
-				let likeIcon = element.querySelector(".fa-thumbs-up");
-				likeIcon.classList.add("liked-like-icon");
-				let likeText = element.querySelector(".like-text");
-				likeText.innerText = "Liked"; 
-			}
+	LikesBtns.forEach((element) => {
+		if (element.classList.contains("liked")) {
+			let likeIcon = element.querySelector(".fa-thumbs-up");
+			likeIcon.classList.add("liked-like-icon");
+			let likeText = element.querySelector(".like-text");
+			likeText.innerText = "Liked";
 		}
-	)
+	});
 }
 checkLikes();
 
@@ -148,8 +146,8 @@ $(document).ready(function () {
 					</div>
 				</a>`;
 						});
-
-						authorCard += `
+						if (review.isReact) {
+							authorCard += `
 						
 					<div class="review-actions position-relative">
 						<button class="like-btn liked" data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
@@ -168,10 +166,31 @@ $(document).ready(function () {
 				</div>
 			
                         `;
+						}
+						else{
+							authorCard += `
+						
+					<div class="review-actions position-relative">
+						<button class="like-btn " data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
+							<i class="fas fa-thumbs-up "></i>
+							<span class="like-text">Like</span>
+							<span class="like-count">
+								${review.user_react}
+							</span>
+						</button>
+						<button class="comment-btn">
+							<i class="fas fa-comment"></i> Comment
+						</button>
+					
+					</div>
+					
+				</div>
+			
+                        `;
+						}
 
 						authorContainer.append(authorCard);
 						checkLikes();
-
 					});
 
 					offset += limit;
@@ -183,7 +202,5 @@ $(document).ready(function () {
 				}
 			},
 		});
-		
-
 	});
 });

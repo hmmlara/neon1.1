@@ -48,7 +48,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 
 	<!-- Review  Post -->
 	<div class="container mt-4">
-		<main data-user-id ="<?php echo $userId[0]['id'] ?>">
+		<main data-user-id="<?php echo $userId[0]['id'] ?>">
 			<?php
 			foreach ($reviews as $review) {
 				$id_of_review = $review['id'];
@@ -106,7 +106,9 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 
 					</div>
 					<div class="review-actions position-relative">
-						<button class="like-btn liked"  data-review-id="<?php echo $review['id'] ?>" onclick="toggleLike(this)">
+						<button class="like-btn <?php if ($reviews_model->is_react($id_of_review, $userId[0]['id'])) {
+							echo "liked";
+						} ?>" data-review-id="<?php echo $review['id'] ?>" onclick="toggleLike(this)">
 							<i class="fas fa-thumbs-up"></i>
 							<span class="like-text">Like</span>
 							<span class="like-count">
