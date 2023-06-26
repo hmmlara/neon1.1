@@ -37,7 +37,7 @@ $(document).ready(function(){
             }
         })
         if($(this).val()!="All"){
-            $("#search").on("click",function(){
+            $("#search").on("click",function(e){
                 $(".usersearch_book").remove();
                 booksearch=$("#booksearch").val();
                 $.each(books,function(index,book){
@@ -56,7 +56,7 @@ $(document).ready(function(){
                           </div>`
     
                             $("#filterbook").append(searchBookUser);
-                        //e.preventDefault();
+                        e.preventDefault();
                     }
                 })
             })
