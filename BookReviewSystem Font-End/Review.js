@@ -65,7 +65,7 @@ function toggleLike(btn) {
 				review_id: review_id,
 			},
 			success: function (response) {
-				console.log(response);
+				// console.log(response);
 			},
 		});
 	} else {
@@ -81,7 +81,7 @@ function toggleLike(btn) {
 				review_id: review_id,
 			},
 			success: function (response) {
-				console.log(response);
+				// console.log(response);
 			},
 		});
 	}
@@ -93,9 +93,7 @@ function toggleLike(btn) {
 function toggleComment(btn) {
 	let Id = btn.dataset.reviewId;
 	let CommentDiv = document.querySelector(`#comment-${Id}`);
-	console.log(CommentDiv);
 	CommentDiv.classList.toggle("hide");
-	console.log(Id);
 }
 var offset = 4;
 var limit = 2;
@@ -150,7 +148,7 @@ function LoadMore() {
 						</h2>
 					
 						<p>by
-						${console.log(element.auther)}
+						${element.auther}
 						</p>
 					</div>
 				</div>

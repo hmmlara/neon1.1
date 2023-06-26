@@ -84,16 +84,14 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                             ?>
                             <a href="Post.php?del=<?php echo $key ?>">
                                 <div class="book-details">
-                                    <img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
+                                    <img src="<?php echo $book[0]["image"] ?>" alt="<?php echo $book[0]["image"] ?>" />
                                     <div class="book-info">
                                         <h2>
-                                            <?php echo $book["name"] ?>
+                                            <?php echo $book[0]["name"] ?>
                                         </h2>
-                                        <?php
-                                        $author = $reviews_model->get_author_by_id($book["auther_id"]);
-                                        ?>
+                                      
                                         <p>by
-                                            <?php echo $author["name"] ?>
+                                            <?php echo $book[0]["auther_name"] ?>
                                         </p>
                                     </div>
                                 </div>
