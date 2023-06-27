@@ -48,7 +48,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 
 	<!-- Review  Post -->
 	<div class="container mt-4">
-		<main data-user-id="<?php echo $userId[0]['id'] ?>">
+		<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 			<?php
 			foreach ($reviews as $review) {
 				$id_of_review = $review['id'];
@@ -65,7 +65,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 								<h3>
 									<?php echo $userinfo["name"] ?>
 								</h3>
-								<p>June 1, 2023</p>
+								<p><?php echo $review['date'] ?></p>
 							</div>
 						</div>
 					</div>
@@ -140,6 +140,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 									<img src="<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
 								</div>
 								<div class="comment-content">
+									<p class="ago"></p>
 									<p class="comment-text">
 										<?php echo $comment['comment'] ?>
 									</p>
@@ -153,7 +154,6 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 							}
 							?>
 						</ul>
-						<button class="load-more-btn btn">Load More</button>
 
 						<div class="comment-form" id="comment-form-<?php echo $review['id'] ?>" >
 							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
@@ -239,7 +239,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 	</footer>
 
 	<!-- JavaScript -->
-
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="../fontawesome/js/all.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

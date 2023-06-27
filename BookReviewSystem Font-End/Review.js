@@ -1,62 +1,62 @@
 // Comment Load More Function
-$(document).ready(function() {
-    var commentsPerPage = 2; // Number of comments to show per page
-    var $commentList = $('.comment-list');
-    var $loadMoreBtn = $('.load-more-btn');
-    var totalComments = $commentList.children('.comment').length;
-    var visibleComments = commentsPerPage;
+// $(document).ready(function() {
+//     var commentsPerPage = 2; // Number of comments to show per page
+//     var $commentList = $('.comment-list');
+//     var $loadMoreBtn = $('.load-more-btn');
+//     var totalComments = $commentList.children('.comment').length;
+//     var visibleComments = commentsPerPage;
 
-    // Initially hide all comments beyond the specified limit
-    $commentList.children('.comment:gt(' + (visibleComments - 1) + ')').hide();
+//     // Initially hide all comments beyond the specified limit
+//     $commentList.children('.comment:gt(' + (visibleComments - 1) + ')').hide();
 
-    // Show/hide "Load More" button based on the number of comments
-    if (totalComments <= visibleComments) {
-      $loadMoreBtn.hide();
-    }
+//     // Show/hide "Load More" button based on the number of comments
+//     if (totalComments <= visibleComments) {
+//       $loadMoreBtn.hide();
+//     }
 
-    // Handle "Load More" button click event
-    $loadMoreBtn.on('click', function() {
-      visibleComments += commentsPerPage;
+//     // Handle "Load More" button click event
+//     $loadMoreBtn.on('click', function() {
+//       visibleComments += commentsPerPage;
 
-      // Show the next set of comments
-      $commentList.children('.comment:lt(' + visibleComments + ')').show();
+//       // Show the next set of comments
+//       $commentList.children('.comment:lt(' + visibleComments + ')').show();
 
-      // Hide the "Load More" button if all comments are visible
-      if (visibleComments >= totalComments) {
-        $loadMoreBtn.hide();
-      }
-    });
-  });
+//       // Hide the "Load More" button if all comments are visible
+//       if (visibleComments >= totalComments) {
+//         $loadMoreBtn.hide();
+//       }
+//     });
+//   });
 //function comment loadMore function
-function CheckCommentLists(id){ //to hide load more btn acct list length
-	var commentsPerPage = 2; // Number of comments to show per page
-    var $commentList = $(`#comment-list-${id}`);
-	console.log($commentList);
-    var $loadMoreBtn = $('.load-more-btn');
-    var totalComments = $commentList.children('.comment').length;
-    var visibleComments = commentsPerPage;
+// function CheckCommentLists(id){ //to hide load more btn acct list length
+// 	var commentsPerPage = 2; // Number of comments to show per page
+//     var $commentList = $(`#comment-list-${id}`);
+// 	console.log($commentList);
+//     var $loadMoreBtn = $('.load-more-btn');
+//     var totalComments = $commentList.children('.comment').length;
+//     var visibleComments = commentsPerPage;
 
-    // Initially hide all comments beyond the specified limit
-    $commentList.children('.comment:gt(' + (visibleComments - 1) + ')').hide();
+//     // Initially hide all comments beyond the specified limit
+//     $commentList.children('.comment:gt(' + (visibleComments - 1) + ')').hide();
 
-    // Show/hide "Load More" button based on the number of comments
-    if (totalComments <= visibleComments) {
-      $loadMoreBtn.hide();
-    }
-	   // Handle "Load More" button click event
-	   $loadMoreBtn.on('click', function() {
-		visibleComments += commentsPerPage;
-  
-		// Show the next set of comments
-		$commentList.children('.comment:lt(' + visibleComments + ')').show();
-  
-		// Hide the "Load More" button if all comments are visible
-		if (visibleComments >= totalComments) {
-		  $loadMoreBtn.hide();
-		}
-	  });
-	
-}
+//     // Show/hide "Load More" button based on the number of comments
+//     if (totalComments <= visibleComments) {
+//       $loadMoreBtn.hide();
+//     }
+// 	   // Handle "Load More" button click event
+// 	   $loadMoreBtn.on('click', function() {
+// 		visibleComments += commentsPerPage;
+
+// 		// Show the next set of comments
+// 		$commentList.children('.comment:lt(' + visibleComments + ')').show();
+
+// 		// Hide the "Load More" button if all comments are visible
+// 		if (visibleComments >= totalComments) {
+// 		  $loadMoreBtn.hide();
+// 		}
+// 	  });
+
+// }
 //Like Btn
 const LikesBtns = document.querySelectorAll(".like-btn");
 function checkLikes() {
@@ -116,42 +116,58 @@ function toggleLike(btn) {
 	}
 }
 
-
 //Create Comment Function
 function LeeError(btn) {
+	let userImage = mainDocument.dataset.userImage;
+	let userName = mainDocument.dataset.userName;
 	let Id = btn.dataset.reviewId;
 	let CommentDiv = document.querySelector(`#comment-form-${Id}`);
+	let commentList = document.querySelector(`#comment-list-${Id}`);
 	let form = CommentDiv.querySelector("textarea");
-	console.log(form.value);
-	if(form.value !== ''){
+	let cmListItem = `
+										<li class="comment">
+											<div class="comment-avatar">
+												<img src="${userImage}" alt="${userImage}" />
+											</div>
+											<div class="comment-content">
+												<p class="comment-text">
+												${form.value}
+												</p>
+												<span class="comment-meta">-
+												${userName}
+												</span>
+											</div>
+										</li>	
+										`
+	$(`#comment-list-${Id}`).prepend(cmListItem)
+	if (form.value !== "") {
 		$.ajax({
 			type: "POST",
 			url: "createReviewComment.php",
 			data: {
 				review: Id,
-				comment: form.value
+				comment: form.value,
 			},
-			success: function(response) {
+			success: function (response) {
 				console.log(response);
-				if(response == 1){
-					form.value = ''
+				if (response == 1) {
+					form.value = "";
 				}
-			}
+			},
 		});
 	}
-	
 }
 
 function toggleComment(btn) {
 	let Id = btn.dataset.reviewId;
 	let CommentDiv = document.querySelector(`#comment-${Id}`);
-	
-	CheckCommentLists(Id);
+
+	// CheckCommentLists(Id);
 
 	CommentDiv.classList.toggle("hide");
 }
-var offset = 4;
-var limit = 2;
+var offset = 5;
+var limit = 3;
 //funtion load more review
 function LoadMore() {
 	$.ajax({
@@ -229,9 +245,7 @@ function LoadMore() {
 										<ul class="comment-list">
 					`;
 					} else {
-						authorCard += `
-					
-										<div class="review-actions position-relative">
+						authorCard += `<div class="review-actions position-relative">
 											<button class="like-btn " data-user-id ="${review.user_id}" data-review-id = "${review.id}" onclick="toggleLike(this)">
 												<i class="fas fa-thumbs-up "></i>
 												<span class="like-text">Like</span>
@@ -246,18 +260,12 @@ function LoadMore() {
 										</div>
 										<div class="comments hide" id = "comment-${review["id"]}">
 											<h4>Comments</h4>
-											<ul class="comment-list">
-											
-												
-
-									
-		
-					`;
-					}
-					console.log(review.comments);
+											<ul class="comment-list" id = "comment-list-${review['id']}">																															
+										`;
+								}
 					review.comments.forEach((element) => {
 						authorCard += `
-										<li class="comment">
+										<li class="comment" >
 											<div class="comment-avatar">
 												<img src="${element.image}" alt="${element.image}" />
 											</div>
@@ -269,17 +277,15 @@ function LoadMore() {
 												${element.name}
 												</span>
 											</div>
-										</li>
-							`;
-					});
+										</li>`;											
+									});
 					authorCard += `
 									</ul>
-								<button class="load-more-btn btn">Load More</button>
 
-								<form class="comment-form" method='post'>
-									<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
-									<button class="btn btn-primary"  name="submit">Submit</button>
-								</form>
+								<div class="comment-form" id = "comment-form-${review.id}" >
+									<textarea class="form-control" placeholder="Add a comment"></textarea>
+									<button class="btn btn-primary" data-review-id = "${review.id}"  onclick="LeeError(this)"  >Submit</button>
+								</div>
 							</div>
 						</div>`;
 					authorContainer.append(authorCard);
@@ -294,8 +300,6 @@ function LoadMore() {
 		},
 	});
 }
-
-
 
 // Function to check if the user has reached the bottom of the page
 function isNearBottom() {

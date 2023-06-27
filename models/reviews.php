@@ -128,7 +128,7 @@ class Reviews
 
     function get_review_comments($Review_id)
     {
-        $sql = "SELECT `id`, `user_id`, `review_book_id`, `comment` FROM `review_comment` WHERE `review_book_id` = :id";
+        $sql = "SELECT `id`, `user_id`, `review_book_id`, `comment` FROM `review_comment` WHERE `review_book_id` = :id ORDER BY date DESC";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(":id", $Review_id);
         $statement->execute();
