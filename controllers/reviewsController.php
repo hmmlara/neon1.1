@@ -25,6 +25,16 @@ class Reviews_Controller extends Reviews{
 
                 $BookList[] = $bookInfo;
             }
+            $comment_with_user_info = [];
+            $comments = $this->get_review_comments($Review['id']);
+            foreach($comments as $comment){
+                $userInfo = $this->get_userinfo_by_id($comment['user_id']);
+                $comment+= $userInfo;
+                $comment_with_user_info[]=$comment;
+            }
+            $commentsArr = array("comments"=>$comment_with_user_info);
+            $Review+= $commentsArr;
+
             $isReact = $this->is_react($Review['id'],$GLOBALS['userId'][0]['id']);
             $isReactArr = array("isReact"=>$isReact);
             $Review+= $isReactArr;
