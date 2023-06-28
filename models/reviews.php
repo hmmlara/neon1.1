@@ -54,7 +54,7 @@ class Reviews
 
     function get_review_with_limit_offset($limit, $offset)
     {
-        $sql = "SELECT * FROM `user_review` LIMIT :limit_num OFFSET :offset_num";
+        $sql = "SELECT * FROM `user_review` ORDER BY date DESC LIMIT :limit_num OFFSET :offset_num ";
         $statement = $this->connection->prepare($sql);
 
         $statement->bindValue(':limit_num', $limit, PDO::PARAM_INT);
