@@ -128,7 +128,7 @@ class Reviews
 
     function get_review_comments($Review_id)
     {
-        $sql = "SELECT `id`, `user_id`, `review_book_id`, `comment` FROM `review_comment` WHERE `review_book_id` = :id";
+        $sql = "SELECT `id`, `user_id`, `review_book_id`, `comment` FROM `review_comment` WHERE `review_book_id` = :id ORDER BY date DESC";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(":id", $Review_id);
         $statement->execute();
@@ -148,34 +148,48 @@ class Reviews
             return false;
         }
     }
-    function delete_review_react($Review_id,$user_id){
+    function delete_review_react($Review_id, $user_id)
+    {
         $sql = "DELETE FROM `review_react` WHERE user_id = :user_id and review_book_id = :review_id";
         $statement = $this->connection->prepare($sql);
-        $statement->bindValue(":review_id",$Review_id);
-        $statement->bindValue(":user_id",$user_id);
-        if($statement->execute()){
+        $statement->bindValue(":review_id", $Review_id);
+        $statement->bindValue(":user_id", $user_id);
+        if ($statement->execute()) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-        function is_react($Review_id,$user_id){
+    function is_react($Review_id, $user_id)
+    {
         $sql = "SELECT love FROM `review_react` WHERE user_id = :user_id and review_book_id = :review_id";
         $statement = $this->connection->prepare($sql);
-        $statement->bindValue(":review_id",$Review_id);
-        $statement->bindValue(":user_id",$user_id);
-        if($statement->execute()){
+        $statement->bindValue(":review_id", $Review_id);
+        $statement->bindValue(":user_id", $user_id);
+        if ($statement->execute()) {
             $result = $statement->fetch(PDO::FETCH_ASSOC);
-            if($result){
+            if ($result) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
-        
+    }
+    
+    function create_comment($Review_id, $userId,$comment)
+    {
+        $sql = "INSERT INTO `review_comment`(`user_id`, `review_book_id`, `comment`) VALUES (:user_id,:review_id,:comment)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindValue(":review_id", $Review_id);
+        $statement->bindValue(":user_id", $userId);
+        $statement->bindValue(":comment", $comment);
+
+        if ($statement->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
