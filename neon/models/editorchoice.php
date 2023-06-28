@@ -32,7 +32,7 @@ class Editor
         $this->connection = Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT book.name AS book_name, auther.name AS author_name, book.date,book.id
+        $sql = "SELECT book.image AS book_image, book.name AS book_name, auther.name AS author_name, book.date,book.id
         FROM editor_choice 
         JOIN book ON editor_choice.book_id = book.id
         JOIN book_category ON book.id = book_category.book_id

@@ -10,7 +10,8 @@ body {
     background-size: cover;
   }
   .register{
-    width: 200px;
+    width: 40%;
+    border-radius: 30px;
   }
    /* .upload-circle {
     position: relative;

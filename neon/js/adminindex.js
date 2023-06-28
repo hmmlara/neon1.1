@@ -1,18 +1,16 @@
 $(document).ready(function () {
-    $('.success-btn').click(function() {
+    $('.success123').click(function() {
       console.log("Clik")
         var bookId = $(this).data('book-id');
         console.log(bookId)
-        $('#selected_book_id').val(bookId);
-        //e.preventDefault();
         
-        //$(this).removeClass('btn-success').addClass('btn-danger');
-        $('form').submit();
+        $('#selected_book_id').val(bookId);
+        // e.preventDefault();
+        //$('form').submit();
         
         
     });
-    $('.unselete-btn').click(function() {
-      console.log("Clik")
+    $('.unselete123').click(function() {
       // $(".btn-success").remove();
       // $(".btn-danger").append();
         var bookId = $(this).data('book-id');
@@ -20,8 +18,8 @@ $(document).ready(function () {
         $('#selected_book_id').val(bookId);
         //e.preventDefault();
         
-        //$(this).removeClass('btn-success').addClass('btn-danger');
-        $('form').submit();
+        
+        //$('form').submit();
         
         
     });

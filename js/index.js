@@ -30,6 +30,13 @@ $(document).ready(function(){
                 }
             }
         })
+        
+        if($("#filter_category").val()!=="All" || $("#booksearch").length>0){
+            console.log($(".load_more").length)
+            $("#loadmorebtn").remove();
+            console.log("Hello")
+        }
+
         if($(this).val()!="All"){
             $("#search").on("click",function(e){
                 $(".usersearch_book").remove();
@@ -61,11 +68,15 @@ $(document).ready(function(){
         
     })
 
-    // if($("#filter_category").val()!="All" && $("#booksearch").length>0){
-    //     //console.log($(".load_more").length)
-    //     $(".load_more").remove();
-    //     console.log("Hello")
-    // }
+    $("#search").on("click",function(){
+        if($("#booksearch").length>0){
+            console.log("Hello");
+            console.log($("#booksearch").length)
+            $("#loadmorebtn").remove();
+            //e.preventDefault();
+        }
+       
+    })
 
 
     // if ($("#filter_category").val() != "All" || $("#booksearch").val().length > 0) {
@@ -106,9 +117,7 @@ $(document).ready(function(){
 
                             remainBook.append(BookCard);
                     });
-
                     offset += limit; 
-                    
                 }
                 
                 if(balanceBooks.length<3)               
@@ -120,11 +129,11 @@ $(document).ready(function(){
         })
     })
 
-    if ($("#filter_category").val() != "All") {
-        $(".load_more").remove();
-        alert("Hello")
-        console.log("All");
-    }
+    // if ($("#filter_category").val() != "All") {
+    //     $(".load_more").remove();
+    //     alert("Hello")
+    //     console.log("All");
+    // }
 
     
 })

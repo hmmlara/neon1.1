@@ -21,17 +21,18 @@ foreach ($getCategory as $category) {
 
 foreach ($getUserinfo as $getUser) {
     //var_dump($getUser) ;
+    if ($_SESSION["user_email"] == $getUser['email']) {
+        $userimg = $getUser['image'];
+        $username = $getUser['name'];
+        $userbio = $getUser['bio'];
+        $useremail = $getUser['email'];
+    }
 }
 if (!isset($_SESSION['user_email'])) {
     header("location:../login.php");
 }
 
-if ($_SESSION["user_email"] == $getUser['email']) {
-    $userimg = $getUser['image'];
-    $username = $getUser['name'];
-    $userbio = $getUser['bio'];
-    $useremail = $getUser['email'];
-}
+
 
 
 $getAllBookList = [];
@@ -110,7 +111,6 @@ if (isset($_POST['searchbyuser'])) {
         <!-- Books -->
         <div class="container mt-4">
             <div class="row">
-                
                 <?php if (empty($getAllBookList)){ ?>
                 <div class="col-md-12 d-flex flex-wrap select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
                 <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>> 
@@ -183,7 +183,7 @@ if (isset($_POST['searchbyuser'])) {
                     } ?>
                     <?php //if($categoryName == "All" && empty($bookname)) {?>
                     <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary" id="loadmorebtn">LoadMore</button>
+                        <button type="" class="btn btn-primary load" id="loadmorebtn">LoadMore</button>
                     </div>
                     <?php ?>
                 </div>
@@ -287,9 +287,9 @@ if (isset($_POST['searchbyuser'])) {
                 }
 
             });		</script>
+        <script src="../js/index.js"></script>
             
         <script src="app.js"></script>
-        <script src="../js/index.js"></script>
 </body>
 
 </html>
