@@ -69,7 +69,7 @@ $active_page=$_SERVER['PHP_SELF'];
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="adminindex.php">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Product Lines</span>
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Editor Choice</span>
             </a>
 					</li>
 

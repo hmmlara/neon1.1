@@ -1,32 +1,28 @@
 $(document).ready(function () {
-  $("#genere_fliter").on("change", function () {
-   $(".something").remove();
-    var books = "";
-    let value = $(this).val();
-    console.log(value);
-    $.ajax({
-      url: "generefliter.php",
-      type: "post",
-      data: { value: value },
-      success: function (response) {
-        books = $.parseJSON(response);
-        console.log(response);
-
-        if (books.length > 0) {
-          $.each(books, function (index, book) {
-            var bookCard = `<tr class="something">
-                        <td>${index + 1}</td>
-                        <td>${book.book_name}</td>
-                        <td>${book.author_name}</td>
-                        <td>${book.date}</td>
-                        <td><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
-                        </tr>
-                        `;
-            $("#genere_table").append(bookCard);
-          });
-        }
-      },
+    $('.success-btn').click(function() {
+      console.log("Clik")
+        var bookId = $(this).data('book-id');
+        console.log(bookId)
+        $('#selected_book_id').val(bookId);
+        //e.preventDefault();
+        
+        //$(this).removeClass('btn-success').addClass('btn-danger');
+        $('form').submit();
+        
+        
     });
-    //location.reload();
-  });
+    $('.unselete-btn').click(function() {
+      console.log("Clik")
+      // $(".btn-success").remove();
+      // $(".btn-danger").append();
+        var bookId = $(this).data('book-id');
+        console.log(bookId)
+        $('#selected_book_id').val(bookId);
+        //e.preventDefault();
+        
+        //$(this).removeClass('btn-success').addClass('btn-danger');
+        $('form').submit();
+        
+        
+    });
 });
