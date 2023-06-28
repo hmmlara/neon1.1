@@ -5,14 +5,14 @@ include_once "../controllers/bookmarkController.php";
 include_once "../controllers/usercontroller.php";
 include_once "../models/register.php";
 include_once "../models/reviews.php";
-$user_id=$_SESSION['userid'];
+$user_id = $_SESSION['userid'];
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
 $updateUserInfo = new UserController();
 $getPersonalInfo = $updateUserInfo->getSingleUser($_SESSION['user_email']);
-$bookmark_controller=new BookmarkController();
-$bookmark_list=$bookmark_controller->getAllBookmark($user_id);
-	//var_dump($getPersonalInfo[0]["image"]);
+$bookmark_controller = new BookmarkController();
+$bookmark_list = $bookmark_controller->getAllBookmark($user_id);
+//var_dump($getPersonalInfo[0]["image"]);
 
 //Add User img
 if (!isset($_SESSION['user_email'])) {
@@ -32,7 +32,7 @@ foreach ($getUserinfo as $getUser) {
 	}
 }
 
-if(isset($_POST['edituserprofile'])){
+if (isset($_POST['edituserprofile'])) {
 	$getPersonalInfo = $updateUserInfo->getUser($_SESSION['user_email']);
 	//var_dump($getPersonalInfo);
 }
@@ -45,13 +45,12 @@ if (isset($_POST['save'])) {
 	$filesize = $_FILES['img']['size'];
 	$allowed_files = ['jpg', 'png', 'jpeg', 'svg'];
 	$temp_path = $_FILES['img']['tmp_name'];
-	
+
 	// echo $filename;
-	if($_FILES['img']['error']!=0){
-		$filename =$getPersonalInfo[0]["image"];
-	}
-	else{
-		$fileinfo = explode('.', $filename);	
+	if ($_FILES['img']['error'] != 0) {
+		$filename = $getPersonalInfo[0]["image"];
+	} else {
+		$fileinfo = explode('.', $filename);
 		$filetype = end($fileinfo);
 		$maxsize = 2000000000;
 		if (in_array($filetype, $allowed_files)) {
@@ -66,7 +65,7 @@ if (isset($_POST['save'])) {
 	}
 
 	$error_status = false;
-	
+
 	if (!empty($_POST['usereditname'])) {
 		$editusername = $_POST['usereditname'];
 	} else {
@@ -78,15 +77,14 @@ if (isset($_POST['save'])) {
 	if ($error_status == false) {
 		$updateUser = $updateUserInfo->updateUserInfo($editusername, $useremail, $edituserbio, $filename);
 		header("Location: " . $_SERVER['PHP_SELF']);
-		
+
 	}
 
 }
 
 
 //user log out
-if(isset($_POST['logout']))
-{
+if (isset($_POST['logout'])) {
 	unset($_SESSION['user_email']);
 	header("location:../login.php");
 }
@@ -96,7 +94,7 @@ $register_model = new CreateUser();
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
 $userid = $register_model->getUserId($userEmail);
-// $reviews = $reviews_model->get_review_by_userId($userid[0]['id']);
+$reviews = $reviews_model->get_review_by_userId($user_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +115,7 @@ $userid = $register_model->getUserId($userEmail);
 
 <body>
 	<!-- Navigation bar -->
-	<?php 
+	<?php
 	include_once "nav.php";
 	?>
 
@@ -126,12 +124,11 @@ $userid = $register_model->getUserId($userEmail);
 			<div class="profile-header">
 				<div class="profile-edit d-flex justify-content-center ">
 					<img src="../image/<?php if (!empty($userimg)) {
-						
+
 						echo $userimg;
 					} else {
 						echo "nurse.jpg";
-					} ?>" class="img"
-						id="profileimg" alt="" />
+					} ?>" class="img" id="profileimg" alt="" />
 
 				</div>
 				<div class="cancel-button d-none" id="cancelButton">
@@ -139,17 +136,15 @@ $userid = $register_model->getUserId($userEmail);
 				</div>
 				<div class="round d-none">
 					<i class="fa fa-camera camera" style="color: #00000;"></i>
-					<input type="file" name="img" src="" alt="" id="input" class="world" >
+					<input type="file" name="img" src="" alt="" id="input" class="world">
 				</div>
 				<h1 class="profile-name username mt-3">
 					<?php echo $username; ?>
 				</h1>
 
 				<div class="d-flex justify-content-center">
-					<input type="text" name="usereditname" placeholder="Please Enter Your Name"
-						class="form-control usereditname d-none my-3 text-center <?php if (isset($error_username))
-							echo "border border-danger" ?>"
-							id="" value="<?php echo $username ?>" required>
+					<input type="text" name="usereditname" placeholder="Please Enter Your Name" class="form-control usereditname d-none my-3 text-center <?php if (isset($error_username))
+						echo "border border-danger" ?>" id="" value="<?php echo $username ?>" required>
 				</div>
 				<p class="profile-bio">
 					<?php if (!empty($userbio)) {
@@ -167,12 +162,16 @@ $userid = $register_model->getUserId($userEmail);
 
 			</div>
 			<div class="allbtn">
-				<button class="btn btn-primary mx-3 editProfile" name="edituserprofile" id="edit_profile"><i class="fa-regular fa-pen-to-square mr-2"></i>Edit Profile</button>
-				<button class="btn btn-danger logout" name="logout"><i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Log Out</button>
+				<button class="btn btn-primary mx-3 editProfile" name="edituserprofile" id="edit_profile"><i
+						class="fa-regular fa-pen-to-square mr-2"></i>Edit Profile</button>
+				<button class="btn btn-danger logout" name="logout"><i
+						class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Log Out</button>
 				<!-- <a href="../login.php" class="btn btn-danger logout">Log Out</a> -->
 
-				<button class="btn btn-info d-none save mx-3" name="save"><i class="fa-regular fa-floppy-disk mr-2"></i>Save</button>
-				<button class="btn btn-warning d-none cancel" name="cancel"><i class="fa-solid fa-xmark mr-2"></i>Cancel</button>
+				<button class="btn btn-info d-none save mx-3" name="save"><i
+						class="fa-regular fa-floppy-disk mr-2"></i>Save</button>
+				<button class="btn btn-warning d-none cancel" name="cancel"><i
+						class="fa-solid fa-xmark mr-2"></i>Cancel</button>
 			</div>
 		</form>
 		<div class="profile-content mt-4	">
@@ -186,20 +185,25 @@ $userid = $register_model->getUserId($userEmail);
 						<div class="book-card-grid">
 							<?php
 							foreach ($bookmark_list as $bookmark) {
-							?>
-							<div class="book-card">
-								<div class="book-card-image">
-									<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
-									<div class="book-card-overlay">
-										<a href="BookDetail.php?id=<?php echo $bookmark['id'] ?>" class="book-card-button">Read More</a>
+								?>
+								<div class="book-card">
+									<div class="book-card-image">
+										<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
+										<div class="book-card-overlay">
+											<a href="BookDetail.php?id=<?php echo $bookmark['id'] ?>"
+												class="book-card-button">Read More</a>
+										</div>
+									</div>
+									<div class="book-card-info">
+										<h3 class="book-card-title">
+											<?php echo $bookmark['name'] ?>
+										</h3>
+										<p class="book-card-author">
+											<?php echo $bookmark['auther_name'] ?>
+										</p>
 									</div>
 								</div>
-								<div class="book-card-info">
-									<h3 class="book-card-title"><?php echo $bookmark['name'] ?></h3>
-									<p class="book-card-author"><?php echo $bookmark['auther_name'] ?></p>
-								</div>
-							</div>
-							<?php
+								<?php
 							}
 							?>
 						</div>
@@ -209,12 +213,13 @@ $userid = $register_model->getUserId($userEmail);
 					</div>
 				</div>
 			</div>
-			
+
 			<h2 class="section-title" class="mt-4">Reviews</h2>
 			<div class="container mt-4">
 				<main>
 					<?php
 					foreach ($reviews as $review) {
+						$id_of_review = $review['id'];
 						$userinfo = $reviews_model->get_userinfo_by_id($review['user_id']);
 
 						$review_books = $reviews_model->get_review_book($review['id']);
@@ -228,18 +233,25 @@ $userid = $register_model->getUserId($userEmail);
 										<h3>
 											<?php echo $userinfo["name"] ?>
 										</h3>
-										<p>June 1, 2023</p>
+										<p>
+											<?php echo $review['date'] ?>
+										</p>
 									</div>
 								</div>
 							</div>
 							<div class="review-content">
+								<p>
+									<?php
+									echo $review["content"];
+									?>
+								</p>
 								<div class="d-flex flex-wrap">
 
 									<?php
 									foreach ($review_books as $review_book_id) {
 										$book = $reviews_model->get_bookinfo_by_id($review_book_id["book_id"]);
 										?>
-										<a href="BookDetail.php">
+										<a href="BookDetail.php?id=<?php echo $review_book_id['book_id'] ?>">
 											<div class="book-details">
 												<img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
 												<div class="book-info">
@@ -255,89 +267,74 @@ $userid = $register_model->getUserId($userEmail);
 												</div>
 											</div>
 										</a>
-									<?php
+										<?php
 									}
 									?>
 
 								</div>
 
-								<p>
-									<?php
-									echo $review["content"];
-									?>
-								</p>
+
 							</div>
 							<div class="review-actions position-relative">
-								<button class="like-btn" onclick="toggleLike(this)">
+								<button class="like-btn <?php if ($reviews_model->is_react($id_of_review, $userId[0]['id'])) {
+									echo "liked";
+								} ?>" data-review-id="<?php echo $review['id'] ?>" onclick="toggleLike(this)">
 									<i class="fas fa-thumbs-up"></i>
 									<span class="like-text">Like</span>
-									<span class="like-count">10</span>
+									<span class="like-count">
+										<?php
+										$total_react = $reviews_model->get_review_reacts($id_of_review);
+										echo $total_react['user_react'];
+										?>
+									</span>
 								</button>
-								<button class="comment-btn">
+								<button class="comment-btn" data-review-id="<?php echo $review['id'] ?> "
+									onclick="toggleComment(this)">
 									<i class="fas fa-comment"></i> Comment
 								</button>
-								<div class="who-viewed">
-									<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
-									<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
-									<span class="view-count">+3</span>
-								</div>
+								<!-- <div class="who-viewed">
+							<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
+							<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
+							<span class="view-count">+3</span>
+						</div> -->
 							</div>
-							<div class="comments">
+							<div class="comments hide" id="comment-<?php echo $review['id'] ?>">
 								<h4>Comments</h4>
-								<ul class="comment-list">
-									<li class="comment">
-										<div class="comment-avatar">
-											<img src="avatar.jpg" alt="User Avatar" />
-										</div>
-										<div class="comment-content">
-											<p class="comment-text">This book was amazing!</p>
-											<span class="comment-meta">- John Doe</span>
-										</div>
-									</li>
-									<li class="comment">
-										<div class="comment-avatar">
-											<img src="avatar.jpg" alt="User Avatar" />
-										</div>
-										<div class="comment-content">
-											<p class="comment-text">Highly recommended!</p>
-											<span class="comment-meta">- Jane Smith</span>
-										</div>
-									</li>
-									<li class="comment">
-										<div class="comment-avatar">
-											<img src="avatar.jpg" alt="User Avatar" />
-										</div>
-										<div class="comment-content">
-											<p class="comment-text">Highly recommended!</p>
-											<span class="comment-meta">- Jane Smith</span>
-										</div>
-									</li>
-									<li class="comment">
-										<div class="comment-avatar">
-											<img src="avatar.jpg" alt="User Avatar" />
-										</div>
-										<div class="comment-content">
-											<p class="comment-text">Highly recommended!</p>
-											<span class="comment-meta">- Jane Smith</span>
-										</div>
-									</li>
-									<li class="comment">
-										<div class="comment-avatar">
-											<img src="avatar.jpg" alt="User Avatar" />
-										</div>
-										<div class="comment-content">
-											<p class="comment-text">Highly recommended!</p>
-											<span class="comment-meta">- Jane Smith</span>
-										</div>
-									</li>
-									<!-- Add more comment list items as needed -->
-								</ul>
-								<button class="load-more-btn btn">Load More</button>
+								<ul class="comment-list" id="comment-list-<?php echo $review['id'] ?>">
+									<?php
+									$comments = $reviews_model->get_review_comments($review['id']);
+									foreach ($comments as $key => $comment) {
+										$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id']);
+										?>
+										<li class="comment">
+											<div class="comment-avatar">
+												<img src="<?php echo $userInfo["image"] ?>"
+													alt="<?php echo $userInfo["image"] ?>" />
+											</div>
+											<div class="comment-content">
+												<p class="ago"></p>
+												<p class="comment-text">
+													<?php echo $comment['comment'] ?>
+												</p>
+												<span class="comment-meta">-
+													<?php echo $userInfo['name'] ?>
+												</span>
+											</div>
+										</li>
 
-								<form class="comment-form">
-									<textarea class="form-control" placeholder="Add a comment"></textarea>
-									<button class="btn btn-primary">Submit</button>
-								</form>
+									<?php
+									}
+									?>
+								</ul>
+
+								<div class="comment-form" id="comment-form-<?php echo $review['id'] ?>">
+									<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
+									<button class="btn btn-primary" name="createComment"
+										data-review-id="<?php echo $review['id'] ?>"
+										onclick="LeeError(this)">Submit</button>
+
+								</div>
+
 							</div>
 						</div>
 						<?php
@@ -420,7 +417,7 @@ $userid = $register_model->getUserId($userEmail);
 	<script src="../fontawesome/js/all.js"></script>
 	<script src="app.js"></script>
 	<script src="../js/profile.js"></script>
-	<script src="Review.js"></script>
+	<script src="Profile.js"></script>
 </body>
 
 </html>
