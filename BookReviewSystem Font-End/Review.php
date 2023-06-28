@@ -17,10 +17,10 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
 }
-
+$userId = $getUserData->getUserId($useremail);
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
-$reviews = $reviews_model->get_all_review();
+$reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ $reviews = $reviews_model->get_all_review();
 
 	<!-- Review  Post -->
 	<div class="container mt-4">
-		<main>
+		<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 			<?php
 			foreach ($reviews as $review) {
 				$id_of_review = $review['id'];
@@ -65,11 +65,16 @@ $reviews = $reviews_model->get_all_review();
 								<h3>
 									<?php echo $userinfo["name"] ?>
 								</h3>
-								<p>June 1, 2023</p>
+								<p><?php echo $review['date'] ?></p>
 							</div>
 						</div>
 					</div>
 					<div class="review-content">
+						<p>
+							<?php
+							echo $review["content"];
+							?>
+						</p>
 						<div class="d-flex flex-wrap">
 
 							<?php
@@ -98,14 +103,12 @@ $reviews = $reviews_model->get_all_review();
 
 						</div>
 
-						<p>
-							<?php
-							echo $review["content"];
-							?>
-						</p>
+
 					</div>
 					<div class="review-actions position-relative">
-						<button class="like-btn" onclick="toggleLike(this)">
+						<button class="like-btn <?php if ($reviews_model->is_react($id_of_review, $userId[0]['id'])) {
+							echo "liked";
+						} ?>" data-review-id="<?php echo $review['id'] ?>" onclick="toggleLike(this)">
 							<i class="fas fa-thumbs-up"></i>
 							<span class="like-text">Like</span>
 							<span class="like-count">
@@ -115,50 +118,49 @@ $reviews = $reviews_model->get_all_review();
 								?>
 							</span>
 						</button>
-						<button class="comment-btn">
+						<button class="comment-btn" data-review-id="<?php echo $review['id'] ?> " onclick="toggleComment(this)">
 							<i class="fas fa-comment"></i> Comment
 						</button>
-						<div class="who-viewed">
+						<!-- <div class="who-viewed">
 							<img src="user-avatar.jpg" alt="Avatar 1" class="Profile-avatar" />
 							<img src="user-avatar.jpg" alt="Avatar 2" class="Profile-avatar" />
 							<span class="view-count">+3</span>
-						</div>
+						</div> -->
 					</div>
-					<div class="comments">
+					<div class="comments hide" id = "comment-<?php echo $review['id'] ?>">
 						<h4>Comments</h4>
-						<ul class="comment-list">
-							<?php
-							$comments = $reviews_model->get_review_comments($id_of_review);
-							foreach ($comments as $comment) {
+						<ul class="comment-list" id = "comment-list-<?php echo $review['id'] ?>" >
+							<?php 
+							$comments =	$reviews_model->get_review_comments($review['id']);
+							foreach ($comments as $key => $comment) {
+							$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id']);
+							?>
+							<li class="comment">
+								<div class="comment-avatar">
+									<img src="<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
+								</div>
+								<div class="comment-content">
+									<p class="ago"></p>
+									<p class="comment-text">
+										<?php echo $comment['comment'] ?>
+									</p>
+									<span class="comment-meta">-
+										<?php echo $userInfo['name'] ?>
+									</span>
+								</div>
+							</li>
 
-								$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id'])
-
-									?>
-								<li class="comment">
-									<div class="comment-avatar">
-										<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
-									</div>
-									<div class="comment-content">
-										<p class="comment-text">
-											<?php echo $comment['comment'] ?>
-										</p>
-										<span class="comment-meta">-
-											<?php echo $userinfo['name'] ?>
-										</span>
-									</div>
-								</li>
-							<?php
+							<?php 
 							}
 							?>
-
-							<!-- Add more comment list items as needed -->
 						</ul>
-						<button class="load-more-btn btn">Load More</button>
 
-						<form class="comment-form" method='post'>
+						<div class="comment-form" id="comment-form-<?php echo $review['id'] ?>" >
 							<textarea class="form-control" placeholder="Add a comment" name="comment"></textarea>
-							<button class="btn btn-primary" name="submit">Submit</button>
-						</form>
+							<button class="btn btn-primary" name="createComment" data-review-id="<?php echo $review['id'] ?>"  onclick="LeeError(this)">Submit</button>
+
+						</div>
+						
 					</div>
 				</div>
 				<?php
@@ -167,7 +169,11 @@ $reviews = $reviews_model->get_all_review();
 
 
 		</main>
+		<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
+			No More Result
+		</div>
 	</div>
+
 	<!-- Footer -->
 	<footer class="footer mt-4">
 		<div class="footer-container">
@@ -233,7 +239,7 @@ $reviews = $reviews_model->get_all_review();
 	</footer>
 
 	<!-- JavaScript -->
-
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="../fontawesome/js/all.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

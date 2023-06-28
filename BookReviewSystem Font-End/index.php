@@ -222,9 +222,6 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 								<p class="book-card-author">
 									<?php echo $book['auther_name'] ?>
 								</p>
-								<p class="book-card-genre">
-									<?php echo $book['category_name'] ?>
-								</p>
 							</div>
 						</div>
 						<?php

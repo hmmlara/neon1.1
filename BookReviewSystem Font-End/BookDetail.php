@@ -3,7 +3,7 @@
 session_start();
 $user_id=$_SESSION['userid'];
 
-include_once('../neon/controller/bookController.php');
+include('../neon/controller/bookController.php');
 include_once('../controllers/commentController.php');
 $cid=$_GET['id'];
 $book_controller=new BookController();
@@ -14,7 +14,7 @@ $comment = array_reverse($comment);
 if(isset($_POST['submit'])){
 	$comment=trim($_POST['comment']);
 	if (strlen($comment) > 0 && $comment !== str_repeat(' ', strlen($comment))){
-		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book['id']);
+		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book[0]['id']);
 		$comment=$comment_controller->getAllComments($cid);
 		$comment = array_reverse($comment);
 	}
@@ -72,16 +72,22 @@ if(isset($_POST['submit'])){
 				</div>
 
 				<div class="book-info">
-				<h3 class="book-title"><?php echo $book['name'] ?></h3>
+				<h3 class="book-title"><?php echo $book[0]['name'] ?></h3>
 					<div class="book-image">
 						<img
-							src="../image/photos/<?php echo $book['image'] ?>"
-							alt="<?php echo $book['name'] ?>"
+							src="../image/photos/<?php echo $book[0]['image'] ?>"
+							alt="<?php echo $book[0]['name'] ?>"
 						/>
 					</div>
-					<p class="book-author"><?php echo $book['auther_name'] ?></p>
-					<span class="current-rating">4.5</span>
-
+					<p class="book-author"><?php echo $book[0]['auther_name'] ?></p>
+					<span><strong>
+						<?php
+							foreach ($book as $value) {
+								echo $value['category_name']. '  /';
+							}  
+						?>  
+						</strong>
+					</span>
 					<p class="book-description">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
 						temporibus et voluptate id. Nobis, dicta! Doloribus, illum dolore
@@ -102,7 +108,7 @@ if(isset($_POST['submit'])){
 
 					<div class="actions">
 						<div class="bottom-icons">
-							<div class="rating" id=<?php echo $book['id'] ?>>
+							<div class="rating" id=<?php echo $book[0]['id'] ?>>
 								<span class="star"></span>
 								<span class="star"></span>
 								<span class="star"></span>
@@ -265,6 +271,66 @@ if(isset($_POST['submit'])){
 		<script src="BookDetail.js"></script>
 		<script>
 		$(document).ready(function() {
+			const user_id = "<?php echo $user_id; ?>";
+			const book_id = "<?php echo $book[0]['id']; ?>";
+			let mark=""
+			$.ajax({
+				url: 'mark.php',
+				type: 'POST',
+				data: { user_id: user_id, book_id: book_id },
+				success: function(response) {
+					mark=response
+					if (mark==="empty") {
+				// Book is bookmarked, change the icon to indicate bookmarked state
+				document.querySelector('.fa-bookmark').classList.add('fa-regular');
+				document.querySelector('.fa-bookmark').classList.remove('fa-solid');
+				} else if(mark==="have") {
+				// Book is unbookmarked, change the icon to indicate unbookmarked state
+				document.querySelector('.fa-bookmark').classList.add('fa-solid');
+				document.querySelector('.fa-bookmark').classList.remove('fa-regular');
+				}
+				}
+				})
+			//Book marked function
+
+			// Get the bookmark icon element
+			const bookmarkIcon = document.querySelector('.bookmark-icon');
+
+			// Add click event listener to toggle bookmark status
+			bookmarkIcon.addEventListener('click', function() {
+			// Toggle the 'active' class on the bookmark icon
+			this.classList.toggle('active');
+
+			// Get the bookmark status
+			const isBookmarked = this.classList.contains('active');
+			
+			// Update the bookmark status based on the current state
+			if (mark==="empty") {
+				// Book is bookmarked, change the icon to indicate bookmarked state
+				this.querySelector('i').classList.remove('fa-regular');
+				this.querySelector('i').classList.add('fa-solid');
+				$.ajax({
+				url: 'bookmark.php',
+				type: 'POST',
+				data: { user_id: user_id, book_id: book_id },
+				success: function(response) {
+					mark=response
+				}
+				})
+			} else if(mark==="have") {
+				// Book is unbookmarked, change the icon to indicate unbookmarked state
+				this.querySelector('i').classList.remove('fa-solid');
+				this.querySelector('i').classList.add('fa-regular');
+				$.ajax({
+				url: 'unbookmark.php',
+				type: 'POST',
+				data: { user_id: user_id, book_id: book_id },
+				success: function(response) {
+					mark=response
+				}
+				})
+			}
+			});
 			<?php foreach ($comment as $com) : ?>
 				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
 				var writingTime = "<?php echo $com['date']; ?>";
