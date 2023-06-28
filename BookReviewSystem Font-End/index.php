@@ -3,7 +3,10 @@ session_start();
 include_once "../controllers/registercontroller.php";
 include_once "../neon/controller/bookController.php";
 include_once "../neon/controller/categoryController.php";
+include_once "../neon/models/editorchoice.php";
 include_once('latestBook.php');
+
+$editorkChoice = new Editor();
 
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();

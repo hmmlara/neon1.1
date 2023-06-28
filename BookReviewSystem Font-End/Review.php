@@ -5,11 +5,12 @@ include_once "../models/reviews.php";
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
 foreach ($getUserinfo as $getUser) {
-	//var_dump($getUser) ;
+	var_dump($getUser) ;
 }
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
 } else {
+	echo $_SESSION['user_email'];
 }
 if ($_SESSION["user_email"] == $getUser['email']) {
 	$userimg = $getUser['image'];
@@ -17,7 +18,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
 }
-$userId = $getUserData->getUserId($useremail);
+$userId = $getUserData->getUserId($_SESSION['user_email']);
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
 $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
