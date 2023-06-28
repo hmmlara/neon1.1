@@ -4,12 +4,7 @@ include_once "layouts/sidebar.php";
 include_once "controller/bookController.php";
 $book_controller=new BookController();
 $book_list=$book_controller->getAllBooks();
-
-
 ?>
-
-
-
 <main class="content">
 	<div class="container-fluid p-0">
 		<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
@@ -47,8 +42,6 @@ $book_list=$book_controller->getAllBooks();
                             echo "<td>" . $book_list[$r]['pdf_file']."</td>";
                             echo "<td><a class='btn btn-success' href='viewBook.php?id=".$book_list[$r]['id']."'>View</a><a class='btn btn-warning' href='editBook.php?id=".$book_list[$r]['id']."'>Edit</a><a class='btn btn-danger delete_book'>Delete</a></td>";
                             echo "</tr>";
-                        
-                        
                         }
                         ?>
                     </tbody>

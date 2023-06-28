@@ -153,7 +153,7 @@ if(isset($_POST['submit'])){
 							/>
 						</div>
 						<div class="comment-content">
-							<p class="ago"></p>
+							<p class="ago" style="color: #888;"></p>
 							<p class="comment-text"><?php echo $com['comment'] ?></p>
 							<span class="comment-meta">- <?php echo $com['name'] ?></span>
 						</div>

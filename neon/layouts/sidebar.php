@@ -67,8 +67,8 @@ $active_page=$_SERVER['PHP_SELF'];
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Product Lines</span>
+						<a class="sidebar-link" href="report.php">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Report</span>
             </a>
 					</li>
 
