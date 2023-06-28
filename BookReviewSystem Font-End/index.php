@@ -14,7 +14,7 @@ $getCategory=$getAllCategory->getAllCategory();
 $getAllBook=new BookController();
 
 foreach($getCategory as $category){
-	var_dump($category);
+	//var_dump($category);
 }
 
 foreach ($getUserinfo as $getUser) {
