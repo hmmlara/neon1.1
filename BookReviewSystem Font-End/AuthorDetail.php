@@ -2,15 +2,16 @@
 session_start();
 include_once "../controllers/registercontroller.php";
 include_once "../controllers/authorController.php";
+include_once "../models/author.php";
 
+$author_model = new author();
 $getUserData=new RegisterController();
 $getUserinfo=$getUserData->getUserList();
-
 $getAllAuthorInfo=new authorController();
 $getAllAuthor=$getAllAuthorInfo->getAllAuthorFromAuthorDetail();
 
 foreach ($getUserinfo as $getUser) {
-	//var_dump($getUser) ;
+	//var_dump($getUser);
 }
 
 if(!isset($_SESSION['user_email']))
@@ -30,16 +31,18 @@ if(!isset($_SESSION['user_email']))
 if(isset($_GET['id']))
 {
 	$id=$_GET['id'];
+	$author_info = $author_model->getAuthorInfo($id);
+	// var_dump($author_info);
 }
 
-foreach($getAllAuthor as $getAuthor)
-{
-	if($id==$getAuthor['id'])
-	{
-		$authorname=$getAuthor['name'];
-		$authorimg=$getAuthor['image'];
-	}
- }
+// foreach($getAllAuthor as $getAuthor)
+// {
+// 	if($id==$getAuthor['id'])
+// 	{
+// 		$authorname=$getAuthor['name'];
+// 		$authorimg=$getAuthor['image'];
+// 	}
+// }
 
 ?>
 
@@ -69,16 +72,13 @@ foreach($getAllAuthor as $getAuthor)
 	<div class="container mt-4 mb-3">
 		<div class="row ">
  			<div class="col-md-4 " >
-				<img class="author-image" src="../image/<?php echo $authorimg;  ?>"  width="100%" alt="Author Image" />
+				<img class="author-image" src="../image/<?php echo $author_info['image'];  ?>"  width="100%" alt="<?php echo $author_info['image'];  ?>" />
 			</div>
 			<div class="col-md-6">
-				<h2 class="author-name"><?php echo $authorname;  ?></h2>
+				<h2 class="author-name"><?php echo $author_info['name'];  ?></h2>
 				<p class="author-bio">Author Bio</p>
 				<p>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam
-					repellat accusantium quisquam magni, ducimus sequi delectus itaque
-					laborum nesciunt alias nulla minima explicabo sunt suscipit iste
-					nihil beatae aliquid hic.
+				<?php echo $author_info['profile'];  ?>
 				</p>
 			</div>
 		</div>
@@ -94,7 +94,7 @@ foreach($getAllAuthor as $getAuthor)
 	<div class="container">
 		<div class="book-card-list">
 			<!-- Search Bar -->
-			<div class="search-bar">
+			<!-- <div class="search-bar">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Search..." />
 					<div class="input-group-append">
@@ -103,65 +103,34 @@ foreach($getAllAuthor as $getAuthor)
 						</button>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="book-card-grid">
+				<?php
+				$author_books = $author_model->getAuthorBookS($id);
+				// var_dump($author_books);
+				foreach($author_books as $book){
+				?>
 				<div class="book-card">
 					<div class="book-card-image">
-						<img src="book-image.jpg" alt="Book 1" />
+						<img src="<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
 						<div class="book-card-overlay">
-							<a href="#" class="book-card-button">Read More</a>
+							<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read More</a>
 						</div>
 					</div>
 					<div class="book-card-info">
-						<h3 class="book-card-title">Book 1</h3>
-						<p class="book-card-author">Author: John Doe</p>
-						<p class="book-card-genre">Genre: Fiction</p>
+						<h3 class="book-card-title"><?php echo $book['image'] ?></h3>
+						<p class="book-card-author">Author: <?php echo $book['name'] ?></p>
+						<!-- <p class="book-card-genre">Genre: <?php echo $book['image'] ?></p> -->
 					</div>
 				</div>
-				<div class="book-card">
-					<div class="book-card-image">
-						<img src="book-image.jpg" alt="Book 2" />
-						<div class="book-card-overlay">
-							<a href="#" class="book-card-button">Read More</a>
-						</div>
-					</div>
-					<div class="book-card-info">
-						<h3 class="book-card-title">Book 2</h3>
-						<p class="book-card-author">Author: Jane Smith</p>
-						<p class="book-card-genre">Genre: Mystery</p>
-					</div>
-				</div>
-				<div class="book-card">
-					<div class="book-card-image">
-						<img src="book-image.jpg" alt="Book 3" />
-						<div class="book-card-overlay">
-							<a href="#" class="book-card-button">Read More</a>
-						</div>
-					</div>
-					<div class="book-card-info">
-						<h3 class="book-card-title">Book 3</h3>
-						<p class="book-card-author">Author: Michael Johnson</p>
-						<p class="book-card-genre">Genre: Fantasy</p>
-					</div>
-				</div>
-				<div class="book-card">
-					<div class="book-card-image">
-						<img src="book-image.jpg" alt="Book 3" />
-						<div class="book-card-overlay">
-							<a href="#" class="book-card-button">Read More</a>
-						</div>
-					</div>
-					<div class="book-card-info">
-						<h3 class="book-card-title">Book 3</h3>
-						<p class="book-card-author">Author: Michael Johnson</p>
-						<p class="book-card-genre">Genre: Fantasy</p>
-					</div>
-				</div>
+				<?php
+				}
+				?>
 			</div>
-			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
+			<!-- <div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
 				<a href="" class="btn btn-primary m-auto">Load More</a>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<!-- Footer -->
