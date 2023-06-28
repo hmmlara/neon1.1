@@ -59,11 +59,9 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 
 	<!-- Popular Session -->
 	
-		<h1>Collection for May</h1>
+		<h1>Fiction</h1>
 		
 		<div class="container swiper mb-3">
-			
-			
 			<h2>Biography</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
@@ -104,7 +102,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 			</div>
 		</div>
 		<div class="container swiper mb-4">
-			<h2>Misctry</h2>
+			<h2>Mistery</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
 					<img src="book-image.jpg" class="card-img-top" alt="Book 1">
@@ -144,7 +142,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 			</div>
 		</div>
 		<div class="container swiper">
-			<h2>Finestry</h2>
+			<h2>Sci-fi</h2>
 			<div class=" swiper-wrapper">
 				<div class="card swiper-slide">
 					<img src="book-image.jpg" class="card-img-top" alt="Book 1">

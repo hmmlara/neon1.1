@@ -4,6 +4,10 @@ class BookController extends Book{
     public function getAllBooks(){
         return $this->getBookList();
     }
+
+    public function getMainBooks(){
+        return $this->getBooks();
+    }
     public function addNewBook($name,$auther,$image,$pdf,$date){
         return $this->createNewBook($name,$auther,$image,$pdf,$date);
     }
