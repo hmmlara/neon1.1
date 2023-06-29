@@ -32,6 +32,7 @@
 	<script src="../fontawesome/js/all.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/myscript.js"></script>
+	<script src="../neon/js/adminindex.js"></script>
 	<script>
 		$('#myTable').DataTable()
 	</script>

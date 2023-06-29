@@ -191,11 +191,11 @@ if(isset($_POST['register']))
                         <div class="text-center">
                             <p class="note text-danger"><?php if(isset($exit_acc)) echo $exit_acc ?></p>
                         </div>
-                        <div class="mb-2">
-                            <button class="btn  btn-primary btn-login  register" type="submit"  name="register">Register</button>
+                        <div class=" mb-2">
+                            <button class="btn btn-primary   register" type="submit"  name="register">Register</button>
                         </div>
 
-                        <a class="d-block text-center mt-2 small" href="login.php">Have an account? Sign In</a>
+                        <p class="d-block text-center mt-2 small">Already have an account? <a  href="login.php">Login</a></p>
 
                         <hr class="my-4">
 
