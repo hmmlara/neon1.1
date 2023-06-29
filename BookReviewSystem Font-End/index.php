@@ -3,8 +3,11 @@ session_start();
 include_once "../controllers/registercontroller.php";
 include_once "../neon/controller/bookController.php";
 include_once "../neon/controller/categoryController.php";
+include_once "../neon/models/editorchoice.php";
 include_once('latestBook.php');
 
+$editorChoice = new Editor();
+$editorChoiceCategory = $editorChoice->getAllCateGory();
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
 
@@ -19,17 +22,18 @@ foreach($getCategory as $category){
 
 foreach ($getUserinfo as $getUser) {
 	//var_dump($getUser) ;
+	if ($_SESSION["user_email"] == $getUser['email']) {
+		$userimg = $getUser['image'];
+		$username = $getUser['name'];
+		$userbio = $getUser['bio'];
+		$useremail = $getUser['email'];
+	}
 }
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
 } 
 
-if ($_SESSION["user_email"] == $getUser['email']) {
-	$userimg = $getUser['image'];
-	$username = $getUser['name'];
-	$userbio = $getUser['bio'];
-	$useremail = $getUser['email'];
-}
+
 
 
 ?>
@@ -52,140 +56,43 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	include_once "nav.php";
 	?>
 
-	<div class="container mt-4">
+	<div class="container mt-4 back">
 		<!-- Search Bar -->
 		
 		
 
 	<!-- Popular Session -->
 	
-		<h1>Fiction</h1>
+		<h1>Editor Choice</h1>
 		
-		<div class="container swiper mb-3">
-			<h2>Biography</h2>
-			<div class=" swiper-wrapper">
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 1">
-					<div class="card-body">
-						<h5 class="card-title">Book 1</h5>
-						<p class="card-text">Description of Book 1</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 2">
-					<div class="card-body">
-						<h5 class="card-title">Book 2</h5>
-						<p class="card-text">Description of Book 2</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container swiper mb-4">
-			<h2>Mistery</h2>
-			<div class=" swiper-wrapper">
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 1">
-					<div class="card-body">
-						<h5 class="card-title">Book 1</h5>
-						<p class="card-text">Description of Book 1</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 2">
-					<div class="card-body">
-						<h5 class="card-title">Book 2</h5>
-						<p class="card-text">Description of Book 2</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body ">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php
+		foreach($editorChoiceCategory as $Category){
+			$EditoChoice_Book = $editorChoice->genere($Category['category_id']);
+		?>
+		
 		<div class="container swiper">
-			<h2>Sci-fi</h2>
+			<h2><?php echo $Category['category_name'] ?></h2>
 			<div class=" swiper-wrapper">
+				<?php foreach($EditoChoice_Book as $Book){ ?>			
 				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 1">
+					<img src="<?php echo $Book['book_image'] ?>" class="card-img-top" alt="<?php echo $Book['book_image'] ?>">
 					<div class="card-body">
-						<h5 class="card-title">Book 1</h5>
-						<p class="card-text">Description of Book 1</p>
+						<h5 class="card-title"><?php echo $Book['book_name'] ?></h5>
+						<p class="card-text"><?php echo $Book['author_name'] ?></p>
 					</div>
 				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 2">
-					<div class="card-body">
-						<h5 class="card-title">Book 2</h5>
-						<p class="card-text">Description of Book 2</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
-				<div class="card swiper-slide">
-					<img src="book-image.jpg" class="card-img-top" alt="Book 3">
-					<div class="card-body">
-						<h5 class="card-title">Book 3</h5>
-						<p class="card-text">Description of Book 3</p>
-					</div>
-				</div>
+				<?php } ?>			
 
 			</div>
-			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
+			<!-- <div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
 				<a href="collection.php" class="btn btn-primary m-auto">See All</a>
 
-			</div>
+			</div> -->
 		</div>
+		<?php
+		}
+		?>
+
 	</div>
 
 

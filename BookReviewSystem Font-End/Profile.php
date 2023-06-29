@@ -183,32 +183,28 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 					<div class="book-card-list">
 
 						<div class="book-card-grid">
+							<div class="row">
 							<?php
 							foreach ($bookmark_list as $bookmark) {
-								?>
-								<div class="book-card">
-									<div class="book-card-image">
-										<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
-										<div class="book-card-overlay">
-											<a href="BookDetail.php?id=<?php echo $bookmark['id'] ?>"
-												class="book-card-button">Read More</a>
-										</div>
-									</div>
-									<div class="book-card-info">
-										<h3 class="book-card-title">
-											<?php echo $bookmark['name'] ?>
-										</h3>
-										<p class="book-card-author">
-											<?php echo $bookmark['auther_name'] ?>
-										</p>
+							?>
+							<div class="col-md-4">
+							<div class="book-card">
+								<div class="book-card-image">
+									<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
+									<div class="book-card-overlay">
+										<a href="BookDetail.php?id=<?php echo $bookmark['id'] ?>" class="book-card-button">Read More</a>
 									</div>
 								</div>
-								<?php
+								<div class="book-card-info">
+									<h3 class="book-card-title"><?php echo $bookmark['name'] ?></h3>
+									<p class="book-card-author"><?php echo $bookmark['auther_name'] ?></p>
+								</div>
+							</div>
+							</div>
+							<?php
 							}
 							?>
-						</div>
-						<div class="mt-4" style="display: flex; justify-content: center; width: 100%">
-							<a href="" class="btn btn-primary m-auto">Load More</a>
+							</div>
 						</div>
 					</div>
 				</div>

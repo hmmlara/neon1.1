@@ -1,4 +1,4 @@
-<footer class="footer">
+<!-- <footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
 						<div class="col-6 text-start">
@@ -24,14 +24,15 @@
 						</div>
 					</div>
 				</div>
-			</footer>
-            </div>
+			</footer> -->
+        </div>
 	</div>
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<script src="js/datatables.js"></script>
 	<script src="../fontawesome/js/all.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/myscript.js"></script>
+	<script src="../neon/js/adminindex.js"></script>
 	<script>
 		$('#myTable').DataTable()
 	</script>
