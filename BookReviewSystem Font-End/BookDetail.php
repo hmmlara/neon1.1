@@ -1,10 +1,27 @@
 
 <?php
 session_start();
-$user_id=$_SESSION['userid'];
-
+include_once "../controllers/registercontroller.php";
 include('../neon/controller/bookController.php');
 include_once('../controllers/commentController.php');
+
+$user_id=$_SESSION['userid'];
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
+foreach ($getUserinfo as $getUser) {
+    //var_dump($getUser) ;
+    if ($_SESSION["user_email"] == $getUser['email']) {
+        $userimg = $getUser['image'];
+        $username = $getUser['name'];
+        $userbio = $getUser['bio'];
+        $useremail = $getUser['email'];
+    }
+}
+if (!isset($_SESSION['user_email'])) {
+    header("location:../login.php");
+}
+
+
 $cid=$_GET['id'];
 $book_controller=new BookController();
 $book=$book_controller->getBook($cid);

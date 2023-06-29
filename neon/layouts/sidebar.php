@@ -23,6 +23,7 @@ $active_page=$_SERVER['PHP_SELF'];
 
 	<link href="css/datatables.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../fontawesome/css/all.css">
 	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 	<link rel="stylesheet" href="../BookReviewSystem Font-End/BookDetail.css">
 	<link href="css/app.css" rel="stylesheet" />
@@ -67,8 +68,8 @@ $active_page=$_SERVER['PHP_SELF'];
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="report.php">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Report</span>
+						<a class="sidebar-link" href="adminindex.php">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Editor Choice</span>
             </a>
 					</li>
 

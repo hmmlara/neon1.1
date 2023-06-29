@@ -11,11 +11,6 @@ $getAllAuthor=$getAllAuthorInfo->getAllAuthorInfo();
 
 $notfoundimg=false;
 foreach ($getUserinfo as $getUser) {
-}
-if(!isset($_SESSION['user_email']))
-	{
-		header("location:../login.php");
-	}
 	if($_SESSION["user_email"]==$getUser['email'])
 	{
 		$userimg=$getUser['image'];
@@ -23,6 +18,12 @@ if(!isset($_SESSION['user_email']))
 		$userbio=$getUser['bio'];
 		$useremail=$getUser['email'];
 	}
+}
+if(!isset($_SESSION['user_email']))
+	{
+		header("location:../login.php");
+	}
+	
 
 	if(isset($_POST['search']))
 	{
@@ -71,8 +72,6 @@ if(!isset($_SESSION['user_email']))
 		<?php
 	include_once "nav.php";
 	?>
-
-		<!-- Rest of the Book Review System content -->
 		<div class="container mt-4">
 			<!-- Filter Component -->
 			<form action="" method="post">

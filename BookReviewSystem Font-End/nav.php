@@ -11,16 +11,16 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link" href="index.php"><i class="fa-solid fa-house-chimney mx-2"></i>Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="Books.php">Books</a>
+                    <a class="nav-link " href="Books.php"><i class="fa-solid fa-book mx-2"></i>Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="AuthorPage.php">Author</a>
+                    <a class="nav-link" href="AuthorPage.php"><i class="fa-solid fa-feather mx-2"></i>Author</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Review.php">Reviews</a>
+                    <a class="nav-link" href="Review.php"><i class="fa-solid fa-message mx-2"></i>Reviews</a>
                 </li>
 
                 <li class="nav-item hide-in-large">

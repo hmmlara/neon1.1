@@ -15,7 +15,7 @@ class Category{
         return $result;
     }
 
-    public function getCategory($value){
+    public function getBookCateGory($value){
         //1.DB connection
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -26,6 +26,7 @@ class Category{
         JOIN category ON book_category.category_id = category.id
         WHERE category.id = :category_id";
         $statement=$this->connection->prepare($sql);
+
         $statement->bindParam(":category_id",$value);
 
         $statement->execute();

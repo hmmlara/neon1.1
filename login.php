@@ -60,6 +60,8 @@ if(isset($_POST['signIn']))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/login1.css">
     <title>Document</title>
@@ -78,14 +80,14 @@ if(isset($_POST['signIn']))
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Welcome Back</h5>
                         <div class="form-floating mb-3">
                             <input type="email" name="user_email"  class="form-control" required value="<?php if(isset($user_email)) echo $user_email ?>" id="floatingInputUsername" id="floatingInputEmail" placeholder="name@example.com">
-                            <label for="floatingInputEmail">Email address</label>
+                            <label for="floatingInputEmail"><i class="fa-solid fa-envelope mx-2"></i>Email address</label>
                         </div>
 
                         <hr>
 
                         <div class="form-floating mb-3">
                             <input type="password" name="user_password" required value="<?php if(isset($user_password)) echo $user_password ?>"  class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
+                            <label for="floatingPassword"><i class="fa-solid fa-lock mx-2"></i>Password</label>
                         </div>
                         <div class="text-center my-3">
                             <span class="text-danger"><?php if(isset($error_message)) echo $error_message ?></span>
@@ -95,7 +97,7 @@ if(isset($_POST['signIn']))
                             <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit"  name="signIn">Sign In</button>
                         </div>
 
-                        <a class="d-block text-center mt-2 small" href="register.php">If you don't have an account,Sign Up!</a>
+                        <p class="d-block text-center mt-2 small">Don't have an account?<a href="register.php">SignUp!</a></p>
 
                         <hr class="my-4">
                     </div>

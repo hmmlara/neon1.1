@@ -9,7 +9,10 @@ body {
     background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
     background-size: cover;
   }
-  
+  .register{
+    width: 40%;
+    border-radius: 30px;
+  }
    /* .upload-circle {
     position: relative;
     display: inline-block;
