@@ -10,7 +10,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a class="nav-link" href="index.php"><i class="fa-solid fa-house-chimney mx-2"></i>Home</a>
                 </li>
                 <li class="nav-item">
