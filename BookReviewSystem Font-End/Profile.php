@@ -216,7 +216,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 
 			<h2 class="section-title" class="mt-4">Reviews</h2>
 			<div class="container mt-4">
-				<main>
+				<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 					<?php
 					foreach ($reviews as $review) {
 						$id_of_review = $review['id'];
@@ -415,7 +415,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script src="../fontawesome/js/all.js"></script>
-	<script src="app.js"></script>
+	<!-- <script src="app.js"></script> -->
 	<script src="../js/profile.js"></script>
 	<script src="Profile.js"></script>
 </body>
