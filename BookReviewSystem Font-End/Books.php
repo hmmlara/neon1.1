@@ -127,7 +127,7 @@ if (isset($_POST['searchbyuser'])) {
                             <div class="book-card-image">
                                 <img src="../image/photos/<?php echo $BookAllList['image'] ?>" alt="<?php echo $BookAllList['image'] ?>" />
                                 <div class="book-card-overlay">
-                                    <a href="#" class="book-card-button">Read More</a>
+                                    <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>" class="book-card-button">Read More</a>
                                 </div>
                             </div>
                             <div class="book-card-info">
@@ -147,7 +147,7 @@ if (isset($_POST['searchbyuser'])) {
                 </div>
 
                 <?php //if($categoryName !== "All"){  ?>
-                <div class="col-md-12 d-flex flex-wrap justify-content-evenly" id="filterbook">
+                <div class="book-card-grid" id="filterbook">
 
                 </div>
                 <?php // }  ?>

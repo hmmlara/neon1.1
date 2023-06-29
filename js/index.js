@@ -13,17 +13,21 @@ $(document).ready(function(){
                 $(".usersearch_book").remove();
                 if (books.length > 0) {
                     $.each(books, function(index,book) {
-                        var bookCard = `<div class="col-md-3 usersearch_book">
-                        <div class="card  sm-4 mb-3" width="100%" height="400px">
-                        <img src="../image/photos/${book.image}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">${book.name}</h5>
-                          <p class="card-text">${book.preview}</p>
-                          <p class="card-text">${book.date}</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        var bookCard = `
+                        <div class="book-card usersearch_book">
+                        <div class="book-card-image">
+                            <img src="../image/photos/${book.image}" alt="${book.image}" />
+                            <div class="book-card-overlay">
+                                <a href="#" class="book-card-button">Read More</a>
+                            </div>
                         </div>
-                      </div>
-                      </div>`
+                        <div class="book-card-info">
+                            <h3 class="book-card-title">${book.name}</h3>
+                            <p class="book-card-author">Author:${book.auther_name}</p>
+                            <p class="book-card-genre">Genre: Fantasy</p>
+                        </div>
+                    </div>
+                        `
 
                         $("#filterbook").append(bookCard);
                     });

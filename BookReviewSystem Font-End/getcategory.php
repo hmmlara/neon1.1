@@ -9,7 +9,7 @@ $getCategory=$getSelectCategory->getUserSelectCategory(1);
 
 $result = [];
 foreach($getCategory as $book){
-    // var_dump($book);
+     //var_dump($book);
     $auther_name = $review_model->get_author_by_id($book['auther_id']);
     if($auther_name){
         // var_dump($auther_name['name']);
@@ -22,9 +22,9 @@ foreach($getCategory as $book){
  
     $result[] = $book;
 }
-var_dump($getCategory);
+//var_dump($getCategory);
 //echo $getCategory;
 
-//echo json_encode($getCategory);
+echo json_encode($result);
 
 ?>
