@@ -4,6 +4,10 @@ include_once "../controllers/registercontroller.php";
 include_once "../neon/controller/bookController.php";
 include_once "../neon/controller/categoryController.php";
 include_once('latestBook.php');
+include_once "../models/reviews.php";
+
+$review_model = new Reviews();
+
 
 $getUserData = new RegisterController();
 $getUserinfo = $getUserData->getUserList();
@@ -100,7 +104,7 @@ if (isset($_POST['searchbyuser'])) {
                         <input type="text" class="form-control" name="bookname" id="booksearch" value="<?php echo isset($_POST['bookname']) ? $_POST['bookname'] : '';  ?>"
                             placeholder="Search..." />
                         <div class="input-group-append">
-                            <button class="btn btn-primary" name="searchbyuser" id="search">
+                            <button class="btn btn-primary" name="searchbyuser" id="search"><i class="fa-solid fa-magnifying-glass"></i>
                                 Search
                             </button>
                         </div>
@@ -110,46 +114,43 @@ if (isset($_POST['searchbyuser'])) {
         </form>
         <!-- Books -->
         <div class="container mt-4">
-            <div class="row">
+      
                 <?php if (empty($getAllBookList)){ ?>
-                <div class="col-md-12 d-flex flex-wrap select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
+                <div class="book-card-grid select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
                 <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>> 
                 
                     <?php foreach ($getmainAllBook as $BookAllList) {
-                            ?>
-                            <div class="col-md-3 usersearch_book">
-                                <div class="card  sm-4 mb-3" width="100%" height="400px">
-                                <div class="book-card-image">
-                                        <img src="../image/photos/<?php echo $BookAllList['image'] ?>" class="card-img-top" alt="...">
+                        $auther_name = $review_model->get_author_by_id($BookAllList['auther_id']);
 
-                                        <div class="book-card-overlay">
-                                            <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>" class="book-card-button">Read
-                                                More</a>
-                                        </div>
-                                    </div>
-                                    <div class="book-card-info card-body">
-                                        <h5 class="card-title">
-                                            <?php echo $BookAllList['name'] ?>
-                                        </h5>
-                                        <p class="card-text">
-                                            <?php echo $BookAllList['preview'] ?>
-                                        </p>
-                                        <p class="card-text">
-                                            <?php echo $BookAllList['date'] ?>
-                                        </p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
+                         ?>
+                        <div class="book-card usersearch_book">
+                            <div class="book-card-image">
+                                <img src="../image/photos/<?php echo $BookAllList['image'] ?>" alt="<?php echo $BookAllList['image'] ?>" />
+                                <div class="book-card-overlay">
+                                    <a href="#" class="book-card-button">Read More</a>
                                 </div>
                             </div>
+                            <div class="book-card-info">
+                                <h3 class="book-card-title"><?php echo $BookAllList['name'] ?></h3>
+                                <p class="book-card-author">Author: <?php  if($auther_name){
+                                echo $auther_name['name'];
+                                }
+                                else{
+                                    echo "Anonymous";
+                                }
+                                ?></p>
+                                <p class="book-card-genre">Genre: Fantasy</p>
+                            </div>
+                        </div>
                         <?php } ?>
-                </div>
                 <?php } ?>
+                </div>
+
                 <?php //if($categoryName !== "All"){  ?>
                 <div class="col-md-12 d-flex flex-wrap justify-content-evenly" id="filterbook">
 
                 </div>
                 <?php // }  ?>
-            </div>
             <div class="row">
                 <div class="col-md-12 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
                     <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>>
@@ -181,11 +182,11 @@ if (isset($_POST['searchbyuser'])) {
                             <?php }
                         }
                     } ?>
-                    <?php //if($categoryName == "All" && empty($bookname)) {?>
+                    <?php if(empty($bookname)) {?>
                     <div class="col-md-12 load_more d-flex justify-content-center">
                         <button type="" class="btn btn-primary load" id="loadmorebtn">LoadMore</button>
                     </div>
-                    <?php ?>
+                        <?php   } ?>
                 </div>
                 
                 

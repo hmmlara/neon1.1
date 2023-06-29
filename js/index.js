@@ -31,10 +31,10 @@ $(document).ready(function(){
             }
         })
         
-        if($("#filter_category").val()!=="All" || $("#booksearch").length>0){
+        if($("#filter_category").val()!=="All" || $("#booksearch").val().length>0){
             console.log($(".load_more").length)
-            $("#loadmorebtn").remove();
-            console.log("Hello")
+           $("#loadmorebtn").remove();
+            // $(".load_more").addClass("d-none");
         }
 
         if($(this).val()!="All"){
@@ -73,7 +73,7 @@ $(document).ready(function(){
             console.log("Hello");
             console.log($("#booksearch").length)
             $("#loadmorebtn").remove();
-            //e.preventDefault();
+            e.preventDefault();
         }
        
     })
@@ -103,18 +103,20 @@ $(document).ready(function(){
                 var remainBook=$(".select_all");
                 if (balanceBooks.length > 0) {
                     $.each(balanceBooks, function(index, balanceBook) {
-                        var BookCard = `<div class="col-md-3 usersearch_book">
-                        <div class="card  sm-4 mb-3" width="100%" height="400px">
-                        <img src="../image/photos/${balanceBook.image}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">${balanceBook.name}</h5>
-                          <p class="card-text">${balanceBook.preview}</p>
-                          <p class="card-text">${balanceBook.date}</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        var BookCard = `<div class="book-card usersearch_book">
+                        <div class="book-card-image">
+                            <img src="../image/photos/${balanceBook.image}" alt="${balanceBook.image}" />
+                            <div class="book-card-overlay">
+                                <a href="#" class="book-card-button">Read More</a>
+                            </div>
                         </div>
-                      </div>
-                      </div>`
-
+                        <div class="book-card-info">
+                            <h3 class="book-card-title">${balanceBook.name}</h3>
+                            <p class="book-card-author">Author:${balanceBook.auther_name}</p>
+                            <p class="book-card-genre">Genre: Fantasy</p>
+                        </div>
+                    </div>
+                        `
                             remainBook.append(BookCard);
                     });
                     offset += limit; 
