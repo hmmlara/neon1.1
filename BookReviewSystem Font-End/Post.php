@@ -173,109 +173,60 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                 </div>
             </div>
             <div class="container mt-4">
-            <form action="" method="post">
-                <div class="row my-3">
-                    <div class="col-md-4">
-                        <select class="form-control filter-select" name="categoryName" id="filter_category">
-                            <option value="All" id="something">All</option>
-                            <?php foreach ($getCategory as $category) {
-                                ?>
-                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-                            <?php } ?>
-                        </select>
-                        
-                    </div>
-                    <div class="col-md-8">
+                <div class="book-card-list">
+                    <!-- Search Bar -->
+                    <div class="search-bar">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="bookname" id="booksearch" value="<?php echo isset($_POST['bookname']) ? $_POST['bookname'] : '';  ?>"
-                                placeholder="Search..." />
+                            <input type="text" class="form-control" placeholder="Search..." />
                             <div class="input-group-append">
-                                <button class="btn btn-primary" name="searchbyuser" id="search"><i class="fa-solid fa-magnifying-glass"></i>
+                                <button class="btn btn-primary" type="button">
                                     Search
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        <!-- Books -->
-        <div class="container mt-4">
-      
-                <?php if (empty($getAllBookList)){ ?>
-                <div class="book-card-grid select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
-                <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>> 
-                
-                    <?php foreach ($getmainAllBook as $BookAllList) {
-                        $auther_name = $review_model->get_author_by_id($BookAllList['auther_id']);
 
-                         ?>
-                        <div class="book-card usersearch_book">
-                            <div class="book-card-image">
-                                <img src="../image/photos/<?php echo $BookAllList['image'] ?>" alt="<?php echo $BookAllList['image'] ?>" />
-                                <div class="book-card-overlay">
-                                    <a href="Post.php?id=<?php echo $BookAllList['id'] ?>" class="book-card-button">Add</a>
-                                </div>
-                            </div>
-                            <div class="book-card-info">
-                                <h3 class="book-card-title"><?php echo $BookAllList['name'] ?></h3>
-                                <p class="book-card-author">Author: <?php  if($auther_name){
-                                echo $auther_name['name'];
-                                }
-                                else{
-                                    echo "Anonymous";
-                                }
-                                ?></p>
-                                <p class="book-card-genre">Genre: Fantasy</p>
-                            </div>
-                        </div>
-                        <?php } ?>
-                <?php } ?>
-                </div>
+                    <div class="book-card-grid">
+                        <?php
 
-                <?php //if($categoryName !== "All"){  ?>
-                <div class="book-card-grid" id="filterbook">
-
-                </div>
-                <?php // }  ?>
-            <div class="row">
-                <div class="col-md-12 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
-                    <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>>
-
-                    <?php
-                    if ($error_status==false) {
-                    //     echo "No books found.";
-                    // } else {
-                        if (!empty($getAllBookList)) {
-                            foreach ($getAllBookList as $book) {
-                                ?>
-                                <div class="col-md-3 usersearch_book">
-                                    <div class="card sm-4 mb-3" width="100%" height="400px">
-                                        <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <?php echo $book['name']; ?>
-                                            </h5>
-                                            <p class="card-text">
-                                                <?php echo $book['preview']; ?>
-                                            </p>
-                                            <p class="card-text">
-                                                <?php echo $book['date']; ?>
-                                            </p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
+                        foreach ($book_list as $book) {
+                            ?>
+                            <div class="book-card">
+                                <div class="book-card-image">
+                                    <img src="../image/photos/<?php echo $book['image'] ?>"
+                                        alt="<?php echo $book['name'] ?>" />
+                                    <div class="book-card-overlay">
+                                        <a href="Post.php?id=<?php echo $book['id'] ?>" class="book-card-button">Add
+                                            Book</a>
                                     </div>
                                 </div>
-                            <?php }
+                                <div class="book-card-info">
+                                    <h3 class="book-card-title">
+                                        <?php echo $book['name'] ?>
+                                    </h3>
+                                    <p class="book-card-author">
+                                        <?php echo $book['auther_name'] ?>
+                                    </p>
+                                    <p class="book-card-genre">
+
+                                        <?php
+                                        if(isset($book['category_name'])){
+                                            echo $book['category_name'] ;
+
+                                        }
+                                         ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <?php
                         }
-                    } ?>
-                    <?php if(empty($bookname)) {?>
-                    <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary load" id="loadmorebtn">LoadMore</button>
+                        ?>
+
                     </div>
-                        <?php   } ?>
+                    <div class="mt-4" style="display: flex; justify-content: center; width: 100%">
+                        <a href="" class="btn btn-primary m-auto">Load More</a>
+                    </div>
                 </div>
-                
-                
             </div>
 
             <button type="submit" name="sub" class="mt-4">Upload</button>
