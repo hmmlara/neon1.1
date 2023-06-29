@@ -44,22 +44,26 @@ $comment=$comment_controller->getAllComments($cid);
                                                         <?php
                                                         foreach ($comment as $com) {
                                                         ?>
-                                                        <li class="comment">
+                                                        <li class="comment" data-comment-id="<?php echo $com['id']; ?>">
                                                                 <div class="comment-avatar">
                                                                         <img
-                                                                                src="../img/photos/<?php echo $com['image'] ?>"
+                                                                                src="../image/photos/<?php echo $com['image'] ?>"
                                                                                 alt="<?php echo $com['name'] ?>"
                                                                         />
                                                                 </div>
                                                                 <div class="comment-content">
+                                                                        <p class="ago" style="color: #888;"></p>
                                                                         <p class="comment-text"><?php echo $com['comment'] ?></p>
                                                                         <span class="comment-meta">- <?php echo $com['name'] ?></span>
                                                                 </div>
                                                         </li>
+                        
                                                         <?php
                                                         }
                                                         ?>
-                                                </ul>
+					
+					<!-- Add more comment list items as needed -->
+				                </ul>
                                         </div>
                                 </div>
                         
@@ -93,7 +97,36 @@ $comment=$comment_controller->getAllComments($cid);
       
       pdfContainer.html('<iframe src="' + filePath + '" width="100%" height="600px" ></iframe>');
     }
-    
+    <?php foreach ($comment as $com) : ?>
+				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
+				var writingTime = "<?php echo $com['date']; ?>";
+
+				// Convert the writing time to JavaScript Date object
+				var writingDate = new Date(writingTime);
+
+				// Calculate the time difference in milliseconds
+				var timeDiff = Date.now() - writingDate.getTime();
+
+				// Define time intervals in milliseconds
+				var minute = 60 * 1000;
+				var hour = 60 * minute;
+				var day = 24 * hour;
+
+				// Calculate the time difference in different units
+				var diff;
+				if (timeDiff < minute) {
+					diff =  "now";
+				} else if (timeDiff < hour) {
+					diff = Math.floor(timeDiff / minute) + " minutes ago";
+				} else if (timeDiff < day) {
+					diff = Math.floor(timeDiff / hour) + " hours ago";
+				} else {
+					diff = writingDate.toDateString(); // Writing time as a formatted date if it's more than a day ago
+				}
+
+				// Output the time difference
+				$('.comment[data-comment-id="<?php echo $com['id']; ?>"] .ago').text(diff);
+			<?php endforeach; ?>
   </script>
 <?php
 

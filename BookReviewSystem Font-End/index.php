@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_email'])) {
 	include_once "nav.php";
 	?>
 
-	<div class="container mt-4">
+	<div class="container mt-4 back">
 		<!-- Search Bar -->
 		
 		

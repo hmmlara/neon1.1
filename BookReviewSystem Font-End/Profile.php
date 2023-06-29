@@ -184,9 +184,11 @@ $userid = $register_model->getUserId($userEmail);
 					<div class="book-card-list">
 
 						<div class="book-card-grid">
+							<div class="row">
 							<?php
 							foreach ($bookmark_list as $bookmark) {
 							?>
+							<div class="col-md-4">
 							<div class="book-card">
 								<div class="book-card-image">
 									<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
@@ -199,12 +201,11 @@ $userid = $register_model->getUserId($userEmail);
 									<p class="book-card-author"><?php echo $bookmark['auther_name'] ?></p>
 								</div>
 							</div>
+							</div>
 							<?php
 							}
 							?>
-						</div>
-						<div class="mt-4" style="display: flex; justify-content: center; width: 100%">
-							<a href="" class="btn btn-primary m-auto">Load More</a>
+							</div>
 						</div>
 					</div>
 				</div>
