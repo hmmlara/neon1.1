@@ -175,7 +175,7 @@ if (isset($_POST['searchbyuser'])) {
                                             <p class="card-text">
                                                 <?php echo $book['date']; ?>
                                             </p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +192,7 @@ if (isset($_POST['searchbyuser'])) {
                 
             </div>
         </div>
+    </div>
         <!-- Footer -->
         <footer class="footer mt-4">
             <div class="footer-container">
