@@ -1,6 +1,29 @@
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
+include_once "../models/reviews.php";
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
+if (!isset($_SESSION['user_email'])) {
+	header("location:../login.php");
+} else {
+}
+if ($_SESSION["user_email"] == $getUser['email']) {
+	$userimg = $getUser['image'];
+	$username = $getUser['name'];
+	$userbio = $getUser['bio'];
+	$useremail = $getUser['email'];
+}
+$userId = $getUserData->getUserId($useremail);
+//Connect With Reviews Models;
+$reviews_model = new Reviews();
+$reviews = $reviews_model->get_review_with_limit_offset(5, 0);
+?>
+<?php
+include_once "../controllers/registercontroller.php";
 include_once "../controllers/bookmarkController.php";
 include_once "../controllers/usercontroller.php";
 include_once "../models/register.php";
@@ -212,7 +235,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 
 			<h2 class="section-title" class="mt-4">Reviews</h2>
 			<div class="container mt-4">
-				<main>
+				<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 					<?php
 					foreach ($reviews as $review) {
 						$id_of_review = $review['id'];
@@ -411,7 +434,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script src="../fontawesome/js/all.js"></script>
-	<script src="app.js"></script>
+	<!-- <script src="app.js"></script> -->
 	<script src="../js/profile.js"></script>
 	<script src="Profile.js"></script>
 </body>
