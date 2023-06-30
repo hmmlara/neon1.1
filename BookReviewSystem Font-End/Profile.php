@@ -17,7 +17,7 @@ if ($_SESSION["user_email"] == $getUser['email']) {
 	$userbio = $getUser['bio'];
 	$useremail = $getUser['email'];
 }
-$userId = $getUserData->getUserId($useremail);
+//$userId = $getUserData->getUserId($useremail);
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
 $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
