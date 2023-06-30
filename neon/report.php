@@ -38,7 +38,7 @@ $book_count=count($book_list);
                     <td><?php echo $category['name'] ?></td>
                     <td>
                         <?php 
-                            $cate=$category_controller->getSelectCategory($category['id']);
+                            $cate=$category_controller->getCategory($category['id']);
                             $count_cate=count($cate);
                             echo $count_cate;
                         ?>

@@ -44,11 +44,12 @@ $active_page=$_SERVER['PHP_SELF'];
 						Pages
 					</li>
 
-					<li class="sidebar-item <?php echo ($active_page=='/neo/neon/index.php')? 'active' : '' ?>">
-						<a class="sidebar-link" href="index.php">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+					<li class="sidebar-item <?php echo ($active_page=='/neo/neon/report.php')? 'active' : '' ?>">
+						<a class="sidebar-link" href="report.php">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Report</span>
             </a>
 					</li>
+					
 
 					<li class="sidebar-item <?php if($active_page=='/neo/neon/user.php' || $active_page=='/neo/neon/viewUser.php') {echo 'active';} ?>">
 						<a class="sidebar-link" href="user.php">
@@ -62,39 +63,18 @@ $active_page=$_SERVER['PHP_SELF'];
             </a>
 					</li>
 
-					<li class="sidebar-item">
+					<li class="sidebar-item <?php if($active_page=='/neo/neon/auther.php' || $active_page=='/neo/neon/viewAuther.php' || $active_page=='/neo/neon/editAuther.php') {echo 'active';} ?>">
 						<a class="sidebar-link" href="auther.php">
               <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Auther</span>
             </a>
 					</li>
 
-					<li class="sidebar-item">
+					<li class="sidebar-item <?php if($active_page=='/neo/neon/adminindex.php' || $active_page=='/neo/neon/addeditorchoice.php' || $active_page=='/neo/neon/editBook.php') {echo 'active';} ?>">
 						<a class="sidebar-link" href="adminindex.php">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Editor Choice</span>
             </a>
 					</li>
-
-					<li class="sidebar-header">
-						Tools & Components
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-buttons.html">
-              <i class="align-middle" data-feather="square"></i> <span class="align-middle">Products</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="order.php">
-              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Order</span>
-            </a>
-					</li>
+					
 
 					
 				</ul>
