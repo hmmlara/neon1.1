@@ -3,9 +3,7 @@
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;
   }
-  .navbar {
-    background-color: #265077!important;
-  }
+
   .navbar-brand {
     color: #007bff !important;
     font-weight: bold;
@@ -45,8 +43,8 @@
     text-decoration: none;
   } */
   .avatar {
-    width: 30px;
-    height: 30px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     margin-left: 10px;
@@ -60,7 +58,6 @@
   }
 
   .container {
-    background-color: #265077;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
