@@ -39,19 +39,12 @@ if (!isset($_SESSION['user_email'])) {
 
 
 
-$getAllBookList = [];
 
-if(isset($_POST['categoryName'])){
-    $categoryName = $_POST['categoryName'];
-
-}
 $error_status=false;
 if (isset($_POST['searchbyuser'])) {
-    $bookname = $_POST['bookname'];
-    //echo "Hello";
-    
-    if ($categoryName == "All") {
+    $bookname = $_POST['book_name'];
         $getAllBookList = $getAllBook->getSearchBooks($bookname);
+        var_dump($getAllBookList);
        
         if(empty($getAllBookList)){
             $error_status=true;
@@ -60,14 +53,10 @@ if (isset($_POST['searchbyuser'])) {
             $error_status=false;
             
         }
-    }
+    
 }
 ?>
 <?php
-//Remain 2 Err 
-
-
-
 include_once "../models/reviews.php";
 include_once "../models/register.php";
 include_once "../neon/models/book.php";
@@ -99,16 +88,13 @@ if (isset($_POST['review-content'])) {
     $_SESSION["content"] = $_POST["review-content"];
 }
 if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewBookList_id) != 0) {
-    // echo "true"."<br>";
-    // echo "id :".$userId[0]['id']."<br>";
-    // echo "content :".$_SESSION['content']."<br>";
-    // var_dump($ReviewBookList_id);
     if (
         $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $ReviewBookList_id)
     ) {
         header("location:Review.php");
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,10 +131,6 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                         foreach ($ReviewBookList_id as $key => $ReviewBook_id) {
                             $book = $book_model->getBookInfo($ReviewBook_id);
 
-
-
-
-
                             ?>
                             <a href="Post.php?del=<?php echo $key ?>">
                                 <div class="book-details">
@@ -174,19 +156,78 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
             </div>
             <div class="container mt-4">
                 <div class="book-card-list">
-                    <!-- Search Bar -->
-                    <div class="search-bar">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    Search
-                                </button>
+                    <form action="" method="post">
+                            <div class="search-bar">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="book_name" placeholder="Search..." />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary"  class="searchbook" name="searchbyuser">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
+
+                    </form>
+                    <!-- Search Bar -->
+                    
                     <div class="book-card-grid">
+                    <?php
+                    if ($error_status==false) {
+                    //     echo "No books found.";
+                    // } else {
+                        if (!empty($getAllBookList)) {
+                            foreach ($getAllBookList as $book) {
+                                ?>
+                                <div class="book-card">
+                                <div class="book-card-image">
+                                    <img src="../image/photos/<?php echo $book['image'] ?>"
+                                        alt="<?php echo $book['name'] ?>" />
+                                    <div class="book-card-overlay">
+                                        <a href="Post.php?id=<?php echo $book['id'] ?>" class="book-card-button">Add
+                                            Book</a>
+                                    </div>
+                                </div>
+                                <div class="book-card-info">
+                                    <h3 class="book-card-title">
+                                        <?php echo $book['name'] ?>
+                                    </h3>
+                                    <p class="book-card-author">
+                                        <?php echo $book['auther_name'] ?>
+                                    </p>
+                                    <p class="book-card-genre">
+
+                                        <?php
+                                        if(isset($book['category_name'])){
+                                            echo $book['category_name'] ;
+
+                                        }
+                                         ?>
+                                    </p>
+                                </div>
+                            </div>
+                                <!-- <div class="col-md-3 usersearch_book">
+                                    <div class="card sm-4 mb-3" width="100%" height="400px">
+                                        <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <?php echo $book['name']; ?>
+                                            </h5>
+                                            <p class="card-text">
+                                                <?php echo $book['preview']; ?>
+                                            </p>
+                                            <p class="card-text">
+                                                <?php echo $book['date']; ?>
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                </div> -->
+                            <?php }
+                        }
+                    } ?>
+
                         <?php
 
                         foreach ($book_list as $book) {

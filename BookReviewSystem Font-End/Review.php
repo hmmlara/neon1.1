@@ -16,13 +16,16 @@ foreach ($getUserinfo as $getUser) {
 if (!isset($_SESSION['user_email'])) {
 	header("location:../login.php");
 } else {
-	echo $_SESSION['user_email'];
+	//echo $_SESSION['user_email'];
 }
 
 $userId = $getUserData->getUserId($_SESSION['user_email']);
 //Connect With Reviews Models;
 $reviews_model = new Reviews();
 $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
+foreach ($reviews as $review){
+	//var_dump($review);
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +65,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 				<div class="review" data-comment-id="<?php echo $review['id']; ?>">
 					<div class="review-header">
 						<div class="user-profile">
-							<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
+							<img src="../image/<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
 							<div class="user-details">
 								<h3>
 									<?php echo $userinfo["name"] ?>
@@ -85,7 +88,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 								?>
 								<a href="BookDetail.php?id=<?php echo $review_book_id['book_id'] ?>">
 									<div class="book-details">
-										<img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
+										<img src="../image/photos/<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
 										<div class="book-info">
 											<h2>
 												<?php echo $book["name"] ?>

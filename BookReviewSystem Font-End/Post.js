@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    $(".searchbook").on("click",function(){
+        console.log("Hello i ma")
+    })
   
     let reviewContent =   $("#review-content")
     if(localStorage.getItem("content")){

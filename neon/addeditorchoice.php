@@ -27,19 +27,19 @@ if(isset($_POST['book_id'])){
     $book_id=$_POST['book_id'];
     echo $book_id;
     $setbook=$getSelectCategory->insetBooks($book_id);
-    //echo '<script>window.location.href = "addeditorchoice.php";</script>';
+   echo '<script>window.location.href = "addeditorchoice.php";</script>';
     //exit();
 }
 }
-if(isset($_POST['check'])){
+
 if(isset($_POST['uncheck'])){
     $book_id=$_POST['book_id'];
     //echo $book_id;
     $deleteeditor=$getSelectCategory->deleteCategory($book_id);
-    // echo '<script>window.location.href = "addeditorchoice.php";</script>';
+     echo '<script>window.location.href = "addeditorchoice.php";</script>';
     // exit();
 }
-}
+
 
 
 ?>
@@ -48,14 +48,6 @@ if(isset($_POST['uncheck'])){
     <h1 class="h3 mb-3 mt-3"><strong>Editor Choice</strong> Dashboard</h1>
 
         <div class="col-md-12 d-flex">
-            <!-- <div class="col-md-3 mb-3">
-                <select name="filter_genere" id="genere_fliter" class="form-select">
-                    <option value="All">All</option>
-                    <?php foreach($getCategory as $allcategory){ ?>
-                        <option value="<?php echo  $allcategory['id']; ?>"><?php echo $allcategory['name'] ?></option>
-                    <?php } ?>
-                </select>
-            </div> -->
 
             
             <div class="col-md-4  link">
@@ -66,7 +58,7 @@ if(isset($_POST['uncheck'])){
     <div class="row">
         <div class="col-md-12">
         <form action="" method="post">
-                <table class="table my-3">
+                <table class="table my-3" id="editorTable" >
                     <thead>
                         <tr>
                             <th>No</th>
@@ -117,5 +109,6 @@ if(isset($_POST['uncheck'])){
 include_once "layouts/footer.php";
 
 ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../neon/js/adminindex.js"></script>
 

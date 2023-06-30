@@ -57,11 +57,6 @@ if (!isset($_SESSION['user_email'])) {
 	?>
 
 	<div class="container mt-4 back">
-		<!-- Search Bar -->
-		
-		
-
-	<!-- Popular Session -->
 	
 		<h1>Editor Choice</h1>
 		

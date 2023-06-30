@@ -12,7 +12,7 @@ $(document).ready(function(){
       $('.profile-bio').addClass('d-none');
       $('.usereditbio').removeClass('d-none');
   
-      if ($('.img').attr('src') !== '../image/nurse.jpg') {
+      if ($('.img').attr('src') !== '../image/user.jpg') {
         $('#cancelButton').removeClass('d-none');
       }
     });
@@ -33,7 +33,7 @@ $(document).ready(function(){
       var reader = new FileReader();
       reader.onload= function () {
           $(".img").attr("src", reader.result);
-          if ($('.img').attr('src') != '../image/nurse.jpg') {
+          if ($('.img').attr('src') != '../image/user.jpg') {
             console.log("Not Equal");
             $('#cancelButton').removeClass('d-none');
           }else{
@@ -52,10 +52,10 @@ $(document).ready(function(){
   
       
       $(".cancel-button").on("click",function(){
-         $('.img').attr('src','../image/nurse.jpg');
+         $('.img').attr('src','../image/user.jpg');
          $("#input").val("");
         $('#cancelButton').addClass('d-none');
-        let user_image = "nurse.jpg";
+        let user_image = "user.jpg";
         $.ajax({
           url : "changeImage.php",
           type : 'post',

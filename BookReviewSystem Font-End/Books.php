@@ -76,6 +76,7 @@ if (isset($_POST['searchbyuser'])) {
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <link rel="stylesheet" href="style.css" />
     <link rel="" type="" href="../css/books.css">
 </head>
@@ -184,7 +185,7 @@ if (isset($_POST['searchbyuser'])) {
                     } ?>
                     <?php if(empty($bookname)) {?>
                     <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary load" id="loadmorebtn">LoadMore</button>
+                        <button type="" class="btn btn-primary load" id="loadmorebtn"><i class="fa-duotone fa-circle-chevron-down"></i>See More</button>
                     </div>
                         <?php   } ?>
                 </div>

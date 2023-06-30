@@ -189,8 +189,8 @@ function LoadMore() {
 			<div class="review">
 				<div class="review-header">
 					<div class="user-profile">
-						<img src="${review.image}" alt="${review.image}" />
-						<div class="user-details">
+						<img src="../image/${review.image}" alt="${review.image}" />
+						<div class="user-qdetails">
 							<h3>
 				  ${review.name}
 							</h3>
@@ -211,7 +211,7 @@ function LoadMore() {
 					books.forEach((element) => {
 						authorCard += `<a href="BookDetail.php?id=${element.id}">
 				<div class="book-details">
-					<img src="${element.image}" alt="${element.image}" />
+					<img src="../image/photos/${element.image}" alt="${element.image}" />
 					<div class="book-info">
 						<h2>
 						${element.name}

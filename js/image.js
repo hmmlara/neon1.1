@@ -35,7 +35,7 @@ $(document).ready(function() {
       });
 
       $(".cancel-button").on("click",function(){
-        $('#preview').attr('src', 'image/nurse.jpg');
+        $('#preview').attr('src', 'image/user.jpg');
         $('.cross').addClass('d-none');
       })   
 

@@ -23,6 +23,7 @@ $active_page=$_SERVER['PHP_SELF'];
 
 	<link href="css/datatables.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="../fontawesome/css/all.css">
 	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 	<link rel="stylesheet" href="../BookReviewSystem Font-End/BookDetail.css">

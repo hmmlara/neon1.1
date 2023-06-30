@@ -127,7 +127,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 
 						echo $userimg;
 					} else {
-						echo "nurse.jpg";
+						echo "user.jpg";
 					} ?>" class="img" id="profileimg" alt="" />
 
 				</div>
