@@ -15,10 +15,8 @@
     height:auto;
   }
   .nav-link {
-    color: #007bff !important;
     text-align: center;
     transition: color 0.3s, background-color 0.3s;
-    color:white !important;
     font-size: 20px;
     font-weight: lighter;
     justify-content: center;
@@ -42,8 +40,8 @@
     text-decoration: none;
   } */
   .avatar {
-    width: 30px;
-    height: 30px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     margin-left: 10px;
@@ -57,7 +55,6 @@
   }
 
   .container {
-    background-color: #265077;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
