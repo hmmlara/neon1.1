@@ -42,7 +42,7 @@ $auther_list=$auther_controller->getAllAuthers();
                             echo "<td>" . ($r+1)."</td>";
                             echo "<td>" . $auther_list[$r]['name']."</td>";
                             echo "<td>" . $auther_list[$r]['profile']."</td>";
-                            echo "<td><a class='btn btn-success' href='viewAuther.php?id=".$auther_list[$r]['id']."'>View</a><a class='btn btn-warning' href='editAuther.php?id=".$auther_list[$r]['id']."'>Edit</a><a class='btn btn-danger delete_auther'>Delete</a></td>";
+                            echo "<td><a class='btn btn-success mx-2' href='viewAuther.php?id=".$auther_list[$r]['id']."'>View</a><a class='btn btn-warning mx-2' href='editAuther.php?id=".$auther_list[$r]['id']."'>Edit</a><a class='mx-2 btn btn-danger delete_auther'>Delete</a></td>";
                             echo "</tr>";
                         
                         

@@ -10,6 +10,9 @@ class RatingController extends Rating{
     public function deleteRating($book_id,$user_id){
         return $this->deleteRatingInfo($book_id,$user_id);
     }
+    public function averageRating($book_id){
+        return $this->averageRatingInfo($book_id);
+    }
     // public function getBook($id){
     //     return $this->getBookInfo($id);
     // }

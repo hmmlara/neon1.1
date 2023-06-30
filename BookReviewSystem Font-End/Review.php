@@ -62,7 +62,7 @@ foreach ($reviews as $review){
 				$review_books = $reviews_model->get_review_book($review['id']);
 
 				?>
-				<div class="review" data-comment-id="<?php echo $review['id']; ?>">
+				<div class="review" data-review-id="<?php echo $review['id']; ?>">
 					<div class="review-header">
 						<div class="user-profile">
 							<img src="../image/<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
@@ -140,12 +140,12 @@ foreach ($reviews as $review){
 							foreach ($comments as $key => $comment) {
 							$userInfo = $reviews_model->get_userinfo_by_id($comment['user_id']);
 							?>
-							<li class="comment">
+							<li class="comment" data-comment-id="<?php echo $comment['id']; ?>">
 								<div class="comment-avatar">
 									<img src="<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
 								</div>
 								<div class="comment-content">
-									<p class="ago"></p>
+									<p class="ago" style="color: #888;"></p>
 									<p class="comment-text">
 										<?php echo $comment['comment'] ?>
 									</p>
@@ -251,7 +251,43 @@ foreach ($reviews as $review){
 	<script src="Review.js"></script>
 	<script>
 		$(document).ready(function(){
-			<?php foreach ($reviews as $com) : ?>
+			<?php foreach ($reviews as $review) : ?>
+				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
+				var writingTime = "<?php echo $review['date']; ?>";
+
+				// Convert the writing time to JavaScript Date object
+				var writingDate = new Date(writingTime);
+
+				// Calculate the time difference in milliseconds
+				var timeDiff = Date.now() - writingDate.getTime();
+
+				// Define time intervals in milliseconds
+				var minute = 60 * 1000;
+				var hour = 60 * minute;
+				var day = 24 * hour;
+
+				// Calculate the time difference in different units
+				var diff;
+				if (timeDiff < minute) {
+					diff =  "now";
+				} else if (timeDiff < hour) {
+					diff = Math.floor(timeDiff / minute) + " minutes ago";
+				} else if (timeDiff < day) {
+					diff = Math.floor(timeDiff / hour) + " hours ago";
+				} else {
+					diff = writingDate.toDateString(); // Writing time as a formatted date if it's more than a day ago
+				}
+
+				// Output the time difference
+				$('.review[data-review-id="<?php echo $review['id']; ?>"] .review-date').text(diff);
+				
+
+
+
+
+				// comment
+				<?php $comment =	$reviews_model->get_review_comments($review['id']); ?>
+				<?php foreach ($comment as $com) : ?>
 				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
 				var writingTime = "<?php echo $com['date']; ?>";
 
@@ -279,8 +315,11 @@ foreach ($reviews as $review){
 				}
 
 				// Output the time difference
-				$('.review[data-comment-id="<?php echo $com['id']; ?>"] .review-date').text(diff);
+				$('.comment[data-comment-id="<?php echo $com['id']; ?>"] .ago').text(diff);
 			<?php endforeach; ?>
+
+			<?php endforeach; ?>
+			
 		})
 	</script>
 </body>

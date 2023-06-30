@@ -4,8 +4,10 @@ include_once "../controllers/registercontroller.php";
 include_once "../neon/controller/bookController.php";
 include_once "../neon/controller/categoryController.php";
 include_once "../neon/models/editorchoice.php";
-include_once('latestBook.php');
-
+include_once('../neon/controller/bookController.php');
+$book_controller = new bookController();
+$book_list = $book_controller->getAllBooks();
+$book_list = array_reverse($book_list);
 $editorChoice = new Editor();
 $editorChoiceCategory = $editorChoice->getAllCateGory();
 $getUserData = new RegisterController();
@@ -15,7 +17,6 @@ $getAllCategory=new CategoryController();
 $getCategory=$getAllCategory->getAllCategory();
 
 $getAllBook=new BookController();
-
 foreach($getCategory as $category){
 	//var_dump($category);
 }
@@ -47,6 +48,81 @@ if (!isset($_SESSION['user_email'])) {
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+    $(document).ready(function() {
+      // Array with the values
+      var bookList = <?php echo json_encode($book_list); ?>;
+	  console.log(bookList)
+      // Display array values normally
+      function displayArrayNormally() {
+        var arrayValuesElement = $(".bk");
+        arrayValuesElement.empty(); // Clear previous values
+		$('.latest-update').addClass('active');
+    $('.content').removeClass('active');
+        $.each(bookList, function(index, book) {
+			var bookCardHTML = `
+            <div class="book-card">
+              <div class="book-card-image">
+                <img src="../neon/img/photos/${book.image}" alt="${book.name}" />
+                <div class="book-card-overlay">
+                  <a href="BookDetail.php?id=${book.id}" class="book-card-button">Read More</a>
+                </div>
+              </div>
+              <div class="book-card-info">
+                <h3 class="book-card-title">${book.name}</h3>
+                <p class="book-card-author">${book.auther_name}</p>
+              </div>
+            </div>
+          `;
+          arrayValuesElement.append(bookCardHTML);
+        });
+		
+      }
+
+      // Display array values randomly
+      function displayArrayRandomly() {
+        var bookListElement = $(".bk");
+        bookListElement.empty(); // Clear previous values
+		$('.latest-update').removeClass('active');
+    	$('.content').addClass('active');
+        var shuffledBookList = bookList.slice(); // Create a copy of the original array
+        for (var i = shuffledBookList.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = shuffledBookList[i];
+          shuffledBookList[i] = shuffledBookList[j];
+          shuffledBookList[j] = temp;
+        }
+
+        $.each(shuffledBookList, function(index, book) {
+			var bookCardHTML = `
+            <div class="book-card">
+              <div class="book-card-image">
+                <img src="../neon/img/photos/${book.image}" alt="${book.name}" />
+                <div class="book-card-overlay">
+                  <a href="BookDetail.php?id=${book.id}" class="book-card-button">Read More</a>
+                </div>
+              </div>
+              <div class="book-card-info">
+                <h3 class="book-card-title">${book.name}</h3>
+                <p class="book-card-author">${book.auther_name}</p>
+              </div>
+            </div>
+          `;
+          bookListElement.append(bookCardHTML);
+        });
+      }
+
+      // Button A click event handler
+      $(".latest-update").click(displayArrayNormally);
+
+      // Button B click event handler
+      $(".content").click(displayArrayRandomly);
+
+      // Display the array normally on document ready
+      displayArrayNormally();
+    });
+  </script>
 	<link rel="stylesheet" href="style.css" />
 </head>
 
@@ -105,41 +181,17 @@ if (!isset($_SESSION['user_email'])) {
 			<!-- <h2 class="ms-2 float-left">Books</h2> -->
 
 				<div class="view-options  ">
-					<button class="view-option-btn active" data-update="list">
+					<button class="view-option-btn latest-update" data-update="list">
 						Lastest Update
 					</button>
-					<button class="view-option-btn" data-radom="grid">
+					<button class="view-option-btn content" data-radom="grid">
 						Content at redom
 					</button>
 				</div>
-				<div class="book-card-grid">
-					<?php
-					foreach ($book_list as $book) {
-						?>
-						<div class="book-card">
-							<div class="book-card-image">
-								<img src="../neon/img/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
-								<div class="book-card-overlay">
-									<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
-										More</a>
-								</div>
-							</div>
-							<div class="book-card-info">
-								<h3 class="book-card-title">
-									<?php echo $book['name'] ?>
-								</h3>
-								<p class="book-card-author">
-									<?php echo $book['auther_name'] ?>
-								</p>
-							</div>
-						</div>
-						<?php
-					}
-					?>
-
+				<div class="book-card-grid bk">
 			</div>
 			<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
-				<a href="" class="btn btn-primary m-auto">Load More</a>
+				<a href="Books.php" class="btn btn-primary m-auto">See All Books</a>
 
 			</div>
 		</div>
@@ -209,7 +261,7 @@ if (!isset($_SESSION['user_email'])) {
 	</footer>
 
 	<!-- JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 	<script type="module">
@@ -242,7 +294,8 @@ if (!isset($_SESSION['user_email'])) {
 					}
 				}
 
-			});		</script>
+			});	
+			</script>
 		<script src="app.js"></script>
 		
 </body>

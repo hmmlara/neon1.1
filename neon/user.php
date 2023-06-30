@@ -36,7 +36,7 @@ $user_list=$user_controller->getAllUsers();
                             echo "<td>" . $user_list[$r]['name']."</td>";
                             echo "<td>" . $user_list[$r]['email']."</td>";
                             echo "<td>" . $user_list[$r]['password']."</td>";
-                            echo "<td><a class='btn btn-success' href='viewUser.php?id=".$user_list[$r]['id']."'>View</a><a class='btn btn-danger delete_user'>Delete</a></td>";
+                            echo "<td><a class='btn btn-success mx-2' href='viewUser.php?id=".$user_list[$r]['id']."'>View</a><a class='btn btn-danger delete_user mx-2'>Delete</a></td>";
                             echo "</tr>";
                         
                         

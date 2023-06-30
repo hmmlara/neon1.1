@@ -4,8 +4,8 @@ class AutherController extends Auther{
     public function getAllAuthers(){
         return $this->getAutherList();
     }
-    public function addNewAuther($name,$profile){
-        return $this->createNewAuther($name,$profile);
+    public function addNewAuther($name,$profile,$image){
+        return $this->createNewAuther($name,$profile,$image);
     }
     public function getAuther($id){
         return $this->getAutherInfo($id);

@@ -29,6 +29,19 @@ class Rating{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function averageRatingInfo($book_id){
+        //1.DB connection
+        $this->connection=Database::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //2. sql statementfa
+        $sql="SELECT rating FROM `book_rating` WHERE book_id=:book_id";
+        $statement=$this->connection->prepare($sql);
+        $statement->bindParam(":book_id",$book_id);
+        //3. execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     public function createNewRating($user_id,$book_id,$rating_id){
         //1.DB connection
         $this->connection=Database::connect();
