@@ -168,13 +168,13 @@ if(isset($_POST['register']))
 
                         <div class="form-floating mb-3">
                             <input type="text" name="user_name" class="form-control" required value="<?php if(isset($user_name)) echo $user_name ?>" id="floatingInputUsername" placeholder="myusername">
-                            <label for="floatingInputUsername"><i class="fa-solid fa-user mx-2"></i>Username</label>
+                            <label for="floatingInputUsername"><i class="fa-solid fa-user mx-2"></i>Name</label>
                             <span class="text-danger"><?php if(isset($error_name)) echo $error_name; ?></span>
                         </div>
                         
                         <div class="form-floating mb-3">
                             <input type="email" name="user_email"  class="form-control" required value="<?php if(isset($user_email)) echo $user_email ?>" id="floatingInputEmail" placeholder="name@example.com">
-                            <label for="floatingInputEmail">Email address</label>
+                            <label for="floatingInputEmail"><i class="fa-solid fa-envelope mx-2"></i>Email address</label>
                             <span class="text-danger"><?php if(isset($error_email)) echo $error_email;  ?></span>
                         </div>
 
@@ -182,20 +182,20 @@ if(isset($_POST['register']))
 
                         <div class="form-floating mb-3">
                             <input type="password" name="create_password" required value="" class="form-control password1" id="floatingPassWord" placeholder="Password">
-                            <label for="floatingPassword">Create Password</label>
+                            <label for="floatingPassword"><i class="fa-solid fa-lock mx-2"></i>Create Password</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" name="re_enter_password" required value=""  class="form-control password2"  id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Comfirm Password</label>
+                            <label for="floatingPassword"><i class="fa-solid fa-lock mx-2"></i>Comfirm Password</label>
                         </div>
                         <div class="text-center">
                             <p class="note text-danger"><?php if(isset($exit_acc)) echo $exit_acc ?></p>
                         </div>
-                        <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase register" type="submit"  name="register">Register</button>
+                        <div class=" mb-2">
+                            <button class="btn btn-primary   register" type="submit"  name="register">Register</button>
                         </div>
 
-                        <a class="d-block text-center mt-2 small" href="login.php">Have an account? Sign In</a>
+                        <p class="d-block text-center mt-2 small">Already have an account? <a  href="login.php">Login</a></p>
 
                         <hr class="my-4">
 

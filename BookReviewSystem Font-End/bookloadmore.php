@@ -1,15 +1,18 @@
 <?php
-include_once "../neon/controller/categoryController.php";
+include_once "../neon/controller/bookController.php";
 include_once "../models/reviews.php";
 
 $review_model = new Reviews();
-$getSelectCategory=new CategoryController();
-//$value=$_POST['value'];
-$getCategory=$getSelectCategory->getUserSelectCategory(1);
+$getbooks=new BookController();
 
+$offset=$_POST['offset'];
+$limit=$_POST['limit'];
+
+$getBalanceBook=$getbooks->getBalanceBook($offset,$limit);
+// var_dump($getBalanceBook);
 $result = [];
-foreach($getCategory as $book){
-     //var_dump($book);
+foreach($getBalanceBook as $book){
+    // var_dump($book);
     $auther_name = $review_model->get_author_by_id($book['auther_id']);
     if($auther_name){
         // var_dump($auther_name['name']);
@@ -22,9 +25,6 @@ foreach($getCategory as $book){
  
     $result[] = $book;
 }
-//var_dump($getCategory);
-//echo $getCategory;
-
 echo json_encode($result);
 
 ?>

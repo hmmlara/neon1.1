@@ -123,5 +123,31 @@ class Book{
             $result=$statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;
     }
+
+    public function getBooks(){
+        //1.DB connection
+        $this->connection=Database1::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //2. sql statementfa
+        $sql="Select * from book limit 4";
+        $statement=$this->connection->prepare($sql);
+        //3. execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getBalanceBook($offset,$limit){
+        //1.DB connection
+        $this->connection=Database1::connect();
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //2. sql statementfa
+        $sql="Select * from book LIMIT $limit OFFSET $offset";
+        $statement=$this->connection->prepare($sql);
+        //3. execute
+        $statement->execute();
+        $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 ?>
