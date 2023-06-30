@@ -1,7 +1,7 @@
 <!-- Navigation bar -->
 <nav style="width:100%;top :0px;z-index:99;box-shadow:0px 5px 40px #1111" class="navbar position-fixed navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand-logo" href="#">
-            <img src="logo.png" style="width: 170px; height: 80px" alt="Book Review System Logo" />
+            <img src="logo-removebg-preview.png" style="width: 170px; height: 80px" alt="Book Review System Logo" />
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
