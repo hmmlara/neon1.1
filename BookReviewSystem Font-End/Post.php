@@ -1,9 +1,62 @@
 <?php
-//Remain 2 Err 
-
-
 session_start();
+include_once "../controllers/registercontroller.php";
+include_once "../neon/controller/bookController.php";
+include_once "../neon/controller/categoryController.php";
+include_once('latestBook.php');
+include_once "../models/reviews.php";
 
+$review_model = new Reviews();
+
+
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
+
+$getAllCategory = new CategoryController();
+$getCategory = $getAllCategory->getAllCategory();
+
+$getAllBook = new BookController();
+$getmainAllBook=$getAllBook->getMainBooks();
+//var_dump($getmainAllBook);
+
+foreach ($getCategory as $category) {
+    //var_dump($category);
+}
+
+foreach ($getUserinfo as $getUser) {
+    //var_dump($getUser) ;
+    if ($_SESSION["user_email"] == $getUser['email']) {
+        $userimg = $getUser['image'];
+        $username = $getUser['name'];
+        $userbio = $getUser['bio'];
+        $useremail = $getUser['email'];
+    }
+}
+if (!isset($_SESSION['user_email'])) {
+    header("location:../login.php");
+}
+
+
+
+
+
+$error_status=false;
+if (isset($_POST['searchbyuser'])) {
+    $bookname = $_POST['book_name'];
+        $getAllBookList = $getAllBook->getSearchBooks($bookname);
+        var_dump($getAllBookList);
+       
+        if(empty($getAllBookList)){
+            $error_status=true;
+          
+        }else{
+            $error_status=false;
+            
+        }
+    
+}
+?>
+<?php
 include_once "../models/reviews.php";
 include_once "../models/register.php";
 include_once "../neon/models/book.php";
@@ -18,7 +71,11 @@ $book_model = new Book();
 $userId = $register_model->getUserId($userEmail);
 if (isset($_SESSION['bookList']) && isset($_GET['id'])) {
     $ReviewBookList_id = $_SESSION['bookList'];
-    $ReviewBookList_id[] = (int) $_GET['id'];
+    if(    !in_array((int)$_GET['id'],$ReviewBookList_id)
+    ){
+        $ReviewBookList_id[] = (int) $_GET['id'];
+
+    }
     $_SESSION['bookList'] = $ReviewBookList_id;
 } else if (isset($_SESSION['bookList']) && isset($_GET['del'])) {
     $ReviewBookList_id = $_SESSION['bookList'];
@@ -31,16 +88,13 @@ if (isset($_POST['review-content'])) {
     $_SESSION["content"] = $_POST["review-content"];
 }
 if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewBookList_id) != 0) {
-    // echo "true"."<br>";
-    // echo "id :".$userId[0]['id']."<br>";
-    // echo "content :".$_SESSION['content']."<br>";
-    // var_dump($ReviewBookList_id);
     if (
         $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $ReviewBookList_id)
     ) {
         header("location:Review.php");
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +118,7 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
 
     <div class="container mt-4">
         <h1>Upload Review</h1>
-        <form id="upload-form" method="Post">
+        <form id="upload-form" method="Post" action="Post.php">
             <div class="form-group">
                 <label for="review-content">Review</label>
                 <textarea id="review-content" name="review-content" rows="8" required>
@@ -77,14 +131,10 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                         foreach ($ReviewBookList_id as $key => $ReviewBook_id) {
                             $book = $book_model->getBookInfo($ReviewBook_id);
 
-
-
-
-
                             ?>
                             <a href="Post.php?del=<?php echo $key ?>">
                                 <div class="book-details">
-                                    <img src="<?php echo $book[0]["image"] ?>" alt="<?php echo $book[0]["image"] ?>" />
+                                    <img src="../image/photos/<?php echo $book[0]["image"] ?>" alt="<?php echo $book[0]["image"] ?>" />
                                     <div class="book-info">
                                         <h2>
                                             <?php echo $book[0]["name"] ?>
@@ -99,26 +149,85 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                             <?php
                         }
                     } else {
-                        echo "<h1>Pleawe Choice Books</h1>";
+                        echo "<h1>Please Choice Books</h1>";
                     }
                     ?>
                 </div>
             </div>
             <div class="container mt-4">
                 <div class="book-card-list">
-                    <!-- Search Bar -->
-                    <div class="search-bar">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    Search
-                                </button>
+                    <form action="" method="post">
+                            <div class="search-bar">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="book_name" placeholder="Search..." />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary"  class="searchbook" name="searchbyuser">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
+
+                    </form>
+                    <!-- Search Bar -->
+                    
                     <div class="book-card-grid">
+                    <?php
+                    if ($error_status==false) {
+                    //     echo "No books found.";
+                    // } else {
+                        if (!empty($getAllBookList)) {
+                            foreach ($getAllBookList as $book) {
+                                ?>
+                                <div class="book-card">
+                                <div class="book-card-image">
+                                    <img src="../image/photos/<?php echo $book['image'] ?>"
+                                        alt="<?php echo $book['name'] ?>" />
+                                    <div class="book-card-overlay">
+                                        <a href="Post.php?id=<?php echo $book['id'] ?>" class="book-card-button">Add
+                                            Book</a>
+                                    </div>
+                                </div>
+                                <div class="book-card-info">
+                                    <h3 class="book-card-title">
+                                        <?php echo $book['name'] ?>
+                                    </h3>
+                                    <p class="book-card-author">
+                                        <?php echo $book['auther_name'] ?>
+                                    </p>
+                                    <p class="book-card-genre">
+
+                                        <?php
+                                        if(isset($book['category_name'])){
+                                            echo $book['category_name'] ;
+
+                                        }
+                                         ?>
+                                    </p>
+                                </div>
+                            </div>
+                                <!-- <div class="col-md-3 usersearch_book">
+                                    <div class="card sm-4 mb-3" width="100%" height="400px">
+                                        <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <?php echo $book['name']; ?>
+                                            </h5>
+                                            <p class="card-text">
+                                                <?php echo $book['preview']; ?>
+                                            </p>
+                                            <p class="card-text">
+                                                <?php echo $book['date']; ?>
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                </div> -->
+                            <?php }
+                        }
+                    } ?>
+
                         <?php
 
                         foreach ($book_list as $book) {
@@ -140,7 +249,13 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                                         <?php echo $book['auther_name'] ?>
                                     </p>
                                     <p class="book-card-genre">
-                                        <?php echo $book['category_name'] ?>
+
+                                        <?php
+                                        if(isset($book['category_name'])){
+                                            echo $book['category_name'] ;
+
+                                        }
+                                         ?>
                                     </p>
                                 </div>
                             </div>
@@ -154,7 +269,8 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
                     </div>
                 </div>
             </div>
-            <button type="submit" name="submit" class="mt-4">Upload</button>
+
+            <button type="submit" name="sub" class="mt-4">Upload</button>
         </form>
     </div>
 
@@ -227,6 +343,8 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
     <script src="Post.js"></script>
+    <script src="../js/index.js"></script>
+
 </body>
 
 </html>

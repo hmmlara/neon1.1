@@ -4,8 +4,8 @@ include_once "../models/reviews.php";
 
 $review_model = new Reviews();
 $getSelectCategory=new CategoryController();
-//$value=$_POST['value'];
-$getCategory=$getSelectCategory->getUserSelectCategory(1);
+$value=$_POST['value'];
+$getCategory=$getSelectCategory->getUserSelectCategory($value);
 
 $result = [];
 foreach($getCategory as $book){

@@ -29,12 +29,14 @@
 	</div>
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<script src="js/datatables.js"></script>
+	<script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
 	<script src="../fontawesome/js/all.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/myscript.js"></script>
 	<script src="../neon/js/adminindex.js"></script>
 	<script>
 		$('#myTable').DataTable()
+		$("#editorTable").DataTable()
 	</script>
 	<!-- <script>
 		document.addEventListener("DOMContentLoaded", function() {

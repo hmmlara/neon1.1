@@ -76,11 +76,6 @@ if(isset($_POST['register']))
     }else{
         echo "file type is not allowed";
     }
-
-    // if($filename==null)
-    // {
-    //     $filename=
-    // }
     
     $_SESSION['user_name']=$user_name;
     $_SESSION['user_email']=$user_email;
@@ -145,7 +140,7 @@ if(isset($_POST['register']))
                         <div class="upload-circle ">
                             <div class="image-preview d-flex justify-content-center">
                                 <div class="image-circle">
-                                <img id="preview" src="image/nurse.jpg" alt="" title="">
+                                <img id="preview" src="image/user.jpg" alt="" title="">
                                 </div>
                                 <div class="cancel-button">
                                     <i class="fa-solid fa-xmark cross d-none"></i>
