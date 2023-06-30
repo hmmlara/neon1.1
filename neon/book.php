@@ -40,7 +40,7 @@ $book_list=$book_controller->getAllBooks();
                             echo "<td>" . $book_list[$r]['auther_name']."</td>";
                             echo "<td><img src=img/photos/". $book_list[$r]['image']." alt='' width='50px' height='50px'></td>";
                             echo "<td>" . $book_list[$r]['pdf_file']."</td>";
-                            echo "<td><a class='btn btn-success' href='viewBook.php?id=".$book_list[$r]['id']."'>View</a><a class='btn btn-warning' href='editBook.php?id=".$book_list[$r]['id']."'>Edit</a><a class='btn btn-danger delete_book'>Delete</a></td>";
+                            echo "<td><a class='btn btn-success mx-2' href='viewBook.php?id=".$book_list[$r]['id']."'>View</a><a class='btn btn-warning mx-2' href='editBook.php?id=".$book_list[$r]['id']."'>Edit</a><a class='btn btn-danger delete_book mx-2'>Delete</a></td>";
                             echo "</tr>";
                         }
                         ?>

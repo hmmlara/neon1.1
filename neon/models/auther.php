@@ -13,16 +13,17 @@ class Auther{
         $result=$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function createNewAuther($name,$profile){
+    public function createNewAuther($name,$profile,$image){
         //1.DB connection
         $this->connection=Database1::connect();
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         //2.sql statement
-        $sql="INSERT INTO auther( name, profile) VALUES
-        (:name,:profile)";
+        $sql="INSERT INTO auther( name, profile,image) VALUES
+        (:name,:profile,:image)";
         $statement=$this->connection->prepare($sql);
         $statement->bindParam(":name",$name);
         $statement->bindParam(":profile",$profile);
+        $statement->bindParam(":image",$image);
         if($statement->execute()){
             return true;
         }

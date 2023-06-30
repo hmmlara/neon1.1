@@ -13,7 +13,8 @@ $auther=$auther_controller->getAuther($cid);
 <main class="content">
 	<div class="container-fluid p-0">
 		<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
-        <div class="card col-md">
+        <div class="card col-md" style="width: 18rem;">
+        <img src="img/author/<?php echo $auther['image'] ?>" class="card-img-top" alt="..." >
             <div class="card-body">
             <div class="row">
                     
