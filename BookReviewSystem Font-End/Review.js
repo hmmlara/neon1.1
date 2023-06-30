@@ -299,6 +299,11 @@ function LoadMore() {
 			}
 		},
 	});
+	setTimeout(() => {
+		// After the loading is complete, reset the flag to allow the loadMore function to run again
+		isLoading = false;
+		console.log("More content loaded!");
+	}, 2000); // Adjust the timeout as needed
 }
 
 // Function to check if the user has reached the bottom of the page
@@ -315,7 +320,8 @@ function isNearBottom() {
 
 // Function to handle the scroll event
 function handleScroll() {
-	if (isNearBottom()) {
+	if (isNearBottom() && !isLoading) {
+		isLoading = true; // Set the flag to indicate that the loadMore function is running
 		LoadMore();
 	}
 }
