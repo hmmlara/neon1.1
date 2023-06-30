@@ -146,10 +146,17 @@ if (!isset($_SESSION['user_email'])) {
 			<div class=" swiper-wrapper">
 				<?php foreach($EditoChoice_Book as $Book){ ?>			
 				<div class="card swiper-slide">
-					<img src="<?php echo $Book['book_image'] ?>" class="card-img-top" alt="<?php echo $Book['book_image'] ?>">
+					<img src="../image/photos/<?php echo $Book['book_image'] ?>" class="card-img-top" alt="<?php echo $Book['book_image'] ?>">
 					<div class="card-body">
 						<h5 class="card-title"><?php echo $Book['book_name'] ?></h5>
-						<p class="card-text"><?php echo $Book['author_name'] ?></p>
+						<p class="card-text"><?php
+						if(isset($Book['author_name'])){
+							echo $Book['author_name'] ;
+
+						}else{
+							echo "Anonymous";
+						}
+						 ?></p>
 					</div>
 				</div>
 				<?php } ?>			
