@@ -1,6 +1,29 @@
 <?php
 session_start();
 include_once "../controllers/registercontroller.php";
+include_once "../models/reviews.php";
+$getUserData = new RegisterController();
+$getUserinfo = $getUserData->getUserList();
+foreach ($getUserinfo as $getUser) {
+	//var_dump($getUser) ;
+}
+if (!isset($_SESSION['user_email'])) {
+	header("location:../login.php");
+} else {
+}
+if ($_SESSION["user_email"] == $getUser['email']) {
+	$userimg = $getUser['image'];
+	$username = $getUser['name'];
+	$userbio = $getUser['bio'];
+	$useremail = $getUser['email'];
+}
+$userId = $getUserData->getUserId($useremail);
+//Connect With Reviews Models;
+$reviews_model = new Reviews();
+$reviews = $reviews_model->get_review_with_limit_offset(5, 0);
+?>
+<?php
+include_once "../controllers/registercontroller.php";
 include_once "../controllers/bookmarkController.php";
 include_once "../controllers/usercontroller.php";
 include_once "../models/register.php";
