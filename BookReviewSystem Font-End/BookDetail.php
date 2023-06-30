@@ -4,6 +4,8 @@ session_start();
 include_once "../controllers/registercontroller.php";
 include('../neon/controller/bookController.php');
 include_once('../controllers/commentController.php');
+include_once('../controllers/ratingController.php');
+$rating_controller=new RatingController();
 
 $user_id=$_SESSION['userid'];
 $getUserData = new RegisterController();
@@ -23,6 +25,19 @@ if (!isset($_SESSION['user_email'])) {
 
 
 $cid=$_GET['id'];
+$rating=$rating_controller->averageRating($cid);
+$totalRating=0;
+foreach ($rating as $rate) {
+	$totalRating += $rate['rating'];
+}
+if($totalRating!=0){
+	$total_user=count($rating);
+	$average=$totalRating/$total_user;
+	$average = round($average, 1);
+}else{
+	$average=0;
+}
+
 $book_controller=new BookController();
 $book=$book_controller->getBook($cid);
 $comment_controller=new CommentController();
@@ -105,6 +120,8 @@ if(isset($_POST['submit'])){
 						?>  
 						</strong>
 					</span>
+					<p></p>
+					<p>Rating : <strong><?php echo $average ?></strong></p>
 					<p class="book-description">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
 						temporibus et voluptate id. Nobis, dicta! Doloribus, illum dolore

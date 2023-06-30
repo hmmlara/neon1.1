@@ -1,4 +1,5 @@
 <!-- Navigation bar -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <a class="navbar-brand-logo" href="#">
             <img src="logo3.png" style="width: 200px; height: 100px" alt="Book Review System Logo" />
@@ -10,17 +11,17 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item" >
-                    <a  class="nav-link" href="index.php" onclick="toggleActive(event)"><i class="fa-solid fa-house-chimney mx-2" ></i>Home</a>
+                <li class="nav-item toggle-button active" id="button1" data-button-id="1" >
+                    <a  class="nav-link" href="index.php" ><i class="fa-solid fa-house-chimney mx-2" ></i>Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="Books.php" onclick="toggleActive(event)"><i class="fa-solid fa-book mx-2" ></i>Books</a>
+                <li class="nav-item toggle-button" id="button2"  data-button-id="2">
+                    <a class="nav-link " href="Books.php" ><i class="fa-solid fa-book mx-2" ></i>Books</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="AuthorPage.php" onclick="toggleActive(event)"><i class="fa-solid fa-feather mx-2" ></i>Author</a>
+                <li class="nav-item toggle-button" id="button3"  data-button-id="3">
+                    <a class="nav-link" href="AuthorPage.php" ><i class="fa-solid fa-feather mx-2" ></i>Author</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Review.php" onclick="toggleActive(event)"><i class="fa-solid fa-message mx-2" ></i>Reviews</a>
+                <li class="nav-item toggle-button" id="button4"  data-button-id="4">
+                    <a class="nav-link" href="Review.php" ><i class="fa-solid fa-message mx-2" ></i>Reviews</a>
                 </li>
 
                 <li class="nav-item hide-in-large">
@@ -42,14 +43,12 @@
         </div>
     </nav>
     <script>
-    // JavaScript function to toggle active class
-    function toggleActive(event) {
-      // Remove active class from all <a> tags
-      var links = document.getElementsByClassName('nav-link');
-      for (var i = 0; i < links.length; i++) {
-        links[i].classList.remove('active');
-      }
-      // Add active class to the clicked <a> tag
-      event.target.classList.add('active');
-    }
+    $(document).ready(function() {
+      $('.toggle-button').click(function() {
+        var $this = $(this);
+        var buttonId = $this.data('button-id');
+        $('.toggle-button').removeClass('active');
+        $this.addClass('active');
+      });
+    });
   </script>

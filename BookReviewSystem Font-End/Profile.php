@@ -221,7 +221,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 						$review_books = $reviews_model->get_review_book($review['id']);
 
 						?>
-						<div class="review">
+						<div class="review" data-review-id="<?php echo $review['id']; ?>">
 							<div class="review-header">
 								<div class="user-profile">
 									<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
@@ -229,8 +229,8 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 										<h3>
 											<?php echo $userinfo["name"] ?>
 										</h3>
-										<p>
-											<?php echo $review['date'] ?>
+										<p class="review-date" style="color: #888;">
+											
 										</p>
 									</div>
 								</div>
@@ -414,6 +414,40 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 	<script src="app.js"></script>
 	<script src="../js/profile.js"></script>
 	<script src="Profile.js"></script>
+	<<script>
+		$(document).ready(function(){
+			<?php foreach ($reviews as $review) : ?>
+				// Get the writing time from PHP (assuming it's stored in a variable called writingTime)
+				var writingTime = "<?php echo $review['date']; ?>";
+
+				// Convert the writing time to JavaScript Date object
+				var writingDate = new Date(writingTime);
+
+				// Calculate the time difference in milliseconds
+				var timeDiff = Date.now() - writingDate.getTime();
+
+				// Define time intervals in milliseconds
+				var minute = 60 * 1000;
+				var hour = 60 * minute;
+				var day = 24 * hour;
+
+				// Calculate the time difference in different units
+				var diff;
+				if (timeDiff < minute) {
+					diff =  "now";
+				} else if (timeDiff < hour) {
+					diff = Math.floor(timeDiff / minute) + " minutes ago";
+				} else if (timeDiff < day) {
+					diff = Math.floor(timeDiff / hour) + " hours ago";
+				} else {
+					diff = writingDate.toDateString(); // Writing time as a formatted date if it's more than a day ago
+				}
+
+				// Output the time difference
+				$('.review[data-review-id="<?php echo $review['id']; ?>"] .review-date').text(diff);
+			<?php endforeach; ?>
+		})
+	</script>
 </body>
 
 </html>
