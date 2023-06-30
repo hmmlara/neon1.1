@@ -169,6 +169,8 @@ function toggleComment(btn) {
 var offset = 5;
 var limit = 3;
 //funtion load more review
+let isLoading = false;
+
 function LoadMore() {
 	$.ajax({
 		type: "POST",

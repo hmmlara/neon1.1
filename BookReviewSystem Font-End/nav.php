@@ -1,5 +1,5 @@
 <!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+<nav style="width:100%;top :0px;z-index:99;box-shadow:0px 5px 40px #1111" class="navbar position-fixed navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand-logo" href="#">
             <img src="logo3.png" style="width: 200px; height: 100px" alt="Book Review System Logo" />
         </a>
