@@ -210,7 +210,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 							<?php
 							foreach ($bookmark_list as $bookmark) {
 							?>
-							<div class="col-md-4">
+							<div class=" col-lg-4">
 							<div class="book-card">
 								<div class="book-card-image">
 									<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
