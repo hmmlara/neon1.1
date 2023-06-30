@@ -45,11 +45,15 @@ $comment=$comment_controller->getAllComments($cid);
 $comment = array_reverse($comment);
 if(isset($_POST['submit'])){
 	$comment=trim($_POST['comment']);
-	if (strlen($comment) > 0 && $comment !== str_repeat(' ', strlen($comment))){
+	if (strlen($comment) > 0 && $comment !== str_repeat(' ', strlen($comment)) && $comment !== ""){
 		$update_comment=$comment_controller->addNewComment($comment,$user_id,$book[0]['id']);
 		$comment=$comment_controller->getAllComments($cid);
 		$comment = array_reverse($comment);
+	}else {
+		$comment=$comment_controller->getAllComments($cid);
+		$comment = array_reverse($comment);
 	}
+
 }
 ?>
 <!DOCTYPE html>

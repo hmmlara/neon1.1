@@ -125,22 +125,25 @@ function LeeError(btn) {
 	let commentList = document.querySelector(`#comment-list-${Id}`);
 	let form = CommentDiv.querySelector("textarea");
 	let cmListItem = `
-										<li class="comment">
-											<div class="comment-avatar">
-												<img src="${userImage}" alt="${userImage}" />
-											</div>
-											<div class="comment-content">
-												<p class="comment-text">
-												${form.value}
-												</p>
-												<span class="comment-meta">-
-												${userName}
-												</span>
-											</div>
-										</li>	
-										`
-	$(`#comment-list-${Id}`).prepend(cmListItem)
+					<li class="comment">
+						<div class="comment-avatar">
+							<img src="${userImage}" alt="${userImage}" />
+						</div>
+						<div class="comment-content">
+						<p class="ago" style="color: #888;">now</p>
+							<p class="comment-text">
+							${form.value}
+							</p>
+
+							<span class="comment-meta">-
+							${userName}
+							</span>
+						</div>
+					</li>	
+					`
 	if (form.value !== "") {
+		$(`#comment-list-${Id}`).prepend(cmListItem)
+
 		$.ajax({
 			type: "POST",
 			url: "createReviewComment.php",

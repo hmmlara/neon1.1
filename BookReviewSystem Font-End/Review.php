@@ -142,7 +142,7 @@ $reviews = $reviews_model->get_review_with_limit_offset(5, 0);
 									<img src="<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
 								</div>
 								<div class="comment-content">
-									<p class="ago" style="color: #888;"><?php echo $comment['date'] ?></p>
+									<p class="ago" style="color: #888;"></p>
 									<p class="comment-text">
 										<?php echo $comment['comment'] ?>
 									</p>
