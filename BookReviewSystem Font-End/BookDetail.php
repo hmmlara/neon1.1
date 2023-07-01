@@ -155,10 +155,8 @@ if(isset($_POST['submit'])){
 								<span class="star"></span>
 								<span class="star"></span>
 							</div>
-							<div class="download-icon btn btn-primary">
-								DownLoad
-								<i class="fas fa-download"></i>
-							</div>
+								<button class="download-icon btn btn-primary" id="read">Read</button>
+								
 						</div>
 					</div>
 
@@ -313,6 +311,21 @@ if(isset($_POST['submit'])){
 		<script src="BookDetail.js"></script>
 		<script>
 		$(document).ready(function() {
+			$("#read").click(function() {
+        openPDF("../neon/pdf/<?php echo $book[0]['pdf_file'] ?>");
+      });
+
+//       $(".comment").click(function() {
+//         // openPDF("pdf/sample.pdf");
+//         console.log('comment');
+//       });
+
+    function openPDF(filePath) {
+        event.preventDefault();
+		var newWindow = window.open();
+  newWindow.document.write('<html><head><title>PDF Document</title></head><body><embed width="100%" height="100%" src="' + filePath + '" type="application/pdf"></embed></body></html>');
+	
+    }               
 			const user_id = "<?php echo $user_id; ?>";
 			const book_id = "<?php echo $book[0]['id']; ?>";
 			let mark=""

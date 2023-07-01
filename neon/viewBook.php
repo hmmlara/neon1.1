@@ -81,7 +81,7 @@ $comment=$comment_controller->getAllComments($cid);
 <script>
     $(document).ready(function() {
       $("#open").click(function() {
-        openPDF("pdf/ei_maung.pdf");
+        openPDF("pdf/<?php echo $book[0]['pdf_file'] ?>");
       });
 
 //       $(".comment").click(function() {
