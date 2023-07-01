@@ -68,6 +68,6 @@ $active_page = $_SERVER['PHP_SELF'];
 
     </li>
 </nav>
-<div style="width: 100%;height: 100px;">
+<div style="width: 100%;height: 150px;">
 
 </div>
