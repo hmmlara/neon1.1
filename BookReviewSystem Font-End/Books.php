@@ -114,8 +114,9 @@ if (isset($_POST['searchbyuser'])) {
                 </div>
             </div>
         </form>
+    
         <!-- Books -->
-        <div class="container mt-4">
+        
       
                 <?php if (empty($getAllBookList)){ ?>
                 <div class="book-card-grid select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
@@ -128,9 +129,9 @@ if (isset($_POST['searchbyuser'])) {
                         <div class="book-card usersearch_book">
                             <div class="book-card-image">
                                 <img src="../image/photos/<?php echo $BookAllList['image'] ?>" alt="<?php echo $BookAllList['image'] ?>" />
-                                <div class="book-card-overlay">
+                                <!-- <div class="book-card-overlay">
                                     <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>" class="book-card-button">Read More</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="book-card-info">
                                 <h3 class="book-card-title"><?php echo $BookAllList['name'] ?></h3>
@@ -142,6 +143,8 @@ if (isset($_POST['searchbyuser'])) {
                                 }
                                 ?></p>
                                 <p class="book-card-genre">Genre: Fantasy</p>
+                                <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button "><i class="fa-solid fa-arrow-right mr-2 mt-3"></i>Read More</a>
+
                             </div>
                         </div>
                         <?php } ?>
@@ -154,7 +157,7 @@ if (isset($_POST['searchbyuser'])) {
                 </div>
                 <?php // }  ?>
             <div class="row">
-                <div class="col-md-12 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
+                <div class="col-md-12 mt-4 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
                     <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>>
 
                     <?php
@@ -166,30 +169,16 @@ if (isset($_POST['searchbyuser'])) {
                                 $auther_name = $review_model->get_author_by_id($book['auther_id']);
                                 //var_dump($book);
                             ?>
-                        <div class="book-card col-md-3 usersearch_book">
-                            <div class="book-card-image">
-                                <img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
-                                <div class="book-card-overlay">
-                                    <a href="BookDetail.php?id=<?php echo $book['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
-                                </div>
-                            </div>
-                            <div class="book-card-info">
-                                <h3 class="book-card-title"><?php echo $book['name'] ?></h3>
-                                <p class="book-card-author">Author: <?php  if($auther_name){
-                                echo $auther_name['name'];
-                                }
-                                else{
-                                    echo "Anonymous";
-                                }
-                                ?></p>
-                                <p class="book-card-genre">Genre: Fantasy</p>
-                            </div>
-                        </div>
-                                <div class="col-md-3 usersearch_book">
-                                ?>
-                                <div class="col-md-3 usersearch_book">
-                                    <div class="card sm-4 mb-3" width="100%" height="400px">
-                                        <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
+                        
+                                
+                                <div class="col-md-3  usersearch_book">
+                                    <div class="sm-4 mb-3" width="100%" height="400px">
+                                    <div class="book-card-image">
+                                        <img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
+                                        <div class="book-card-overlay">
+                                            <a href="BookDetail.php?id=<?php echo $book['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
+                                        </div>
+                                    </div>
                                         <div class="card-body">
                                             <h5 class="card-title">
                                                 <?php echo $book['name']; ?>
@@ -200,7 +189,7 @@ if (isset($_POST['searchbyuser'])) {
                                             <p class="card-text">
                                                 <?php echo $book['date']; ?>
                                             </p>
-                                            
+                                            <a href="BookDetail.php?id=<?php echo $book['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -209,14 +198,14 @@ if (isset($_POST['searchbyuser'])) {
                     } ?>
                     <?php if(empty($bookname)) {?>
                     <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary load" id="loadmorebtn"><i class="fa-duotone fa-circle-chevron-down"></i>See More</button>
+                        <button type="" class="btn btn-primary load" id="loadmorebtn"><i class="fa-solid fa-eye ml-2"></i>See More</button>
                     </div>
                         <?php   } ?>
                 </div>
                 
                 
             </div>
-        </div>
+        
     </div>
 
     </div>

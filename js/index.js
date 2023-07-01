@@ -1,5 +1,15 @@
 $(document).ready(function(){
     $("#search").on("click",function(){
+        if($("#booksearch").val().length==0){
+
+            console.log("Hello")
+            $(".load_more").addClass("d-none");
+            console.log("add")
+            //e.preventDefault();
+        }
+       
+    })
+    $("#search").on("click",function(){
         if($("#filter_category").val() == "All" && $("#booksearch").val().length == 0){
 
              console.log("/////////////////////////")
@@ -98,14 +108,7 @@ $(document).ready(function(){
     //        //e.preventDefault();
     //    }
     // })
-    $("#search").on("click",function(){
-        if($("#booksearch").length>0){
-            console.log($("#booksearch").length)
-            $("#loadmorebtn").remove();
-            //e.preventDefault();
-        }
-       
-    })
+    
     
 
 
