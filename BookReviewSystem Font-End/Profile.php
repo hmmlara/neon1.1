@@ -139,10 +139,20 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 	<link rel="stylesheet" href="Profile.css" />
 	<link rel="stylesheet" href="Review.css">
 </head>
+<style>
+	.Profile-container{
+		margin-top: 100px;
+	}
+	@media(max-width: 992px){
+		.Profile-container{
+			margin-top: 10px;	}
+
+	}
+</style>
 
 <body>
-	<div class="container-fluid">
-	<div class="profile-page">
+	<div class="container-fluid Profile-container" style="">
+	<div class="profile-page ">
 		<div class="container profile-container">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="profile-header">
@@ -238,8 +248,8 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 				</div>
 			</div>
 
-			<div class="container mt-4">
-			<h2 class="section-title" class="mt-3">Reviews</h2>
+		
+			<h2 class="section-title" class="mt-5">Reviews</h2>
 
 				<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 					<?php
@@ -250,6 +260,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 						$review_books = $reviews_model->get_review_book($review['id']);
 
 						?>
+						<div class="container mt-4">
 						<div class="review" data-review-id="<?php echo $review['id']; ?>">
 							<div class="review-header">
 								<div class="user-profile">
@@ -368,13 +379,15 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 
 							</div>
 						</div>
+						</div>
+						
 						<?php
 					}
 					?>
 
 
 				</main>
-			</div>
+			
 		</div>
 	</div>
 	</div>
