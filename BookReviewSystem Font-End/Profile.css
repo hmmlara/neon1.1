@@ -1,15 +1,24 @@
+.container-fluid{
+  background-color: rgb(216, 212, 212) !important;
+  font-family: Arial, sans-serif;
+ }
 .profile-page {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    /* padding: 20px; */
   }
-  
+  /* .profile-container{
+    border:2px solid navy;
+    background-color: #414c6b;
+  } */
   .profile-header {
     text-align: center;
     height: 300px;
     position: relative;
   }
-
+.profile-container{
+  background-color:#C6D8D5;
+}
   /* .profile-edit .img {
     border: 100px solid blue;
   } */

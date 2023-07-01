@@ -63,7 +63,10 @@ if (isset($_POST['searchbyuser'])) {
     }
 }
 ?>
-
+<!-- Navigation bar -->
+<?php
+    include_once "nav.php";
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,18 +81,16 @@ if (isset($_POST['searchbyuser'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <link rel="stylesheet" href="style.css" />
-    <link rel="" type="" href="../css/books.css">
+    <!-- <link rel="" type="" href="../css/books.css"> -->
 </head>
 
 <body>
-    <!-- Navigation bar -->
-    <?php
-    include_once "nav.php";
-    ?>
+    
     <!-- search bar -->
-    <div class="container mt-4">
+    <div class="container book-search " style = "">
+    <div class="container ">
         <form action="" method="post">
-            <div class="row my-3">
+            <div class="row my-2">
                 <div class="col-md-4">
                     <select class="form-control filter-select" name="categoryName" id="filter_category">
                         <option value="All" id="something">All</option>
@@ -105,7 +106,7 @@ if (isset($_POST['searchbyuser'])) {
                         <input type="text" class="form-control" name="bookname" id="booksearch" value="<?php echo isset($_POST['bookname']) ? $_POST['bookname'] : '';  ?>"
                             placeholder="Search..." />
                         <div class="input-group-append">
-                            <button class="btn btn-primary" name="searchbyuser" id="search"><i class="fa-solid fa-magnifying-glass"></i>
+                            <button class="btn btn-primary" name="searchbyuser" style="background-color:#265077; color:white;" id="search"><i class="fa-solid fa-magnifying-glass"></i>
                                 Search
                             </button>
                         </div>
@@ -114,7 +115,7 @@ if (isset($_POST['searchbyuser'])) {
             </div>
         </form>
         <!-- Books -->
-        <div class="container mt-4">
+        <div class=" mt-4">
       
                 <?php if (empty($getAllBookList)){ ?>
                 <div class="book-card-grid select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
@@ -128,7 +129,7 @@ if (isset($_POST['searchbyuser'])) {
                             <div class="book-card-image">
                                 <img src="../image/photos/<?php echo $BookAllList['image'] ?>" alt="<?php echo $BookAllList['image'] ?>" />
                                 <div class="book-card-overlay">
-                                    <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>" class="book-card-button">Read More</a>
+                                    <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                                 </div>
                             </div>
                             <div class="book-card-info">
@@ -148,12 +149,13 @@ if (isset($_POST['searchbyuser'])) {
                 </div>
 
                 <?php //if($categoryName !== "All"){  ?>
-                <div class="book-card-grid" id="filterbook">
+                
+                <div class="book-card-grid " id="filterbook">
 
                 </div>
                 <?php // }  ?>
             <div class="row">
-                <div class="col-md-12 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
+                <div class="col-md-12 d-flex flex-wrap book-card-grid <?php echo ($error_status ? 'd-none' : ''); ?>"
                     <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>>
 
                     <?php
@@ -162,7 +164,28 @@ if (isset($_POST['searchbyuser'])) {
                     // } else {
                         if (!empty($getAllBookList)) {
                             foreach ($getAllBookList as $book) {
-                                ?>
+                                $auther_name = $review_model->get_author_by_id($book['auther_id']);
+                                //var_dump($book);
+                            ?>
+                        <div class="book-card col-md-3 usersearch_book">
+                            <div class="book-card-image">
+                                <img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
+                                <div class="book-card-overlay">
+                                    <a href="BookDetail.php?id=<?php echo $book['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
+                                </div>
+                            </div>
+                            <div class="book-card-info">
+                                <h3 class="book-card-title"><?php echo $book['name'] ?></h3>
+                                <p class="book-card-author">Author: <?php  if($auther_name){
+                                echo $auther_name['name'];
+                                }
+                                else{
+                                    echo "Anonymous";
+                                }
+                                ?></p>
+                                <p class="book-card-genre">Genre: Fantasy</p>
+                            </div>
+                        </div>
                                 <div class="col-md-3 usersearch_book">
                                     <div class="card sm-4 mb-3" width="100%" height="400px">
                                         <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
@@ -184,26 +207,33 @@ if (isset($_POST['searchbyuser'])) {
                         }
                     } ?>
                     <?php if(empty($bookname)) {?>
-                    <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary load" id="loadmorebtn"><i class="fa-duotone fa-circle-chevron-down"></i>See More</button>
-                    </div>
+                        <div class="row ">
+                                <div class="col-md-12 load_more d-flex justify-content-center">
+                                    <button type="" class="btn  load" id="loadmorebtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
+
+                                </div>
+                        </div>
+                    
+                    
                         <?php   } ?>
-                </div>
+                <!-- </div> -->
                 
                 
             </div>
         </div>
     </div>
+
+    </div>
+
         <!-- Footer -->
-        <footer class="footer mt-4">
-            <div class="footer-container">
+        <footer class="footer">
+            <div class="footer-container container ">
                 <div class="footer-content">
                     <div class="footer-section">
                         <h4 class="text-center">About Us</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                            aliquet semper sapien, ut sodales lectus tincidunt et.
-                        </p>
+                        <p style="text-indent: 50px;">
+                    Welcome to our Book Review System website! We're passionate about literature and creating a community where book enthusiasts can discover, discuss, and share their favorite reads. Join us on this literary journey as we celebrate the joy of reading and the power of words.
+                </p>
                     </div>
                     <div class="footer-section">
                         <h4 class="text-center">Quit Link</h4>

@@ -121,8 +121,8 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
     <?php
     include_once "nav.php";
     ?>
-
-    <div class="container mt-4">
+    <div class="container-fluid">
+    <div class="container">
         <h1>Upload Review</h1>
         <form id="upload-form" method="Post" action="Post.php">
             <div class="form-group">
@@ -160,6 +160,8 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
                     ?>
                 </div>
             </div>
+            <button type="submit" name="upload" class="mt-4">Upload</button>
+
             <div class="container mt-4">
                 <div class="book-card-list">
                     <form action="" method="post">
@@ -219,23 +221,24 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
                     </div>
 
                 </div>
-                <button type="submit" name="upload" class="mt-4">Upload</button>
-
+                
             </div>
 
 
         </form>
     </div>
 
+    </div>
+    
+
     <!-- Footer -->
-    <footer class="footer mt-4">
+    <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h4 class="text-center">About Us</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                        aliquet semper sapien, ut sodales lectus tincidunt et.
+                    <p style="text-indent: 50px;">
+                    Welcome to our Book Review System website! We're passionate about literature and creating a community where book enthusiasts can discover, discuss, and share their favorite reads. Join us on this literary journey as we celebrate the joy of reading and the power of words.
                     </p>
                 </div>
                 <div class="footer-section">

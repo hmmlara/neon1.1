@@ -72,21 +72,22 @@ if(!isset($_SESSION['user_email']))
 		<?php
 	include_once "nav.php";
 	?>
-		<div class="container mt-4">
+	<div class="container-fluid">
+	<div class="container">
 			<!-- Filter Component -->
 			<form action="" method="post">
 				<div class="row">
 					<div class="col-md-9">
 						<div class="search-bar">
 							<div class="input-group">
-								<input	type="text"	class="form-control" placeholder="Search..." name="usersearch" value="<?php if(isset($usersearch)){echo $usersearch;} ?>"/>
+								<input	type="text"	class="form-control" id="inputauthor" placeholder="Search..." name="usersearch" value="<?php if(isset($usersearch)){echo $usersearch;} ?>"/>
 								<div class="input-group-append">
-									<button class="btn btn-primary" id="usersearchauthor"  style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" name="search">
-										Search
+									<button class="btn btn-primary"  id="usersearchauthor"  style="background-color:#265077; color:white; border-top-right-radius: 10px; border-bottom-right-radius: 10px;" name="search">
+									<i class="fa-solid fa-magnifying-glass mx-2"></i>Search
 									</button>
 								</div>
 								<div class="col-md-1">
-									<button class="btn btn-info">Clear</button>
+									<button class="btn btn-info clear">Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -136,8 +137,8 @@ if(!isset($_SESSION['user_email']))
 				</div>
 				
 				<?php if(!isset($_POST['search'])){ ?>
-					<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
-						<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn">Load More</button>
+					<div class="mt-2" style="display: flex;justify-content: center; width: 100%;">
+						<button type="" class="btn btn-primary m-auto " name="loadmore" id="loadMoreBtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
 					</div>
 			<?php }?>
 			<?php
@@ -151,92 +152,71 @@ if(!isset($_SESSION['user_email']))
 						}
 					?>
 		</div>
-		<footer class="footer mt-4">
-			<div class="footer-container">
-				<div class="footer-content">
-					<div class="footer-section">
-						<h4 class="text-center">About Us</h4>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-							aliquet semper sapien, ut sodales lectus tincidunt et.
-						</p>
-					</div>
-					<div class="footer-section">
-						<h4 class="text-center">Quit Link</h4>
-						<div class="Quick-Link">
-							<ul>
-								<li class="">
-									<a
-										href="#"
-										class=""
-										>FAQ</a
-									>
-								</li>
-								<li class="">
-									<a
-										href="#"
-										class=""
-										>Support</a
-									>
-								</li>
+	</div>
+		
+		
+	<footer class="footer ">
+		<div class="footer-container container">
+			<div class="footer-content">
+				<div class="footer-section">
+					<h4 class="text-center">About Us</h4>
+					<p style="text-indent: 50px;">
+                    Welcome to our Book Review System website! We're passionate about literature and creating a community where book enthusiasts can discover, discuss, and share their favorite reads. Join us on this literary journey as we celebrate the joy of reading and the power of words.
+                	</p>
+				</div>
+				<div class="footer-section">
+					<h4 class="text-center">Quit Link</h4>
+					<div class="Quick-Link">
+						<ul>
+							<li class="">
+								<a href="#" class="">FAQ</a>
+							</li>
+							<li class="">
+								<a href="#" class="">Support</a>
+							</li>
 
-								<li class="">
-									<a
-										href="#"
-										class=""
-										>Contact Us</a
-									>
-								</li>
-							</ul>
-							<ul>
-								<li class="">
-									<a
-										href="#"
-										class=""
-										>About us</a
-									>
-								</li>
-								<li class="">
-									<a
-										href="#"
-										class=""
-										>BookMark</a
-									>
-								</li>
+							<li class="">
+								<a href="#" class="">Contact Us</a>
+							</li>
+						</ul>
+						<ul>
+							<li class="">
+								<a href="#" class="">About us</a>
+							</li>
+							<li class="">
+								<a href="#" class="">BookMark</a>
+							</li>
 
-								<li class="">
-									<a
-										href="#"
-										class=""
-										>Profile</a
-									>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="footer-section">
-						<h4 class="text-center">Follow Us</h4>
-						<ul class="social-links">
-							<li>
-								<a href="#"><i class="fab fa-facebook-f"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fab fa-twitter"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fab fa-instagram"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fab fa-youtube"></i></a>
+							<li class="">
+								<a href="#" class="">Profile</a>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<p class="text-center mt-4">
-					© 2023 Book Review System. All rights reserved.
-				</p>
+				<div class="footer-section">
+					<h4 class="text-center">Follow Us</h4>
+					<ul class="social-links">
+						<li>
+							<a href="#"><i class="fab fa-facebook-f"></i></a>
+						</li>
+						<li>
+							<a href="#"><i class="fab fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</li>
+						<li>
+							<a href="#"><i class="fab fa-youtube"></i></a>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</footer>
+			<p class="text-center mt-4">
+				© 2023 Book Review System. All rights reserved.
+			</p>
+		</div>
+	</footer>
+
 
 		<!-- JavaScript -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

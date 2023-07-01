@@ -1,4 +1,21 @@
+    // Get the element you want to track scroll events on
+var element = document.querySelector("body");
 
+// Add a scroll event listener to the element
+element.addEventListener('scroll', function(event) {
+  // This function will be called when the scroll event occurs
+  // You can perform any actions you want here
+  
+  // Get the current scroll position
+  var scrollTop = event.target.scrollTop;
+  var scrollLeft = event.target.scrollLeft;
+  
+  // Perform actions based on the scroll position
+  // For example, you can check if the user has scrolled to the bottom
+  if (scrollTop + element.clientHeight >= element.scrollHeight) {
+    console.log('Scrolled to the bottom!');
+  }
+});
 // Add event listener to "See More" link
 const seeMoreLinks = document.querySelectorAll('.read-more-btn');
 

@@ -75,6 +75,7 @@ if(isset($_POST['signIn']))
                     <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
                     <div class="card-img-left d-none d-md-flex">
                         <!-- Background image for card set in CSS! -->
+                        <img src="../NEON/image/4126705.jpg" width="100%" alt="">
                     </div>
                     <div class="card-body p-4 p-sm-5">
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Welcome Back</h5>
@@ -94,7 +95,7 @@ if(isset($_POST['signIn']))
 
                         </div>
                         <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit"  name="signIn">Sign In</button>
+                            <button class="btn  btn-primary btn-login " type="submit"  name="signIn" style="background-color:#265077; color:white;">Sign In</button>
                         </div>
 
                         <p class="d-block text-center mt-2 small">Don't have an account?<a href="register.php">SignUp!</a></p>

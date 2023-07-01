@@ -139,10 +139,9 @@ if(isset($_GET['id']))
 			<div class="footer-content">
 				<div class="footer-section">
 					<h4 class="text-center">About Us</h4>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-						aliquet semper sapien, ut sodales lectus tincidunt et.
-					</p>
+					<p style="text-indent: 50px;">
+                    Welcome to our Book Review System website! We're passionate about literature and creating a community where book enthusiasts can discover, discuss, and share their favorite reads. Join us on this literary journey as we celebrate the joy of reading and the power of words.
+                	</p>
 				</div>
 				<div class="footer-section">
 					<h4 class="text-center">Quit Link</h4>

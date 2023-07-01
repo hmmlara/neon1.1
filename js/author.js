@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    $(".clear").on("click",function(){
+        $("#inputauthor").val("");
+        
+    })
      
     var offset = 4; 
     var limit = 4;
@@ -43,6 +47,5 @@ $(document).ready(function(){
                 }
             }
         });
-        
     });
 })

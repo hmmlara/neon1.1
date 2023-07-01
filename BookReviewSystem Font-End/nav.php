@@ -13,6 +13,23 @@ $active_page = $_SERVER['PHP_SELF'];
     <link rel="stylesheet" href="../fontawesome/css/all.css">
 
 </head>
+<style>
+    .nav{
+        box-shadow: 0px 2px 10px #111;
+    }
+    .nav-height{
+        height: 100px;
+    }
+    @media(max-width:992px){
+        .nav-height{
+            height: 170px;
+        }
+    }
+  .hide-navbar {
+    transform: translateY(-51%);
+    transition: transform 0.3s ease-in-out;
+  }
+</style>
 <!-- Navigation bar -->
 <nav style="width:100%;top :0px;z-index:99;box-shadow:0px 5px 40px #1111"
     class="navbar position-fixed navbar-expand-lg navbar-light bg-light">
@@ -47,7 +64,7 @@ $active_page = $_SERVER['PHP_SELF'];
             <li class="nav-item profile-icon ">
                     <a class="nav-link "  style="color:white" href="Profile.php">
 
-                    <i class="fa-solid fa-user mx-2" style="color:white"></i>
+                    <i class="fa-solid fa-user mx-2" style="color:white,"></i>
                         Profile
                     </a>
 
@@ -59,7 +76,7 @@ $active_page = $_SERVER['PHP_SELF'];
         <a href="Profile.php">
             <div class="avatar">
                 <img src="../image/<?php if (empty($userimg)) {
-                    echo "nurse.jpg";
+                    echo "user.jpg";
                 } else {
                     echo $userimg;
                 } ?>" alt="User Avatar" />
@@ -68,6 +85,27 @@ $active_page = $_SERVER['PHP_SELF'];
 
     </li>
 </nav>
-<div style="width: 100%;height: 150px;">
+
+<div class="mb-3 nav-height" style="width: 100%;">
 
 </div>
+
+<script>
+  var navbar = document.querySelector('nav');
+  var lastScrollTop = 0;
+  
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    // console.log(navbar.clientHeight);
+    if(navbar.clientHeight>132){
+        if (scrollTop > lastScrollTop) {
+      navbar.classList.add('hide-navbar');
+    } else {
+      navbar.classList.remove('hide-navbar');
+    }
+    lastScrollTop = scrollTop;
+    }
+
+  });
+</script>
+

@@ -1,4 +1,9 @@
 /* Book Card */
+
+.container-fluid{
+  background-color: rgb(216, 212, 212) !important;
+  font-family: Arial, sans-serif;
+ }
 .book-card {
     display: flex;
     align-items: center;
@@ -257,7 +262,7 @@
   }
   
   .comment-content {
-    flex: 1;
+    flex: 0;
   }
   
   .comment-text {
@@ -372,7 +377,7 @@
   display: flex;
   justify-content: space-around;
 }
-
+/* 
 
 .navbar {
   background-color: #fff !important;
@@ -408,7 +413,7 @@
 .active .nav-link{
   color: #fff;
   text-decoration: underline;
-}
+} */
 .avatar {
   width: 30px;
   height: 30px;

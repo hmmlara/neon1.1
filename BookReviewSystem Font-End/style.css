@@ -1,9 +1,29 @@
-  Nav Bar CSS styles
+  /*Nav Bar CSS styles*/
   body {
     background-color: #45719e;
     font-family: Arial, sans-serif;
   }
 
+  
+#navy{
+  background-color:#C6D8D5;
+}
+  .nav-height{
+    height: 120px;
+}
+@media(max-width:912px){
+    .nav-height{
+        height: 150px;
+    }
+}
+
+.container-fluid{
+ background-color: rgb(216, 212, 212) !important;
+}
+.container{
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
   .active2{
     /* background-color: rgb(255, 255, 255) !important; */
   border:2px solid white;
@@ -22,6 +42,9 @@
     font-weight: lighter;
     justify-content: center;
     border-radius: 30px;
+  }
+  ul.navbar-nav{
+    margin-top: 20px;
   }
   /* .nav-link i{
    color: white!important;
@@ -54,6 +77,9 @@
     display: none;
   }
 @media (max-width: 767px) {
+  ul.navbar-nav{
+    margin-top: 40px;
+  }
   .navbar {
     position: fixed;
     top: 0;
@@ -142,7 +168,9 @@
     margin-left: 20px;
   }
 }
-
+.nav-height{
+  height: 120px;
+}
   .avatar {
     width: 80px;
     height: 80px;
@@ -202,13 +230,17 @@
     line-height: 1.5;
     color: #444;
   }
-
+  .nav-height{
+    height: 10px;
+  }
   /* Responsive Styles */
   @media (max-width: 992px) {
     .navbar-brand {
       display: none;
     }
-
+    .nav-height{
+      height: 170px;
+    }
     .navbar-brand-logo {
       display: block;
       height: auto;
@@ -236,13 +268,12 @@
 /* footerCSS */
 
 .footer {
-  background-color: #f8f9fa;
   color: #333;
   padding-top: 40px;
 }
 .footer-container{
   padding: 30px;
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 .footer-content {
   display: flex;
@@ -360,7 +391,14 @@
   margin-bottom: 10px;
 }
 
-
+.book-search{
+  margin-top:100px;
+}
+@media (max-width:992px){
+  .book-search{
+  margin-top:10px;
+}
+}
 
 .book-description {
   max-height: 100px; /* Show a maximum of 100px height initially */
@@ -899,7 +937,7 @@
   font-weight: bold;
   text-decoration: underline;
 }
-
+/* 
 @media (max-width: 576px) {
   .book-card-list-view {
     list-style: none;
@@ -956,7 +994,7 @@
     color: #444;
     display: block;
   }
-}
+} */
 
 /* Author Style Css */
 
