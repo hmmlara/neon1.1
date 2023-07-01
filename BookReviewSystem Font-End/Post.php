@@ -15,7 +15,7 @@ $getUserinfo = $getUserData->getUserList();
 $getAllCategory = new CategoryController();
 $getCategory = $getAllCategory->getAllCategory();
 
-$getAllBook = new BookController();
+$getAllBook= new BookController();
 $getmainAllBook = $getAllBook->getMainBooks();
 //var_dump($getmainAllBook);
 
@@ -77,13 +77,16 @@ if (isset($_SESSION['bookList'])) {
             $_SESSION['bookList'] = $ReviewBookList_id; // Assign the updated array to the session variable
         }
     }
+    else if(isset($_GET['del'])){
+        var_dump($ReviewBookList_id);
+        unset($ReviewBookList_id[$_GET['del']]);
+        $_SESSION['bookList'] = $ReviewBookList_id;
+    }
 
+} 
+   
 
-} else if (isset($_SESSION['bookList']) && isset($_GET['del'])) {
-    $ReviewBookList_id = $_SESSION['bookList'];
-    unset($ReviewBookList_id[$_GET['del']]);
-    $_SESSION['bookList'] = $ReviewBookList_id;
-} else {
+ else {
     $_SESSION['bookList'] = [];
 }
 
@@ -93,7 +96,7 @@ if (isset($_POST['review-content'])) {
 if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewBookList_id) != 0) {
     if (
         $reviews_model->upload_review($userId[0]['id'], $_SESSION['content'], $ReviewBookList_id)
-    ) {
+    ){
         header("location:Review.php");
     }
 }
@@ -133,7 +136,6 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
                     if (isset($ReviewBookList_id)) {
                         foreach ($ReviewBookList_id as $key => $ReviewBook_id) {
                             $book = $book_model->getBookInfo($ReviewBook_id);
-
                             ?>
                             <a href="Post.php?del=<?php echo $key ?>">
                                 <div class="book-details">
@@ -178,28 +180,30 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
                         <?php
                         if ($error_status == false) {
                             if (!empty($getAllBookList)) {
-                                foreach ($getAllBookList as $book) {
+                                foreach ($getAllBookList as $Search_book) {
+                                    $book = $book_model->getBookInfo($Search_book['id']);
+
                                     ?>
                                     <div class="book-card">
                                         <div class="book-card-image">
-                                            <img src="../image/photos/<?php echo $book['image'] ?>"
-                                                alt="<?php echo $book['name'] ?>" />
+                                            <img src="../image/photos/<?php echo $book[0]['image'] ?>"
+                                                alt="<?php echo $book[0]['name'] ?>" />
                                             <div class="book-card-overlay">
-                                                <a href="Post.php?id=<?php echo $book['id'] ?>" class="book-card-button">Add
+                                                <a href="Post.php?id=<?php echo $book[0]['id'] ?>" class="book-card-button">Add
                                                     Book</a>
                                             </div>
                                         </div>
                                         <div class="book-card-info">
                                             <h3 class="book-card-title">
-                                                <?php echo $book['name'] ?>
+                                                <?php echo $book[0]['name'] ?>
                                             </h3>
                                             <p class="book-card-author">
-                                                <?php echo $book['auther_name'] ?>
+                                                <?php echo $book[0]['auther_name'] ?>
                                             </p>
                                             <p class="book-card-genre">
                                                 <?php
                                                 if (isset($book['category_name'])) {
-                                                    echo $book['category_name'];
+                                                    echo $book[0]['category_name'];
                                                 }
                                                 ?>
                                             </p>

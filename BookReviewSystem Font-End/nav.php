@@ -1,6 +1,5 @@
 <?php
 $active_page=$_SERVER['PHP_SELF'];
-var_dump($active_page);
 ?>
 
 <head>
@@ -60,5 +59,5 @@ var_dump($active_page);
                 </li>
     </nav>
     <div style="width: 100%;height: 100px;">
-        Nav
+        
     </div>
