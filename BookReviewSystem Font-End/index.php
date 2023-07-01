@@ -57,7 +57,6 @@ if (!isset($_SESSION['user_email'])) {
     $(document).ready(function() {
       // Array with the values
       var bookList = <?php echo json_encode($book_list); ?>;
-	  console.log(bookList)
       // Display array values normally
       function displayArrayNormally() {
         var arrayValuesElement = $(".bk");
