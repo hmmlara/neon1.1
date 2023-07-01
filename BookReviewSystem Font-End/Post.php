@@ -160,6 +160,8 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
                     ?>
                 </div>
             </div>
+            <button type="submit" name="upload" class="mt-4">Upload</button>
+
             <div class="container mt-4">
                 <div class="book-card-list">
                     <form action="" method="post">
@@ -219,8 +221,7 @@ if (isset($_POST['upload']) && isset($_POST['review-content']) && count($ReviewB
                     </div>
 
                 </div>
-                <button type="submit" name="upload" class="mt-4">Upload</button>
-
+                
             </div>
 
 

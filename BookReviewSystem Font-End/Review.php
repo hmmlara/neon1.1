@@ -75,6 +75,7 @@ foreach ($reviews as $review){
 							</div>
 						</div>
 					</div>
+					<hr class="color" style="size:10px;">
 					<div class="review-content">
 						<p>
 							<?php
@@ -111,6 +112,7 @@ foreach ($reviews as $review){
 
 
 					</div>
+					<hr class="color">
 					<div class="review-actions position-relative">
 						<button class="like-btn <?php if ($reviews_model->is_react($id_of_review, $userId[0]['id'])) {
 							echo "liked";
@@ -143,16 +145,18 @@ foreach ($reviews as $review){
 							?>
 							<li class="comment" data-comment-id="<?php echo $comment['id']; ?>">
 								<div class="comment-avatar">
-									<img src="<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
+									<img src="../image/<?php echo $userInfo["image"] ?>" alt="<?php echo $userInfo["image"] ?>" />
 								</div>
 								<div class="comment-content">
-									<p class="ago" style="color: #888;"></p>
+									<div class="commentbox">
+									<span class="">
+										<?php echo $userInfo['name'] ?>
+									</span>
 									<p class="comment-text">
 										<?php echo $comment['comment'] ?>
 									</p>
-									<span class="comment-meta">-
-										<?php echo $userInfo['name'] ?>
-									</span>
+									</div>
+									<p class="ago" style="color: #888;"></p>
 								</div>
 							</li>
 

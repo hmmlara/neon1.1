@@ -377,7 +377,7 @@
   display: flex;
   justify-content: space-around;
 }
-
+/* 
 
 .navbar {
   background-color: #fff !important;
@@ -413,7 +413,7 @@
 .active .nav-link{
   color: #fff;
   text-decoration: underline;
-}
+} */
 .avatar {
   width: 30px;
   height: 30px;

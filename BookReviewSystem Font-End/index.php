@@ -138,6 +138,7 @@ if (!isset($_SESSION['user_email'])) {
 		</div>
 	</div>
 </div>
+			</div>
 <!-- Footer -->
 <footer class="footer">
     <div class="footer-container">
@@ -199,7 +200,7 @@ if (!isset($_SESSION['user_email'])) {
     </div>
 </footer>
 
-</div>
+
 
 	<!-- JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
