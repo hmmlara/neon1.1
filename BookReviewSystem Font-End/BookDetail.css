@@ -262,7 +262,7 @@
   }
   
   .comment-content {
-    flex: 1;
+    flex: 0;
   }
   
   .comment-text {

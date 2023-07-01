@@ -166,8 +166,8 @@ if (isset($_POST['searchbyuser'])) {
                             foreach ($getAllBookList as $book) {
                                 $auther_name = $review_model->get_author_by_id($book['auther_id']);
                                 //var_dump($book);
-                                ?>
-                                <div class="book-card col-md-3 usersearch_book">
+                            ?>
+                        <div class="book-card col-md-3 usersearch_book">
                             <div class="book-card-image">
                                 <img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
                                 <div class="book-card-overlay">
@@ -186,7 +186,7 @@ if (isset($_POST['searchbyuser'])) {
                                 <p class="book-card-genre">Genre: Fantasy</p>
                             </div>
                         </div>
-                                <!-- <div class="col-md-3 usersearch_book">
+                                <div class="col-md-3 usersearch_book">
                                     <div class="card sm-4 mb-3" width="100%" height="400px">
                                         <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
                                         <div class="card-body">
@@ -202,7 +202,7 @@ if (isset($_POST['searchbyuser'])) {
                                             
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                             <?php }
                         }
                     } ?>
@@ -227,7 +227,7 @@ if (isset($_POST['searchbyuser'])) {
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="footer-container">
+            <div class="footer-container container ">
                 <div class="footer-content">
                     <div class="footer-section">
                         <h4 class="text-center">About Us</h4>

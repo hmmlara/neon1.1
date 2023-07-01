@@ -64,7 +64,7 @@ $active_page = $_SERVER['PHP_SELF'];
             <li class="nav-item profile-icon ">
                     <a class="nav-link "  style="color:white" href="Profile.php">
 
-                    <i class="fa-solid fa-user mx-2" style="color:white"></i>
+                    <i class="fa-solid fa-user mx-2" style="color:white,"></i>
                         Profile
                     </a>
 
@@ -96,7 +96,7 @@ $active_page = $_SERVER['PHP_SELF'];
   
   window.addEventListener('scroll', function() {
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    console.log(navbar.clientHeight);
+    // console.log(navbar.clientHeight);
     if(navbar.clientHeight>132){
         if (scrollTop > lastScrollTop) {
       navbar.classList.add('hide-navbar');

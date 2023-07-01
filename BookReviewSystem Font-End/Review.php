@@ -48,12 +48,14 @@ foreach ($reviews as $review){
 	<?php
 	include_once "nav.php";
 	?>
+	<div style="width:100%;height:70px">
+	<a href="Post.php" class="btn  float-left mt-2 ml-5" style="background-color:#265077;colo">Post</a>
 
-	<a href="Post.php" class="btn btn-primary float-right mt-2 mr-2">Post</a>
+	</div>
 
 	<!-- Review  Post -->
 	<div class="container-fluid">
-	<div class="container">
+
 		<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 			<?php
 			foreach ($reviews as $review) {
@@ -63,6 +65,7 @@ foreach ($reviews as $review){
 				$review_books = $reviews_model->get_review_book($review['id']);
 
 				?>
+				<div class="container mt-4">
 				<div class="review" data-review-id="<?php echo $review['id']; ?>">
 					<div class="review-header">
 						<div class="user-profile">
@@ -173,6 +176,8 @@ foreach ($reviews as $review){
 						
 					</div>
 				</div>
+				</div>
+				
 				<?php
 			}
 			?>
@@ -182,13 +187,13 @@ foreach ($reviews as $review){
 		<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
 			No More Result
 		</div>
-	</div>
+	
 	</div>
 	
 
 	<!-- Footer -->
 	<footer class="footer">
-		<div class="footer-container">
+		<div class="footer-container container">
 			<div class="footer-content">
 				<div class="footer-section">
 					<h4 class="text-center">About Us</h4>

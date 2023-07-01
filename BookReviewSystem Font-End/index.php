@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_email'])) {
 	include_once "nav.php";
 	?>
 
-<div class="container-fluid" id="concon">
+<div class="container-fluid mt-4" id="concon">
 <div class="container  back">
 	
 	<h1>Editor Choice</h1>
@@ -139,7 +139,7 @@ if (!isset($_SESSION['user_email'])) {
 			</div>
 <!-- Footer -->
 <footer class="footer">
-    <div class="footer-container">
+    <div class="footer-container container">
         <div class="footer-content">
             <div class="footer-section">
                 <h4 class="text-center">About Us</h4>
