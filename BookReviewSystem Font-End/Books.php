@@ -88,9 +88,9 @@ if (isset($_POST['searchbyuser'])) {
     
     <!-- search bar -->
     <div class="container book-search " style = "">
-    <div class="container mt-4">
+    <div class="container ">
         <form action="" method="post">
-            <div class="row my-3">
+            <div class="row my-2">
                 <div class="col-md-4">
                     <select class="form-control filter-select" name="categoryName" id="filter_category">
                         <option value="All" id="something">All</option>
@@ -106,7 +106,7 @@ if (isset($_POST['searchbyuser'])) {
                         <input type="text" class="form-control" name="bookname" id="booksearch" value="<?php echo isset($_POST['bookname']) ? $_POST['bookname'] : '';  ?>"
                             placeholder="Search..." />
                         <div class="input-group-append">
-                            <button class="btn btn-primary" name="searchbyuser" id="search"><i class="fa-solid fa-magnifying-glass"></i>
+                            <button class="btn btn-primary" name="searchbyuser" style="background-color:#265077; color:white;" id="search"><i class="fa-solid fa-magnifying-glass"></i>
                                 Search
                             </button>
                         </div>
@@ -115,7 +115,7 @@ if (isset($_POST['searchbyuser'])) {
             </div>
         </form>
         <!-- Books -->
-        <div class="container mt-4">
+        <div class=" mt-4">
       
                 <?php if (empty($getAllBookList)){ ?>
                 <div class="book-card-grid select_all <?php echo ($error_status ? 'd-none' : ''); ?>"
@@ -129,7 +129,7 @@ if (isset($_POST['searchbyuser'])) {
                             <div class="book-card-image">
                                 <img src="../image/photos/<?php echo $BookAllList['image'] ?>" alt="<?php echo $BookAllList['image'] ?>" />
                                 <div class="book-card-overlay">
-                                    <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>" class="book-card-button">Read More</a>
+                                    <a href="BookDetail.php?id=<?php echo $BookAllList['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                                 </div>
                             </div>
                             <div class="book-card-info">
@@ -149,12 +149,13 @@ if (isset($_POST['searchbyuser'])) {
                 </div>
 
                 <?php //if($categoryName !== "All"){  ?>
-                <div class="book-card-grid" id="filterbook">
+                
+                <div class="book-card-grid " id="filterbook">
 
                 </div>
                 <?php // }  ?>
             <div class="row">
-                <div class="col-md-12 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
+                <div class="col-md-12 d-flex flex-wrap book-card-grid <?php echo ($error_status ? 'd-none' : ''); ?>"
                     <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>>
 
                     <?php
@@ -186,8 +187,6 @@ if (isset($_POST['searchbyuser'])) {
                             </div>
                         </div>
                                 <div class="col-md-3 usersearch_book">
-                                ?>
-                                <div class="col-md-3 usersearch_book">
                                     <div class="card sm-4 mb-3" width="100%" height="400px">
                                         <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
                                         <div class="card-body">
@@ -208,11 +207,16 @@ if (isset($_POST['searchbyuser'])) {
                         }
                     } ?>
                     <?php if(empty($bookname)) {?>
-                    <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary load" id="loadmorebtn"><i class="fa-duotone fa-circle-chevron-down"></i>See More</button>
-                    </div>
+                        <div class="row ">
+                                <div class="col-md-12 load_more d-flex justify-content-center">
+                                    <button type="" class="btn  load" id="loadmorebtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
+
+                                </div>
+                        </div>
+                    
+                    
                         <?php   } ?>
-                </div>
+                <!-- </div> -->
                 
                 
             </div>
