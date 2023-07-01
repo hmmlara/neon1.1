@@ -13,6 +13,12 @@ $active_page = $_SERVER['PHP_SELF'];
     <link rel="stylesheet" href="../fontawesome/css/all.css">
 
 </head>
+<style>
+  .hide-navbar {
+    transform: translateY(-51%);
+    transition: transform 0.3s ease-in-out;
+  }
+</style>
 <!-- Navigation bar -->
 <nav style="width:100%;top :0px;z-index:99;box-shadow:0px 5px 40px #1111"
     class="navbar position-fixed navbar-expand-lg navbar-light bg-light">
@@ -68,6 +74,26 @@ $active_page = $_SERVER['PHP_SELF'];
 
     </li>
 </nav>
-<div style="width: 100%;height: 100px;">
+<div class="mb-3" style="width: 100%;height: 100px; ">
 
 </div>
+<script>
+  var navbar = document.querySelector('nav');
+  var lastScrollTop = 0;
+  
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    console.log(navbar.clientHeight);
+    if(navbar.clientHeight>82){
+        if (scrollTop > lastScrollTop) {
+      navbar.classList.add('hide-navbar');
+    } else {
+      navbar.classList.remove('hide-navbar');
+    }
+    
+    lastScrollTop = scrollTop;
+    }
+
+  });
+</script>
+
