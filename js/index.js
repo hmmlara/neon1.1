@@ -18,7 +18,7 @@ $(document).ready(function(){
                         <div class="book-card-image">
                             <img src="../image/photos/${book.image}" alt="${book.image}" />
                             <div class="book-card-overlay">
-                                <a href="#" class="book-card-button">Read More</a>
+                                <a href="#" class="book-card-button"  style="background-color:#ffdf00; color:white;"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                             </div>
                         </div>
                         <div class="book-card-info">
@@ -43,7 +43,6 @@ $(document).ready(function(){
 
         if($(this).val()!="All"){
             $("#search").on("click",function(e){
-                console.log("////////")
                 $(".usersearch_book").remove();
                 booksearch=$("#booksearch").val();
                 //e.preventDefault();
@@ -53,16 +52,19 @@ $(document).ready(function(){
 
                     if (book.name.toLowerCase().includes(booksearch.toLowerCase())) {
                         console.log(book);
-                            var searchBookUser= `<div class="col-md-3 usersearch_book">
-                            <div class="card  sm-4 mb-3" width="100%" height="400px">
+                            var searchBookUser= `<div class="book-card col-md-3 usersearch_book">
+                            <div class="book-card-image">
                             <img src="../image/photos/${book.image}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">${book.name}</h5>
-                              <p class="card-text">${book.preview}</p>
-                              <p class="card-text">${book.date}</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="book-card-overlay">
+                                <a href="BookDetail.php?id=${book.id}"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                             </div>
-                          </div>
+                            </div>
+                            <div class="book-card-info">
+                            <h3 class="book-card-title">${book.name}</h3>
+                            <p class="book-card-author">Author:${book.auther_name}</p>
+                            <p class="book-card-genre">Genre: Fantasy</p>
+                        </div>
+                         
                           </div>`
     
                             $("#filterbook").append(searchBookUser);
@@ -111,11 +113,11 @@ $(document).ready(function(){
                 var remainBook=$(".select_all");
                 if (balanceBooks.length > 0) {
                     $.each(balanceBooks, function(index, balanceBook) {
-                        var BookCard = `<div class="book-card usersearch_book">
+                        var BookCard = `<div class="book-card  usersearch_book">
                         <div class="book-card-image">
                             <img src="../image/photos/${balanceBook.image}" alt="${balanceBook.image}" />
                             <div class="book-card-overlay">
-                                <a href="#" class="book-card-button">Read More</a>
+                                <a href="BookDetail.php?id=${balanceBook.id}" style="background-color:#ffdf00; color:white;"  class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                             </div>
                         </div>
                         <div class="book-card-info">
@@ -139,11 +141,12 @@ $(document).ready(function(){
         })
     })
 
-    // if ($("#filter_category").val() != "All") {
-    //     $(".load_more").remove();
-    //     alert("Hello")
-    //     console.log("All");
-    // }
+    if ($("#filter_category").val() == "All") {
+        // $(".load_more").remove();
+        // alert("Hello")
+        // console.log("All");
+location.reload();
+    }
 
     
 })

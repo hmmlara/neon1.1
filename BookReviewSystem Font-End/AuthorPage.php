@@ -87,7 +87,7 @@ if(!isset($_SESSION['user_email']))
 									</button>
 								</div>
 								<div class="col-md-1">
-									<button class="btn btn-info clear">Clear</button>
+									<button class="btn btn-info clear">Cancel</button>
 								</div>
 							</div>
 						</div>

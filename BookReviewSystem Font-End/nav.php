@@ -14,6 +14,17 @@ $active_page = $_SERVER['PHP_SELF'];
 
 </head>
 <style>
+    .nav{
+        box-shadow: 0px 2px 10px #111;
+    }
+    .nav-height{
+        height: 100px;
+    }
+    @media(max-width:992px){
+        .nav-height{
+            height: 170px;
+        }
+    }
   .hide-navbar {
     transform: translateY(-51%);
     transition: transform 0.3s ease-in-out;
@@ -65,7 +76,7 @@ $active_page = $_SERVER['PHP_SELF'];
         <a href="Profile.php">
             <div class="avatar">
                 <img src="../image/<?php if (empty($userimg)) {
-                    echo "nurse.jpg";
+                    echo "user.jpg";
                 } else {
                     echo $userimg;
                 } ?>" alt="User Avatar" />
@@ -74,9 +85,11 @@ $active_page = $_SERVER['PHP_SELF'];
 
     </li>
 </nav>
-<div class="mb-3" style="width: 100%;height: 100px; ">
+
+<div class="mb-3 nav-height" style="width: 100%;">
 
 </div>
+
 <script>
   var navbar = document.querySelector('nav');
   var lastScrollTop = 0;
@@ -84,13 +97,12 @@ $active_page = $_SERVER['PHP_SELF'];
   window.addEventListener('scroll', function() {
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     console.log(navbar.clientHeight);
-    if(navbar.clientHeight>82){
+    if(navbar.clientHeight>132){
         if (scrollTop > lastScrollTop) {
       navbar.classList.add('hide-navbar');
     } else {
       navbar.classList.remove('hide-navbar');
     }
-    
     lastScrollTop = scrollTop;
     }
 

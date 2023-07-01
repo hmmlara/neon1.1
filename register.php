@@ -188,10 +188,10 @@ if(isset($_POST['register']))
                             <p class="note text-danger"><?php if(isset($exit_acc)) echo $exit_acc ?></p>
                         </div>
                         <div class=" mb-2">
-                            <button class="btn btn-primary   register" type="submit"  name="register">Register</button>
+                            <button class="btn btn-primary   register" type="submit" style="background-color:#265077; color:white;" name="register">Register</button>
                         </div>
 
-                        <p class="d-block text-center mt-2 small">Already have an account? <a  href="login.php">Login</a></p>
+                        <p class="d-block text-center mt-2 small" >Already have an account? <a  href="login.php">Login</a></p>
 
                         <hr class="my-4">
                     </div>

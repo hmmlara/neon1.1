@@ -218,7 +218,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 							<div class=" col-lg-4">
 							<div class="book-card">
 								<div class="book-card-image">
-									<img src="<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
+									<img src="../image/photos/<?php echo $bookmark['image'] ?>" alt="<?php echo $bookmark['name'] ?>" />
 									<div class="book-card-overlay">
 										<a href="BookDetail.php?id=<?php echo $bookmark['id'] ?>" class="book-card-button">Read More</a>
 									</div>
@@ -253,7 +253,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 						<div class="review" data-review-id="<?php echo $review['id']; ?>">
 							<div class="review-header">
 								<div class="user-profile">
-									<img src="<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
+									<img src="../image/<?php echo $userinfo["image"] ?>" alt="<?php echo $userinfo["image"] ?>" />
 									<div class="user-details">
 										<h3>
 											<?php echo $userinfo["name"] ?>
@@ -264,6 +264,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 									</div>
 								</div>
 							</div>
+							<hr>
 							<div class="review-content">
 								<p>
 									<?php
@@ -278,7 +279,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 										?>
 										<a href="BookDetail.php?id=<?php echo $review_book_id['book_id'] ?>">
 											<div class="book-details">
-												<img src="<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
+												<img src="../image/photos/<?php echo $book["image"] ?>" alt="<?php echo $book["image"] ?>" />
 												<div class="book-info">
 													<h2>
 														<?php echo $book["name"] ?>
@@ -300,6 +301,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 
 
 							</div>
+							<hr>
 							<div class="review-actions position-relative">
 								<button class="like-btn <?php if ($reviews_model->is_react($id_of_review, $userId[0]['id'])) {
 									echo "liked";
@@ -333,17 +335,21 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 										?>
 										<li class="comment">
 											<div class="comment-avatar">
-												<img src="<?php echo $userInfo["image"] ?>"
+												<img src="../image/<?php echo $userInfo["image"] ?>"
 													alt="<?php echo $userInfo["image"] ?>" />
 											</div>
 											<div class="comment-content">
+												<div class="commentbox">
+													<span class="">
+														<?php echo $userInfo['name'] ?>
+													</span>
+													<p class="comment-text">
+														<?php echo $comment['comment'] ?>
+													</p>
+												</div>
 												<p class="ago"></p>
-												<p class="comment-text">
-													<?php echo $comment['comment'] ?>
-												</p>
-												<span class="comment-meta">-
-													<?php echo $userInfo['name'] ?>
-												</span>
+												
+												
 											</div>
 										</li>
 

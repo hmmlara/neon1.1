@@ -95,7 +95,7 @@ if(isset($_POST['signIn']))
 
                         </div>
                         <div class="d-grid mb-2">
-                            <button class="btn  btn-primary btn-login " type="submit"  name="signIn">Sign In</button>
+                            <button class="btn  btn-primary btn-login " type="submit"  name="signIn" style="background-color:#265077; color:white;">Sign In</button>
                         </div>
 
                         <p class="d-block text-center mt-2 small">Don't have an account?<a href="register.php">SignUp!</a></p>

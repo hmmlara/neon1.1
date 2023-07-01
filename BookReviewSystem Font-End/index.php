@@ -71,8 +71,8 @@ if (!isset($_SESSION['user_email'])) {
 		<div class=" swiper-wrapper">
 			<?php foreach($EditoChoice_Book as $Book){ ?>			
 			<div class="card swiper-slide">
-				<img src="<?php echo $Book['book_image'] ?>" class="card-img-top" alt="<?php echo $Book['book_image'] ?>">
-				<div class="card-body">
+				<img src="../image/photos/<?php echo $Book['book_image'] ?>"  height="200px" class="card-img-top" alt="<?php echo $Book['book_image'] ?>">
+				<div class="card-body" heigth="99px">
 					<h5 class="card-title"><?php echo $Book['book_name'] ?></h5>
 					<p class="card-text"><?php echo $Book['author_name'] ?></p>
 				</div>
@@ -94,10 +94,9 @@ if (!isset($_SESSION['user_email'])) {
 
 
 <!-- Books -->
-<div class="container mt-4">
+<div class="container mt-4 navy" id="">
 	<div class="book-card-list">
 		<!-- <h2 class="ms-2 float-left">Books</h2> -->
-
 			<div class="view-options  ">
 				<button class="view-option-btn active" data-update="list">
 					Lastest Update
@@ -112,7 +111,7 @@ if (!isset($_SESSION['user_email'])) {
 					?>
 					<div class="book-card">
 						<div class="book-card-image">
-							<img src="../neon/img/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
+							<img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['name'] ?>" />
 							<div class="book-card-overlay">
 								<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
 									More</a>
@@ -134,7 +133,6 @@ if (!isset($_SESSION['user_email'])) {
 		</div>
 		<div class="mt-4" style="display: flex;justify-content: center; width: 100%;">
 			<a href="" class="btn btn-primary m-auto">Load More</a>
-
 		</div>
 	</div>
 </div>
