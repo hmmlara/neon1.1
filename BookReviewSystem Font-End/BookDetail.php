@@ -77,6 +77,7 @@ if(isset($_POST['submit'])){
 			rel="stylesheet"
 			href="BookDetail.css"
 		/>
+		<link rel="stylesheet" href="style.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<!-- <link
 			rel="stylesheet"
@@ -101,7 +102,8 @@ if(isset($_POST['submit'])){
 		<?php 
 	include_once "nav.php";
 	?>
-		<div class="container">
+	<div class="container-fluid">
+	<div class="container">
 			<div class="book-card">
 				<div class="bookmark-icon">
 					<i class="fa-regular fa-bookmark"></i>
@@ -214,6 +216,8 @@ if(isset($_POST['submit'])){
 				</form>
 			</div>
 		</div>
+	</div>
+		
 
 		<!-- footer -->
 		<footer class="footer">

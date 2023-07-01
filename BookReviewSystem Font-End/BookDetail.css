@@ -1,4 +1,9 @@
 /* Book Card */
+
+.container-fluid{
+  background-color: rgb(216, 212, 212) !important;
+  font-family: Arial, sans-serif;
+ }
 .book-card {
     display: flex;
     align-items: center;

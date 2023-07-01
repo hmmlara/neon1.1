@@ -1,3 +1,6 @@
+.container-fluid{
+  background-color: rgb(216, 212, 212) !important;
+ }
 .review {
     border: 1px solid #ddd;
     border-radius: 5px;

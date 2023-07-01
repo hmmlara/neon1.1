@@ -63,7 +63,10 @@ if (isset($_POST['searchbyuser'])) {
     }
 }
 ?>
-
+<!-- Navigation bar -->
+<?php
+    include_once "nav.php";
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,14 +85,12 @@ if (isset($_POST['searchbyuser'])) {
 </head>
 
 <body>
-    <!-- Navigation bar -->
-    <?php
-    include_once "nav.php";
-    ?>
+    
     <!-- search bar -->
-    <div class="container mt-4">
+    <div class="container-fluid">
+    <div class="container ">
         <form action="" method="post">
-            <div class="row my-3">
+            <div class="row my-2">
                 <div class="col-md-4">
                     <select class="form-control filter-select" name="categoryName" id="filter_category">
                         <option value="All" id="something">All</option>
@@ -185,7 +186,7 @@ if (isset($_POST['searchbyuser'])) {
                     } ?>
                     <?php if(empty($bookname)) {?>
                     <div class="col-md-12 load_more d-flex justify-content-center">
-                        <button type="" class="btn btn-primary load" id="loadmorebtn"><i class="fa-duotone fa-circle-chevron-down"></i>See More</button>
+                        <button type="" class="btn  load" id="loadmorebtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
                     </div>
                         <?php   } ?>
                 </div>
@@ -194,8 +195,11 @@ if (isset($_POST['searchbyuser'])) {
             </div>
         </div>
     </div>
+
+    </div>
+
         <!-- Footer -->
-        <footer class="footer mt-4">
+        <footer class="footer">
             <div class="footer-container">
                 <div class="footer-content">
                     <div class="footer-section">

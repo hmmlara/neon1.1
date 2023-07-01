@@ -58,7 +58,7 @@ if(isset($_POST['uncheck'])){
     <div class="row">
         <div class="col-md-12">
         <form action="" method="post">
-                <table class="table my-3" id="editorTable" >
+                <table class="table my-3"  >
                     <thead>
                         <tr>
                             <th>No</th>

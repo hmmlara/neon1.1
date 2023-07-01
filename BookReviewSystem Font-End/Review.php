@@ -52,7 +52,8 @@ foreach ($reviews as $review){
 	<a href="Post.php" class="btn btn-primary float-right mt-2 mr-2">Post</a>
 
 	<!-- Review  Post -->
-	<div class="container mt-4">
+	<div class="container-fluid">
+	<div class="container">
 		<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 			<?php
 			foreach ($reviews as $review) {
@@ -178,9 +179,11 @@ foreach ($reviews as $review){
 			No More Result
 		</div>
 	</div>
+	</div>
+	
 
 	<!-- Footer -->
-	<footer class="footer mt-4">
+	<footer class="footer">
 		<div class="footer-container">
 			<div class="footer-content">
 				<div class="footer-section">

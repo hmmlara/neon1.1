@@ -119,6 +119,10 @@ $reviews_model = new Reviews();
 $userid = $register_model->getUserId($userEmail);
 $reviews = $reviews_model->get_review_by_userId($user_id);
 ?>
+<!-- Navigation bar -->
+<?php
+	include_once "nav.php";
+	?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -137,12 +141,9 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 </head>
 
 <body>
-	<!-- Navigation bar -->
-	<?php
-	include_once "nav.php";
-	?>
-
+	<div class="container-fluid">
 	<div class="profile-page">
+		<div class="container profile-container">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="profile-header">
 				<div class="profile-edit d-flex justify-content-center ">
@@ -185,7 +186,7 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 
 			</div>
 			<div class="allbtn">
-				<button class="btn btn-primary mx-3 editProfile" name="edituserprofile" id="edit_profile"><i
+				<button class="btn  mx-3 editProfile" style="background-color:#265077; color:white;" name="edituserprofile" id="edit_profile"><i
 						class="fa-regular fa-pen-to-square mr-2"></i>Edit Profile</button>
 				<button class="btn btn-danger logout" name="logout"><i
 						class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Log Out</button>
@@ -197,12 +198,16 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 						class="fa-solid fa-xmark mr-2"></i>Cancel</button>
 			</div>
 		</form>
+		</div>
+		
 		<div class="profile-content mt-4	">
-			<h2 class="section-title">Favorite Books</h2>
 			<div class="favorite-books mb-4">
+			
 				<!-- Favorite book cards here -->
 				<!-- Books -->
 				<div class="container">
+				<h2 class="section-title">Favorite Books</h2>
+
 					<div class="book-card-list">
 
 						<div class="book-card-grid">
@@ -233,8 +238,9 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 				</div>
 			</div>
 
-			<h2 class="section-title" class="mt-4">Reviews</h2>
 			<div class="container mt-4">
+			<h2 class="section-title" class="mt-3">Reviews</h2>
+
 				<main data-user-id="<?php echo $userId[0]['id'] ?>" data-user-image="<?php echo $userimg?>" data-user-name="<?php echo $username?>">
 					<?php
 					foreach ($reviews as $review) {
@@ -365,9 +371,12 @@ $reviews = $reviews_model->get_review_by_userId($user_id);
 			</div>
 		</div>
 	</div>
+	</div>
+
+	
 
 	<!-- Footer -->
-	<footer class="footer mt-4">
+	<footer class="footer">
 		<div class="footer-container">
 			<div class="footer-content">
 				<div class="footer-section">

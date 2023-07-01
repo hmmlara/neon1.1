@@ -91,7 +91,7 @@ if(isset($_POST['register']))
     }
 
     if ($accountExists) {
-        $exit_acc="Your Account Already Exists Plz Sign In";
+        $exit_acc="Your Account is Already Exists Plz Sign In";
     }
     
     if($error_status==false)
@@ -133,6 +133,7 @@ if(isset($_POST['register']))
                     <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
                     <div class="card-img-left d-none d-md-flex">
                         <!-- Background image for card set in CSS! -->
+                        <img src="../NEON/image/6888609.jpg" width="100%" height="700px" alt="">
                     </div>
                     <div class="card-body p-4 p-sm-5">
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
@@ -193,8 +194,6 @@ if(isset($_POST['register']))
                         <p class="d-block text-center mt-2 small">Already have an account? <a  href="login.php">Login</a></p>
 
                         <hr class="my-4">
-
-                        
                     </div>
                     </div>
                 </div>

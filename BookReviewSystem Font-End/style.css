@@ -3,7 +3,13 @@
     background-color: #45719e;
     font-family: Arial, sans-serif;
   }
-
+.container-fluid{
+ background-color: rgb(216, 212, 212) !important;
+}
+.container{
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
   .active2{
     /* background-color: rgb(255, 255, 255) !important; */
   border:2px solid white;

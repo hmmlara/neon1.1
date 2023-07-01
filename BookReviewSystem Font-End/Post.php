@@ -115,8 +115,8 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
     <?php
     include_once "nav.php";
     ?>
-
-    <div class="container mt-4">
+    <div class="container-fluid">
+    <div class="container">
         <h1>Upload Review</h1>
         <form id="upload-form" method="Post" action="Post.php">
             <div class="form-group">
@@ -273,6 +273,9 @@ if (isset($_POST['submit']) && isset($_POST['review-content']) && count($ReviewB
             <button type="submit" name="sub" class="mt-4">Upload</button>
         </form>
     </div>
+
+    </div>
+    
 
     <!-- Footer -->
     <footer class="footer mt-4">

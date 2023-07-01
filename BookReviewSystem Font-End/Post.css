@@ -3,7 +3,10 @@
     margin: 0 auto;
     padding: 20px;
   }
-  
+  .container-fluid{
+    background-color: rgb(216, 212, 212) !important;
+    font-family: Arial, sans-serif;
+   }
   .form-group {
     margin-bottom: 20px;
   }
