@@ -115,7 +115,7 @@ class Book{
             JOIN book_category ON book.id = book_category.book_id
             JOIN category ON book_category.category_id = category.id
             WHERE category.id = $categoryName and book.name LIKE '%" . $bookname . "%'" ;
-
+            
             $statement = $this->connection->prepare($sql);
             //$statement->bindParam(":name", $bookname);
 

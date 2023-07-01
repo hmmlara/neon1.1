@@ -87,15 +87,32 @@
     order: -1;
   }
 
-  .account {
-    display: none;
-  }
 
+  
   .navbar-collapse.collapse.show {
     display: block !important;
   }
 }
+@media(max-width: 767px){
 
+  .nav-link{
+    display: flex;
+    justify-content: center;
+    
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin: 0px 10px;
+  }
+
+}
+
+@media (max-width: 509px){
+  .nav-link{
+    font-size: smaller;
+    margin: 0px 0px;
+  }
+}
 /* Desktop Styles */
 @media (max-width: 992px) {
   .profile-icon{
@@ -103,6 +120,10 @@
   }
   .navbar {
     box-shadow: none;
+  }
+  .nav-link{
+    margin: 0px 10px;
+
   }
 
   .navbar-brand-logo img {
