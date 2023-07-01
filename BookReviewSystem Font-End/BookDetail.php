@@ -191,9 +191,12 @@ if(isset($_POST['submit'])){
 							/>
 						</div>
 						<div class="comment-content">
-							<p class="ago" style="color: #888;"></p>
+							<div  class="commentbox">
 							<p class="comment-text"><?php echo $com['comment'] ?></p>
 							<span class="comment-meta">- <?php echo $com['name'] ?></span>
+							</div>
+							<p class="ago" style="color: #888;"></p>
+						
 						</div>
 					</li>
 	
@@ -219,7 +222,7 @@ if(isset($_POST['submit'])){
 
 		<!-- footer -->
 		<footer class="footer">
-			<div class="footer-container">
+			<div class="footer-container container">
 				<div class="footer-content">
 					<div class="footer-section">
 						<h4 class="text-center">About Us</h4>

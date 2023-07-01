@@ -190,12 +190,12 @@ function LoadMore() {
 				$.each(reviews, function (index, review) {
 					let books = review.Books;
 					var authorCard = `
-		
+					<div class= "container mt-4">
 			<div class="review">
 				<div class="review-header">
 					<div class="user-profile">
 						<img src="../image/${review.image}" alt="${review.image}" />
-						<div class="user-qdetails">
+						<div class="user-details">
 							<h3>
 				  ${review.name}
 							</h3>
@@ -292,7 +292,8 @@ function LoadMore() {
 									<button class="btn btn-primary" data-review-id = "${review.id}"  onclick="LeeError(this)"  >Submit</button>
 								</div>
 							</div>
-						</div>`;
+						</div>
+					</div>`;
 					authorContainer.append(authorCard);
 					checkLikes();
 				});

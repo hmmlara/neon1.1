@@ -1,4 +1,15 @@
 $(document).ready(function(){
+    $("#search").on("click",function(){
+        if($("#filter_category").val() == "All" && $("#booksearch").val().length == 0){
+
+             console.log("/////////////////////////")
+            // $("#loadmorebtn").remove();
+            location.reload();
+            //e.preventDefault();
+        }
+       
+    })
+    
     $("#filter_category").on('change',function(){
        var books="";
         let value=$(this).val();
@@ -78,7 +89,15 @@ $(document).ready(function(){
         }
         
     })
-
+    // $("#filter_category").on('change',function(){
+    //     if($("#filter_category").val() == "All" && $("#booksearch").val().length == 0){
+    //         location.reload();
+    //         console.log("/////////////////////////")
+    //        // $("#loadmorebtn").remove();
+    //        location.reload();
+    //        //e.preventDefault();
+    //    }
+    // })
     $("#search").on("click",function(){
         if($("#booksearch").length>0){
             console.log($("#booksearch").length)
@@ -87,6 +106,7 @@ $(document).ready(function(){
         }
        
     })
+    
 
 
     // if ($("#filter_category").val() != "All" || $("#booksearch").val().length > 0) {
@@ -145,7 +165,7 @@ $(document).ready(function(){
         // $(".load_more").remove();
         // alert("Hello")
         // console.log("All");
-location.reload();
+//location.reload();
     }
 
     
