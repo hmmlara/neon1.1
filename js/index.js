@@ -78,11 +78,29 @@ $(document).ready(function(){
         }
         
     })
-
+    // $("#filter_category").on('change',function(){
+    //     if($("#filter_category").val() == "All" && $("#booksearch").val().length == 0){
+    //         location.reload();
+    //         console.log("/////////////////////////")
+    //        // $("#loadmorebtn").remove();
+    //        location.reload();
+    //        //e.preventDefault();
+    //    }
+    // })
     $("#search").on("click",function(){
         if($("#booksearch").length>0){
             console.log($("#booksearch").length)
             $("#loadmorebtn").remove();
+            //e.preventDefault();
+        }
+       
+    })
+    $("#search").on("click",function(){
+        if($("#filter_category").val() == "All" && $("#booksearch").val().length == 0){
+
+             console.log("/////////////////////////")
+            // $("#loadmorebtn").remove();
+            location.reload();
             //e.preventDefault();
         }
        
@@ -145,7 +163,7 @@ $(document).ready(function(){
         // $(".load_more").remove();
         // alert("Hello")
         // console.log("All");
-location.reload();
+//location.reload();
     }
 
     

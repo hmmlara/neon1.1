@@ -150,12 +150,12 @@ if (isset($_POST['searchbyuser'])) {
 
                 <?php //if($categoryName !== "All"){  ?>
                 
-                <div class="book-card-grid " id="filterbook">
+                <div class="book-card-grid" id="filterbook">
 
                 </div>
                 <?php // }  ?>
             <div class="row">
-                <div class="col-md-12 d-flex flex-wrap book-card-grid <?php echo ($error_status ? 'd-none' : ''); ?>"
+                <div class="col-md-12 d-flex flex-wrap <?php echo ($error_status ? 'd-none' : ''); ?>"
                     <?php if ((isset($_POST['categoryName']) && $_POST['categoryName'] == "All") || $error_status) { echo "style='display: none;'"; } ?>>
 
                     <?php
@@ -167,7 +167,7 @@ if (isset($_POST['searchbyuser'])) {
                                 $auther_name = $review_model->get_author_by_id($book['auther_id']);
                                 //var_dump($book);
                                 ?>
-                                <div class="book-card col-md-3 usersearch_book">
+                                <div class="book-card  usersearch_book">
                             <div class="book-card-image">
                                 <img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
                                 <div class="book-card-overlay">
@@ -207,16 +207,11 @@ if (isset($_POST['searchbyuser'])) {
                         }
                     } ?>
                     <?php if(empty($bookname)) {?>
-                        <div class="row ">
-                                <div class="col-md-12 load_more d-flex justify-content-center">
-                                    <button type="" class="btn  load" id="loadmorebtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
-
-                                </div>
-                        </div>
-                    
-                    
+                    <div class="col-md-12 load_more d-flex justify-content-center">
+                        <button type="" class="btn  load" id="loadmorebtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
+                    </div>
                         <?php   } ?>
-                <!-- </div> -->
+                </div>
                 
                 
             </div>
