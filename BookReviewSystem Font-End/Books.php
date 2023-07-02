@@ -153,6 +153,9 @@ if (isset($_POST['searchbyuser'])) {
                 <div class="book-card-grid " id="filterbook">
 
                 </div>
+                <div class="col-md-12 " id="filterbooks">
+
+                </div>
                 <?php // }  ?>
             <div class="row">
                 <div class="col-md-12 d-flex flex-wrap book-card-grid <?php echo ($error_status ? 'd-none' : ''); ?>"
@@ -169,7 +172,7 @@ if (isset($_POST['searchbyuser'])) {
                             ?>
                         <div class="book-card col-md-3 usersearch_book">
                             <div class="book-card-image">
-                                <img src="../image/photos/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
+                                <img src="../neon/img/<?php echo $book['image'] ?>" alt="<?php echo $book['image'] ?>" />
                                 <div class="book-card-overlay">
                                     <a href="BookDetail.php?id=<?php echo $book['id'] ?>"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                                 </div>
@@ -186,27 +189,18 @@ if (isset($_POST['searchbyuser'])) {
                                 <p class="book-card-genre">Genre: Fantasy</p>
                             </div>
                         </div>
-                                <div class="col-md-3 usersearch_book">
-                                    <div class="card sm-4 mb-3" width="100%" height="400px">
-                                        <img src="../image/photos/<?php echo $book['image']; ?>" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <?php echo $book['name']; ?>
-                                            </h5>
-                                            <p class="card-text">
-                                                <?php echo $book['preview']; ?>
-                                            </p>
-                                            <p class="card-text">
-                                                <?php echo $book['date']; ?>
-                                            </p>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             <?php }
                         }
                     } ?>
-                    <?php if(empty($bookname)) {?>
+                    
+                <!-- </div> -->
+                
+                
+            </div>
+            
+        </div>
+        <?php if(empty($bookname)) {?>
                         <div class="row ">
                                 <div class="col-md-12 load_more d-flex justify-content-center">
                                     <button type="" class="btn  load" id="loadmorebtn" style="background-color:#265077; color:white;"><i class="fa-regular fa-eye mx-2"></i>See More</button>
@@ -216,11 +210,6 @@ if (isset($_POST['searchbyuser'])) {
                     
                     
                         <?php   } ?>
-                <!-- </div> -->
-                
-                
-            </div>
-        </div>
     </div>
 
     </div>

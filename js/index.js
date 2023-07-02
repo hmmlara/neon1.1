@@ -25,11 +25,11 @@ $(document).ready(function(){
                 if (books.length > 0) {
                     $.each(books, function(index,book) {
                         var bookCard = `
-                        <div class="book-card usersearch_book">
-                        <div class="book-card-image">
-                            <img src="../image/photos/${book.image}" alt="${book.image}" />
-                            <div class="book-card-overlay">
-                                <a href="#" class="book-card-button"  style="background-color:#ffdf00; color:white;"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
+                        <div class="book-card usersearch_book" width="250px">
+                        <div class="book-card-image" width="250px">
+                            <img src="../image/photos/${book.image}" alt="${book.image}" width="250px"/>
+                            <div class="book-card-overlay" width="250px">
+                                <a href="BookDetail.php?id=${book.id}" class="book-card-button"  style="background-color:#ffdf00; color:white;"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                             </div>
                         </div>
                         <div class="book-card-info">
@@ -63,22 +63,24 @@ $(document).ready(function(){
 
                     if (book.name.toLowerCase().includes(booksearch.toLowerCase())) {
                         console.log(book);
-                            var searchBookUser= `<div class="book-card col-md-3 usersearch_book">
-                            <div class="book-card-image">
-                            <img src="../image/photos/${book.image}" class="card-img-top" alt="...">
-                            <div class="book-card-overlay">
-                                <a href="BookDetail.php?id=${book.id}"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
+                            var searchBookUser= `<div class="card col-md-3  usersearch_book" width="250px">
+                            <div class="card-img-top" width="250px">
+                            <img src="../neon/img/${book.image}" class="card-img-top" alt="..." width="250px">
+                            
                             </div>
+                            <div class="card-body">
+                                <h3 class="book-card-title">${book.name}</h3>
+                                <p class="book-card-author">Author:${book.auther_name}</p>
+                                <p class="book-card-genre">Genre: Fantasy</p>
+                                <a href="BookDetail.php?id=${book.id}"  style="background-color:#ffdf00; color:white;" class="book-card-button"><i class="fa-solid fa-arrow-right mt-2 mr-2"></i>Read More</a>
                             </div>
-                            <div class="book-card-info">
-                            <h3 class="book-card-title">${book.name}</h3>
-                            <p class="book-card-author">Author:${book.auther_name}</p>
-                            <p class="book-card-genre">Genre: Fantasy</p>
-                        </div>
+                            
+
+                          
                          
                           </div>`
     
-                            $("#filterbook").append(searchBookUser);
+                            $("#filterbooks").append(searchBookUser);
                     }
                 })
                 e.preventDefault();
@@ -135,7 +137,7 @@ $(document).ready(function(){
                     $.each(balanceBooks, function(index, balanceBook) {
                         var BookCard = `<div class="book-card  usersearch_book">
                         <div class="book-card-image">
-                            <img src="../image/photos/${balanceBook.image}" alt="${balanceBook.image}" />
+                            <img src="../neon/img/${balanceBook.image}" alt="${balanceBook.image}" />
                             <div class="book-card-overlay">
                                 <a href="BookDetail.php?id=${balanceBook.id}" style="background-color:#ffdf00; color:white;"  class="book-card-button"><i class="fa-solid fa-arrow-right mx-2"></i>Read More</a>
                             </div>

@@ -74,9 +74,9 @@ if (!isset($_SESSION['user_email'])) {
 					<div class=" swiper-wrapper">
 						<?php foreach ($EditoChoice_Book as $book) { ?>
 							<div class=" swiper-slide">
-								<div class="book-card">
+								<div class="book-card" >
 									<div class="book-card-image">
-										<img src="../image/photos/<?php echo $book['book_image'] ?>"
+										<img src="../neon/img/<?php echo $book['book_image'] ?>" height="250px"
 											alt="<?php echo $book['book_image'] ?>" />
 										<div class="book-card-overlay">
 											<a href="BookDetail.php?id=<?php echo $book['id'] ?>" class="book-card-button">Read
